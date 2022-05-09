@@ -1,6 +1,6 @@
-import { Box, Container, Grid, Button } from '@mui/material';
+import { Box, Container, Grid, Button, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading';
 import Header from '../../Header';
 import AddToCartForm from '../components/AddToCartForm';
@@ -16,8 +16,9 @@ import Related from '../components/Related';
 import { makeStyles } from '@mui/styles';
 import productApi from '../../../api/productApi';
 import SkeletonProduct from '../components/skeletonProduct';
-import ProductListLink from '../components/ProductListLink';
 import ProductList from '../components/ProductList';
+import Product from '../components/Product';
+import { IMG_URL, LIMIT, STATIC_HOST } from '../../../constants';
 DetailPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -52,15 +53,18 @@ const useStyles = makeStyles((theme) => ({
 function DetailPage(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  let params = useParams();
+  const params = useParams();
   const [loadingS, setLoadingS] = useState(true);
   const [productList, setProductList] = useState([]);
+  const [loadingMore, setLoadingMore] = useState(true);
+
   const stringProduct = String(Object.values(params));
   const oldProductId = stringProduct.split('_i', 2).pop();
   const arrayProductId = oldProductId.split(',', 1);
   const productId = arrayProductId[0];
+
   const { product, loading, category } = useProductDetail(productId);
-  console.log('category', category);
+  console.log(product.description);
   const handleAddToCartSubmit = async (values) => {
     try {
       const action = addToCart({
@@ -73,7 +77,7 @@ function DetailPage(props) {
       console.log('loi o details', error);
     }
   };
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(LIMIT);
   const _limit = { _limit: limit };
 
   useEffect(() => {
@@ -81,12 +85,46 @@ function DetailPage(props) {
       try {
         const { data } = await productApi.getAll(_limit);
         setProductList(data);
+        setLoadingMore(false);
       } catch (error) {
         console.log('fail to get product', error);
       }
       setLoadingS(false);
     })();
   }, [limit]);
+
+  function innerProduct(product) {
+    const linkProduct = `/${product.name}_i${product.id}`;
+    const thumbnailUrl = product.thumbnail
+      ? `${STATIC_HOST}${product.thumbnail?.url}`
+      : IMG_URL;
+    const nameproduct = product.name;
+    const priceVN = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(product.originalPrice);
+    const pricepercent = product.promotionPercent
+      ? '<span class="makeStyles-pricePercent"> -' +
+        product.promotionPercent +
+        '% </span>'
+      : '';
+    return {
+      __html:
+        '<a href="' +
+        linkProduct +
+        '"><div class="css-1vl0eai" ><div class="css-MuiPaper-root"><div class="css-pd8"><div class="makeStyles-divimg"><img class="makeStyles-productImg" src=' +
+        thumbnailUrl +
+        '  width="100%" alt="' +
+        nameproduct +
+        '"/></div><div class="css-4g6ai3"><div class="makeStyles-divName"><p class="makeStyles-name">' +
+        nameproduct +
+        '</p></div><span class="makeStyles-price">' +
+        priceVN +
+        '</span>' +
+        pricepercent +
+        '</div></div></div></div></a>',
+    };
+  }
   return (
     <div className="DetailsPage">
       <Box sx={{ overflow: 'hidden' }}>
@@ -116,19 +154,24 @@ function DetailPage(props) {
               </Routes>
             </Box>
             <Box className={classes.productList}>
-              {loadingS ? (
-                <SkeletonProduct length={limit} />
-              ) : (
-                <ProductList data={productList} />
-              )}
+              {loadingS ? <SkeletonProduct length={LIMIT} /> : ''}
+              <Grid container>
+                {productList.map((product) => (
+                  <div
+                    key={product.id}
+                    className="mmui-item"
+                    dangerouslySetInnerHTML={innerProduct(product)}
+                  />
+                ))}
+              </Grid>
               <Button
                 className="btnViewMore"
                 onClick={() => {
+                  setLoadingMore(true);
                   setLimit(limit + 12);
-                  setLoadingS(true);
                 }}
               >
-                {loadingS ? `Loading` : `View More`}
+                {loadingMore ? `Loading` : `View More`}
               </Button>
             </Box>
           </Box>

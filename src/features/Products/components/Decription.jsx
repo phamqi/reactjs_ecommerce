@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import useProductDetail from '../hook/useProductDetail';
@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 function Description({ product }) {
   const [heightContent, setHeightContent] = useState(false);
   const classes = useStyles();
-  console.log(product);
   return (
     <Box className={classes.root}>
       <Box
@@ -80,4 +79,4 @@ function Description({ product }) {
   );
 }
 
-export default Description;
+export default memo(Description);

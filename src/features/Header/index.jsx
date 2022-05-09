@@ -18,7 +18,7 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import productApi from '../../api/productApi';
@@ -29,7 +29,7 @@ import { logout } from '../Auth/userSlice';
 import { cartItemsCountSelector } from '../Cart/selector';
 import GoToByCategory from '../Products/components/GoToByCategory';
 import Product from '../Products/components/Product';
-import ExpandLessIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -260,6 +260,9 @@ function Header(props) {
       right: '20px',
       backgroundColor: 'red',
     },
+    up: {
+      opacity: '1',
+    },
   }));
   const classes = useStyles();
   const loggedUser = useSelector((state) => state.user.current);
@@ -273,6 +276,7 @@ function Header(props) {
   const [openSearch, setOpenSearch] = useState(false);
   const [listSearch, setListSearch] = useState([]);
   const [loadSearch, setLoadSearch] = useState(false);
+  const [scrollUp, setScrollUp] = useState(false);
   const redirectLogin = () => {
     setMode(MODE.LOGIN);
   };
@@ -294,7 +298,6 @@ function Header(props) {
   const handleLoguotClick = () => {
     dispatch(logout());
   };
-
   const handelSearchClick = () => {
     setOpenSearch(true);
   };
@@ -310,6 +313,28 @@ function Header(props) {
     setPxX(window.innerWidth - e.touches[0].clientX);
     setPxL(window.innerHeight - e.touches[0].clientY);
   };
+  const [y, setY] = useState(window.scrollY);
+
+  const handleNavigation = useCallback(
+    (e) => {
+      const window = e.currentTarget;
+      if (y > window.scrollY) {
+        setScrollUp(true);
+      } else if (y < window.scrollY) {
+        setScrollUp(false);
+      }
+      setY(window.scrollY);
+    },
+    [y]
+  );
+
+  useEffect(() => {
+    setY(window.scrollY);
+    window.addEventListener('scroll', handleNavigation);
+    return () => {
+      window.removeEventListener('scroll', handleNavigation);
+    };
+  }, [handleNavigation]);
   const handleChangeSearch = () => {
     setOpenSearch(false);
   };
@@ -443,6 +468,7 @@ function Header(props) {
         </Box>
       </Box>
       <Box
+        className={scrollUp ? classes.up : ''}
         sx={{
           zIndex: '9999',
           display: { xs: 'block', sm: 'none' },
@@ -453,6 +479,7 @@ function Header(props) {
           right: `${pxX}px`,
           transform: 'translateZ(0px)',
           flexGrow: 1,
+          opacity: '0',
         }}
       >
         <SpeedDial
@@ -500,6 +527,11 @@ function Header(props) {
             icon={<SearchIcon onClick={handleSearchMb} />}
             tooltipTitle="Filter"
           />
+          <SpeedDialAction
+            key="5"
+            icon={<ExpandLessIcon onClick={handleScrollToTop} />}
+            tooltipTitle="Back to Top"
+          />
         </SpeedDial>
       </Box>
       <Dialog open={open}>
@@ -533,9 +565,6 @@ function Header(props) {
           )}
         </DialogContent>
       </Dialog>
-      <Button className={classes.btnScrollToTop} onClick={handleScrollToTop}>
-        <ExpandLessIcon />
-      </Button>
     </div>
   );
 }

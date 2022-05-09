@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 'auto',
     display: 'flex',
     alignItems: 'center',
-    flexWrap: 'wrap',
     '& .subscribeBtn': {
       backgroundImage: `${BG_COLOR}`,
       color: 'white',
@@ -75,20 +74,22 @@ function Footer(props) {
             Sing up for Code update to receive information about fature events and
             specials
           </p>
-          <form
-            className={classes.subscribeFrom}
-            onSubmit={form.handleSubmit(handleSubmit)}
-          >
-            <InputField
-              className="subscribeInput"
-              name="email"
-              label=""
-              form={form}
-              placeholder="Enter your email address"
-            />
-            <Button sx={{ width: { xs: '100%', sm: '25%' } }} className="subscribeBtn">
-              Subscribe
-            </Button>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <Box
+              className={classes.subscribeFrom}
+              sx={{ flexWrap: { xs: 'wrap', sm: 'nowrap' } }}
+            >
+              <InputField
+                className="subscribeInput"
+                name="email"
+                label=""
+                form={form}
+                placeholder="Enter your email address"
+              />
+              <Button sx={{ width: { xs: '100%', sm: '25%' } }} className="subscribeBtn">
+                Subscribe
+              </Button>
+            </Box>
           </form>
         </Box>
         <Box>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { IMG_URL, STATIC_HOST } from '../../../constants/index';
 import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { memo } from 'react';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 const useStyles = makeStyles((theme) => ({}));
 ProductThumnail.propTypes = {
@@ -10,6 +11,7 @@ ProductThumnail.propTypes = {
 };
 
 function ProductThumnail({ product }) {
+  console.log('thumnail render');
   const classes = useStyles();
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
@@ -24,4 +26,4 @@ function ProductThumnail({ product }) {
     />
   );
 }
-export default ProductThumnail;
+export default memo(ProductThumnail);

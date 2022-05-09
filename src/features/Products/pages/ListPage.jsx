@@ -10,6 +10,7 @@ import SkeletonProduct from '../components/skeletonProduct';
 import queryString from 'query-string';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import useProductList from '../hook/useProductList';
 ListPage.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,22 +49,7 @@ function ListPage() {
     };
   }, [location.search]);
   const navigate = useNavigate();
-  const [productList, setProductList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({ page: 1, limit: 12, total: 10 });
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data, pagination } = await productApi.getAll(queryParams);
-        console.log('List product', data, pagination);
-        setProductList(data);
-        setPagination(pagination);
-      } catch (error) {
-        console.log('fail to get product', error);
-      }
-      setLoading(false);
-    })();
-  }, [queryParams]);
+  const { productList, loading, pagination } = useProductList(queryParams);
 
   const classes = useStyles();
   const handleSortChange = (newSort) => {
@@ -96,16 +82,6 @@ function ListPage() {
     };
     navigate(locationSearch);
   };
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await productApi.search();
-        console.log('List product by category', data);
-      } catch (error) {
-        console.log('fail to get product', error);
-      }
-    })();
-  }, []);
   return (
     <div>
       <Box pt={2}>

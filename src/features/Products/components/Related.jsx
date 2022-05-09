@@ -8,6 +8,9 @@ import { makeStyles } from '@mui/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
+import { memo } from 'react';
+import { LIMIT } from '../../../constants';
+import useProductByCategory from '../hook/useProductByCategory';
 Related.propTypes = {
   category: PropTypes.number,
 };
@@ -40,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
         'linear-gradient(to right , rgb(28,58,148) ,rgb(73,125,189), rgb(122,153,217))',
     },
     '&::-webkit-scrollbar-button': {
-      height: '30%',
-      width: '30%',
+      display: 'block',
+      width: '10vw',
     },
     '&> div > div': { width: '100%' },
     '&> h2': {
@@ -82,30 +85,18 @@ const useStyles = makeStyles((theme) => ({
   boxRelated: {
     display: 'flex',
     overflowY: 'hidden',
+    '& .relatedSke': {
+      flexWrap: 'nowrap',
+      height: '168',
+    },
   },
 }));
 function Related({ category }) {
-  const [overflow, setOverflow] = useState();
   const classes = useStyles();
-  const [loading, setLoading] = useState();
   const [translate, setTranslate] = useState(0);
-  const params = {
-    'category.id': category,
-    _limit: 12,
-  };
-  const [itemList, setItemList] = useState([]);
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await productApi.getByCategory(params);
-        console.log('List product by category', data);
-        setItemList(data);
-        setLoading(false);
-      } catch (error) {
-        console.log('fail to get product', error);
-      }
-    })();
-  }, [category]);
+  console.log('related rerender');
+  const { productList, loading } = useProductByCategory(category);
+  console.log('product list by category', productList);
   const handleSetNext = () => {
     let a = 0;
     if (~~(window.innerWidth / 300) >= 4) {
@@ -151,9 +142,9 @@ function Related({ category }) {
           }}
         >
           {loading ? (
-            <SkeletonProduct />
+            <SkeletonProduct length={LIMIT} />
           ) : (
-            itemList.map((item, index) => <Product key={index} product={item} />)
+            productList.map((item, index) => <Product key={index} product={item} />)
           )}
         </Box>
       </Box>
@@ -175,4 +166,4 @@ function Related({ category }) {
   );
 }
 
-export default Related;
+export default memo(Related);

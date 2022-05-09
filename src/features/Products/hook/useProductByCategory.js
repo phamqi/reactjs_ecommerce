@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import productApi from '../../../api/productApi';
-
-export default function useProductDetail(params) {
-  const [productList, setProductList] = useState({});
+import { LIMIT } from '../../../constants';
+export default function useProductByCategory(category) {
+  const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const params = {
+    'category.id': category,
+    _limit: LIMIT,
+  };
   useEffect(() => {
     (async () => {
       try {
-        const result = await productApi.getByCategory(params);
-        setProductList(result);
+        const { data } = await productApi.getByCategory(params);
+        console.log('List product by category', data);
+        setProductList(data);
         setLoading(false);
-      } catch (error) {
-        console.log('Loi ne', error);
-      }
+      } catch (error) {}
     })();
-  }, [params]);
+  }, [category]);
   return { productList, loading };
 }

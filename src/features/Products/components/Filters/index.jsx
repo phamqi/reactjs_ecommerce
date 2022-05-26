@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-import ByCategory from './Filters/ByCategory';
-import ByPrice from './Filters/ByPrice';
-import ByService from './Filters/ByService';
+import ByCategory from './ByCategory';
+import ByPrice from './ByPrice';
+import ByService from './ByService';
 import { makeStyles } from '@mui/styles';
+import useCategoryList from '../../hook/useCategoryList';
 
 ProductFilters.propTypes = {
   filters: PropTypes.object,
@@ -45,6 +46,7 @@ function ProductFilters({ filters, onChange }) {
       onChange(filters);
     }
   };
+
   return (
     <div>
       <Box sx={{ px: 2, pt: 1 }}>

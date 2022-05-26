@@ -1,4 +1,4 @@
-export const DataSlides = [
+export const dataSlides = [
   {
     id: 1,
     image: 'https://picsum.photos/1200/600',

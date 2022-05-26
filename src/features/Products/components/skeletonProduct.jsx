@@ -23,9 +23,9 @@ function SkeletonProduct({ length }) {
   const classes = useStyles();
   return (
     <Box>
-      <Grid className={`${classes.boxSkeleton}` + ' relatedSke'}>
+      <Grid container className={`${classes.boxSkeleton}` + ' relatedSke'}>
         {Array.from(new Array(length)).map((x, index) => (
-          <Grid item key={index} item xs={6} sm={4} md={3} lg={3}>
+          <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
             <Box padding={1}>
               <Skeleton variant="rect" width="100%" height={HEIGHT_SKT} />
               <Skeleton width="100%" />

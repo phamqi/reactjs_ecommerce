@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import productApi from '../../../api/productApi';
 import { LIMIT } from '../../../constants';
+
 export default function useProductByCategory(category) {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);

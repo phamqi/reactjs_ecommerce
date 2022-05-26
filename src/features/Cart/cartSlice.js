@@ -8,12 +8,6 @@ const cartSlice = createSlice({
     cartItems: JSON.parse(localStorage.getItem(StorageKeys.CART)) || [],
   },
   reducers: {
-    showMiniCart(state) {
-      state.showMiniCart = true;
-    },
-    hideMiniCart(state) {
-      state.showMiniCart = false;
-    },
     addToCart(state, action) {
       const indexItem = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
@@ -61,13 +55,6 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const {
-  clearCart,
-  showMiniCart,
-  hideMiniCart,
-  removeFromCart,
-  addToCart,
-  dereaseOnCart,
-  addOnToCart,
-} = actions;
+export const { clearCart, removeFromCart, addToCart, dereaseOnCart, addOnToCart } =
+  actions;
 export default reducer;

@@ -291,7 +291,6 @@ function Cart(props) {
   console.log('b', category);
   return (
     <div className="cartpage">
-      <Header />
       <Box className={classes.conta}>
         <Container className="contai">
           {cartItems.length === 0 ? (

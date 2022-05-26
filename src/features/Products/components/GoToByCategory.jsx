@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import categoryApi from '../../../api/categoryApi';
 import { makeStyles } from '@mui/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
+import useCategoryList from '../hook/useCategoryList';
 
-ByCategory.propTypes = {
+GoToByCategory.propTypes = {
   onChange: PropTypes.func,
+  categoryList: PropTypes.array,
+  categoryOnLoad: PropTypes.bool,
 };
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,11 +34,10 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 0 8px 0',
   },
 }));
-function ByCategory() {
+function GoToByCategory({ categoryList, categoryOnLoad }) {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
-  const [categoryList, setCategoryList] = useState([]);
   const filter = {
     _page: Number.parseInt(1),
     _limit: Number.parseInt(12),
@@ -43,19 +45,6 @@ function ByCategory() {
     isFreeShip: 'false',
     isPromotion: 'false',
   };
-  useEffect(() => {
-    (async () => {
-      try {
-        const list = await categoryApi.getAll();
-        setCategoryList(
-          list.map((x) => ({
-            id: x.id,
-            name: x.name,
-          }))
-        );
-      } catch (error) {}
-    })();
-  }, []);
   const handleCategoryClick = (category) => {
     const newFilter = { ...filter, 'category.id': category.id };
     let locationSearch = {
@@ -68,24 +57,23 @@ function ByCategory() {
     <Box className={classes.root}>
       <h4 className={classes.brh4}>Category</h4>
       <Box className={classes.categoryBox}>
-        {categoryList.map((category) => (
-          <a
-            href={`?${queryString.stringify({
-              ...filter,
-              'category.id': category.id,
-            })}`}
-            key={category.id}
-            onClick={() => {
-              handleCategoryClick(category);
-            }}
-            className={classes.a}
-          >
-            {category.name}
-          </a>
-        ))}
+        {categoryOnLoad ? (
+          <h1>Dang load</h1>
+        ) : (
+          categoryList.map((category) => (
+            <a
+              key={category.id}
+              onClick={() => {
+                handleCategoryClick(category);
+              }}
+              className={classes.a}
+            >
+              {category.name}
+            </a>
+          ))
+        )}
       </Box>
     </Box>
   );
 }
-
-export default ByCategory;
+export default GoToByCategory;

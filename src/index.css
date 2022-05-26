@@ -50,22 +50,17 @@ img {
 .DetailsPage img {
   border-radius: 0px;
 }
-.DetailsPage #header_bot {
-  position: static;
-}
-.DetailsPage #header_bots {
-  background-color: white;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-}
 .cartpage img {
   border-radius: 0px;
 }
 .cartpage #header_bot {
   position: static;
 }
-.cartpage #header_bots {
-  background-color: white;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+
+@media screen and  (max-width:600px) {
+  html{
+    font-size: 12px;
+  }
 }
 @media (min-width:600px) and (max-width:900px) {
   html{
@@ -162,20 +157,19 @@ img {
 .makeStyles-productImg {
   width: 100%;
   object-fit: cover;
-  height: 200px;
 }
 .css-4g6ai3 {
   cursor: pointer;
 }
 .makeStyles-divName {
-  min-height: 45px;
+  min-height: 2.5rem;
 }
 .makeStyles-name {
   display: -webkit-box;
   overflow: hidden;
-  font-size: .9rem;
+  font-size: 1rem;
   word-wrap: break-word;
-  line-height: 17px;
+  line-height: 15px;
   white-space: normal;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
@@ -184,7 +178,7 @@ img {
 .makeStyles-price {
   color: #ee4d2d;
   overflow: hidden;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 500;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -192,7 +186,7 @@ img {
 .makeStyles-pricePercent {
   color: rgb(255, 66, 78);
   border: 1px solid rgb(255, 66, 78);
-  font-size: 0.77rem;
+  font-size: 0.81rem;
   margin-left: 7px;
   border-radius: 2px;
   background-color: rgb(255, 240, 241);

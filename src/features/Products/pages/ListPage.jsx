@@ -1,15 +1,19 @@
-import { Box, Container, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect, useState, useMemo } from 'react';
-import productApi from '../../../api/productApi';
-import ProductFilters from '../components/ProductFilters';
+import queryString from 'query-string';
+import React, { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import BannerRight from '../../../components/Banner';
+import { BANNER_HEIGHT, BANNER_IMG } from '../../../constants';
+import Slide from '../../Slide';
+import { dataSlides } from '../../Slide/dataSlides';
+import StoreInfor from '../../StoreInfor';
+import ProductFilters from '../components/Filters';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
 import SkeletonProduct from '../components/skeletonProduct';
-import queryString from 'query-string';
-import { useLocation, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import useCategoryList from '../hook/useCategoryList';
 import useProductList from '../hook/useProductList';
 ListPage.propTypes = {};
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  banner: {
+    display: 'flex',
+    height: `${BANNER_HEIGHT}px`,
+  },
 }));
 function ListPage() {
   const location = useLocation();
@@ -49,6 +57,7 @@ function ListPage() {
     };
   }, [location.search]);
   const navigate = useNavigate();
+  const data = dataSlides;
   const { productList, loading, pagination } = useProductList(queryParams);
 
   const classes = useStyles();
@@ -82,8 +91,20 @@ function ListPage() {
     };
     navigate(locationSearch);
   };
+
+  const dataBanner = BANNER_IMG;
+
   return (
     <div>
+      <Grid Grid container className={classes.container}>
+        <Grid item xs={12} sm={8} md={8} lg={8}>
+          <Slide dataSlides={data} />
+        </Grid>
+        <Grid item xs={0} sm={4} md={4} lg={4}>
+          <BannerRight dataBanner={dataBanner} />
+        </Grid>
+      </Grid>
+      <StoreInfor />
       <Box pt={2}>
         <Box className={classes.container}>
           <Grid container>
@@ -105,18 +126,7 @@ function ListPage() {
                 ></Pagination>
               </Box>
             </Grid>
-            <Grid
-              className={classes.left}
-              item
-              sx={{
-                display: { xs: 'none', md: 'block', sm: 'block' },
-                position: { xs: 'fixed', sm: 'static', md: 'static' },
-              }}
-              xs={6}
-              sm={3}
-              md={2.5}
-              lg={2}
-            >
+            <Grid className={classes.left} item xs={12} sm={3} md={2.5} lg={2}>
               <Box sx={{ px: 1 }}>
                 <Paper elevation={2}>
                   <ProductFilters filters={queryParams} onChange={handleFiltersChange} />

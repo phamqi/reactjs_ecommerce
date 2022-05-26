@@ -19,7 +19,7 @@ function ByService({ filters = {}, onChange }) {
       <Box>
         <ul>
           {[
-            { value: 'isPromotion', label: 'Van chuyen' },
+            { value: 'isPromotion', label: 'Sale' },
             { value: 'isFreeShip', label: 'FreeShip' },
           ].map((service) => (
             <li key={service.value}>

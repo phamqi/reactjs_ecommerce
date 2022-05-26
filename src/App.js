@@ -3,14 +3,16 @@ import './App.css';
 import Error404 from './components/Error404';
 import Cart from './features/Cart';
 import Footer from './features/Footer';
-import ProductFeature from './features/Products';
+import Header from './features/Header';
 import DetailPage from './features/Products/pages/DetailPage';
+import ListPage from './features/Products/pages/ListPage';
 
 function App() {
   return (
     <div className="App">
+      <Header />
       <Routes>
-        <Route exact path="/" element={<ProductFeature />} />
+        <Route exact path="/" element={<ListPage />} />
         <Route path="/:productId/*" element={<DetailPage />} />
         <Route path="cart" element={<Cart />} />
         <Route path="/error" element={<Error404 />} />

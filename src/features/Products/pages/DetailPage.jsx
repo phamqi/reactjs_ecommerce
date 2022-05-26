@@ -19,6 +19,7 @@ import SkeletonProduct from '../components/skeletonProduct';
 import ProductList from '../components/ProductList';
 import Product from '../components/Product';
 import { IMG_URL, LIMIT, STATIC_HOST } from '../../../constants';
+import innerProduct from '../hook/useProductFnc';
 DetailPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -39,9 +40,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     padding: '1.5rem 0',
     '&> button.btnViewMore': {
+      marginTop: '1rem',
       marginLeft: '50%',
       transform: 'translateX(-50%)',
       textTransform: 'none',
+      border: '1px solid blue',
+      '&:hover': {
+        backgroundColor: 'rgb(13, 92, 182)',
+        color: 'white',
+      },
     },
   },
   related: {
@@ -93,42 +100,9 @@ function DetailPage(props) {
     })();
   }, [limit]);
 
-  function innerProduct(product) {
-    const linkProduct = `/${product.name}_i${product.id}`;
-    const thumbnailUrl = product.thumbnail
-      ? `${STATIC_HOST}${product.thumbnail?.url}`
-      : IMG_URL;
-    const nameproduct = product.name;
-    const priceVN = new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    }).format(product.originalPrice);
-    const pricepercent = product.promotionPercent
-      ? '<span class="makeStyles-pricePercent"> -' +
-        product.promotionPercent +
-        '% </span>'
-      : '';
-    return {
-      __html:
-        '<a href="' +
-        linkProduct +
-        '"><div class="css-1vl0eai" ><div class="css-MuiPaper-root"><div class="css-pd8"><div class="makeStyles-divimg"><img class="makeStyles-productImg" src=' +
-        thumbnailUrl +
-        '  width="100%" alt="' +
-        nameproduct +
-        '"/></div><div class="css-4g6ai3"><div class="makeStyles-divName"><p class="makeStyles-name">' +
-        nameproduct +
-        '</p></div><span class="makeStyles-price">' +
-        priceVN +
-        '</span>' +
-        pricepercent +
-        '</div></div></div></div></a>',
-    };
-  }
   return (
     <div className="DetailsPage">
       <Box sx={{ overflow: 'hidden' }}>
-        <Header />
         <Box className={classes.container}>
           <Box>
             {loading && <Loading />}
@@ -171,7 +145,7 @@ function DetailPage(props) {
                   setLimit(limit + 12);
                 }}
               >
-                {loadingMore ? `Loading` : `View More`}
+                {loadingMore ? `Loading...` : `View More`}
               </Button>
             </Box>
           </Box>

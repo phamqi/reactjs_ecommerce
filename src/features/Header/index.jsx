@@ -27,9 +27,10 @@ import Login from '../Auth/components/Login';
 import Register from '../Auth/components/Register';
 import { logout } from '../Auth/userSlice';
 import { cartItemsCountSelector } from '../Cart/selector';
-import GoToByCategory from '../Products/components/GoToByCategory';
 import Product from '../Products/components/Product';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import useCategoryList from '../Products/hook/useCategoryList';
+import GoToByCategory from '../Products/components/GoToByCategory';
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -67,9 +68,8 @@ function Header(props) {
     headerBot: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       flexDirection: 'row ',
-      position: 'fixed',
       top: '40px',
       left: '0',
       width: '100%',
@@ -92,11 +92,13 @@ function Header(props) {
       width: '100%',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       flexDirection: 'row nowrap',
       backgroundColor: 'white',
     },
     headerBotS: {
+      width: '100%',
+      maxWidth: '1200px',
       padding: '5px 20px',
       display: 'flex',
       alignItems: 'center',
@@ -139,7 +141,7 @@ function Header(props) {
     liuser: {
       position: 'relative',
       '&:hover #uluser': {
-        opacity: '9999',
+        opacity: '1',
         visibility: 'visible',
       },
     },
@@ -265,6 +267,7 @@ function Header(props) {
     },
   }));
   const classes = useStyles();
+  console.log('header rerender');
   const loggedUser = useSelector((state) => state.user.current);
   const dispatch = useDispatch();
   const isLogged = loggedUser.id;
@@ -276,7 +279,6 @@ function Header(props) {
   const [openSearch, setOpenSearch] = useState(false);
   const [listSearch, setListSearch] = useState([]);
   const [loadSearch, setLoadSearch] = useState(false);
-  const [scrollUp, setScrollUp] = useState(false);
   const redirectLogin = () => {
     setMode(MODE.LOGIN);
   };
@@ -313,28 +315,6 @@ function Header(props) {
     setPxX(window.innerWidth - e.touches[0].clientX);
     setPxL(window.innerHeight - e.touches[0].clientY);
   };
-  const [y, setY] = useState(window.scrollY);
-
-  const handleNavigation = useCallback(
-    (e) => {
-      const window = e.currentTarget;
-      if (y > window.scrollY) {
-        setScrollUp(true);
-      } else if (y < window.scrollY) {
-        setScrollUp(false);
-      }
-      setY(window.scrollY);
-    },
-    [y]
-  );
-
-  useEffect(() => {
-    setY(window.scrollY);
-    window.addEventListener('scroll', handleNavigation);
-    return () => {
-      window.removeEventListener('scroll', handleNavigation);
-    };
-  }, [handleNavigation]);
   const handleChangeSearch = () => {
     setOpenSearch(false);
   };
@@ -352,7 +332,11 @@ function Header(props) {
     handleScrollToTop();
     setOpenSearch(!openSearch);
   };
+
   const countItems = useSelector(cartItemsCountSelector);
+
+  const { categoryList, categoryOnLoad } = useCategoryList();
+  console.log(categoryList);
   return (
     <div className={classes.root}>
       <Box className={classes.header}>
@@ -388,87 +372,87 @@ function Header(props) {
           id="header_bot"
           className={navBar ? classes.headerBotFixed : classes.headerBot}
         >
-          <Box className={classes.container}>
-            <Box id="header_bots" className={classes.headerBotS}>
-              <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <NavLink to="/">
-                  <CodeOffIcon />
-                </NavLink>
-                <NavLink to="/">Shop</NavLink>
-                <NavLink to="/feature">Featured</NavLink>
-                <NavLink to="/about">About</NavLink>
-              </Box>
-              <Box
-                sx={{
-                  width: { xs: '100%', sm: 'auto' },
-                  justifyContent: { xs: 'flex-end' },
-                  display: { xs: 'flex', sm: 'flex' },
-                  alignItems: 'center',
-                }}
-              >
-                <Box sx={{ position: 'relative' }}>
-                  <IconButton
-                    onClick={handelSearchClick}
-                    aria-label="menu"
-                    sx={{ my: 1, mx: 1, px: 1, color: 'black' }}
+          <Box id="header_bots" className={classes.headerBotS}>
+            <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+              <NavLink to="/">
+                <CodeOffIcon />
+              </NavLink>
+              <NavLink to="/">Shop</NavLink>
+              <NavLink to="/feature">Featured</NavLink>
+              <NavLink to="/about">About</NavLink>
+            </Box>
+            <Box
+              sx={{
+                width: { xs: '100%', sm: 'auto' },
+                justifyContent: { xs: 'flex-end' },
+                display: { xs: 'flex', sm: 'flex' },
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ position: 'relative' }}>
+                <IconButton
+                  onClick={handelSearchClick}
+                  aria-label="menu"
+                  sx={{ my: 1, mx: 1, px: 1, color: 'black' }}
+                >
+                  <SearchIcon />
+                </IconButton>
+                {openSearch ? (
+                  <Box
+                    sx={{
+                      maxWidth: '620px',
+                      width: { xs: '100vw', sm: '40vw' },
+                      top: { xs: '0', sm: '20%' },
+                      right: { xs: '-36%', sm: '20%' },
+                    }}
+                    className={classes.searchBox}
                   >
-                    <SearchIcon />
-                  </IconButton>
-                  {openSearch ? (
-                    <Box
-                      sx={{
-                        maxWidth: '620px',
-                        width: { xs: '100vw', sm: '40vw' },
-                        top: { xs: '0', sm: '20%' },
-                        right: { xs: '-36%', sm: '20%' },
-                      }}
-                      className={classes.searchBox}
-                    >
-                      <Box className={classes.boxInput}>
-                        <input
-                          type="text"
-                          onChange={(e) => onChangeSearch(e)}
-                          placeholder="Search..."
-                        />
-                        <Button className="btnCloseSearch" onClick={handleChangeSearch}>
-                          <CloseIcon />
-                        </Button>
+                    <Box className={classes.boxInput}>
+                      <input
+                        type="text"
+                        onChange={(e) => onChangeSearch(e)}
+                        placeholder="Search..."
+                      />
+                      <Button className="btnCloseSearch" onClick={handleChangeSearch}>
+                        <CloseIcon />
+                      </Button>
+                    </Box>
+                    <Box>
+                      <Box className={classes.productBox}>
+                        {loadSearch ? (
+                          listSearch.map((item) => <Product product={item} />)
+                        ) : (
+                          <h2 className={classes.iconSearchOff}>
+                            <SearchOffIcon />
+                          </h2>
+                        )}
                       </Box>
-                      <Box>
-                        <Box className={classes.productBox}>
-                          {loadSearch ? (
-                            listSearch.map((item) => <Product product={item} />)
-                          ) : (
-                            <h2 className={classes.iconSearchOff}>
-                              <SearchOffIcon />
-                            </h2>
-                          )}
-                        </Box>
-                        <Box sx={{ backgroundColor: 'white' }}>
-                          <GoToByCategory />
-                        </Box>
+                      <Box sx={{ backgroundColor: 'white' }}>
+                        <GoToByCategory
+                          categoryList={categoryList}
+                          categoryOnLoad={categoryOnLoad}
+                        />
                       </Box>
                     </Box>
-                  ) : (
-                    ''
-                  )}
-                </Box>
-                <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
-                  <NavLink to="/cart">
-                    <IconButton sx={{ color: 'black' }}>
-                      <Badge badgeContent={countItems} color="error">
-                        <ShoppingCartIcon />
-                      </Badge>
-                    </IconButton>
-                  </NavLink>
-                </Box>
+                  </Box>
+                ) : (
+                  ''
+                )}
+              </Box>
+              <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
+                <NavLink to="/cart">
+                  <IconButton sx={{ color: 'black' }}>
+                    <Badge badgeContent={countItems} color="error">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                </NavLink>
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
       <Box
-        className={scrollUp ? classes.up : ''}
         sx={{
           zIndex: '9999',
           display: { xs: 'block', sm: 'none' },
@@ -479,7 +463,7 @@ function Header(props) {
           right: `${pxX}px`,
           transform: 'translateZ(0px)',
           flexGrow: 1,
-          opacity: '0',
+          opacity: '1',
         }}
       >
         <SpeedDial

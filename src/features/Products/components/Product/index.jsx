@@ -10,7 +10,7 @@ import addToCart from '../../../Cart/cartSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  divName: { minHeight: '45px' },
+  divName: { minHeight: '2.5rem' },
   name: {
     display: 'inline-block',
     wordWrap: 'break-word',
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     display: '-webkit-box',
     textOverflow: 'ellipsis',
-    lineHeight: '17px',
+    lineHeight: '14px',
     fontSize: '.9rem',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': '2',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    fontSize: '1rem',
+    fontSize: '1.2rem',
     color: '#ee4d2d',
     fontWeight: '500',
   },
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pricePercent: {
     marginLeft: '7px',
-    fontSize: '0.77rem',
+    fontSize: '0.81rem',
     border: '1px solid rgb(255, 66, 78)',
     borderRadius: '2px',
     backgroundColor: 'rgb(255, 240, 241)',

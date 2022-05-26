@@ -5,3 +5,5 @@ export const BG_COLOR =
 export const URLS = ['/auth/local/register', '/auth/local'];
 export const LIMIT = 12;
 export const HEIGHT_SKT = 268;
+export const BANNER_IMG = 'https://i.imgur.com/Puqzh44.jpeg';
+export const BANNER_HEIGHT = 235;

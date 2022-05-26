@@ -1,6 +1,6 @@
 import { Box, Grid, Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { memo } from 'react';
 import Product from '../components/Product';
 import { useDispatch } from 'react-redux';
 import addToCart from '../../Cart/cartSlice';
@@ -22,4 +22,4 @@ function ProductList({ data }) {
   );
 }
 
-export default ProductList;
+export default memo(ProductList);

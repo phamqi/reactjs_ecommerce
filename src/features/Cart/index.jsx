@@ -18,19 +18,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     margin: '1rem 0 0 0',
     display: 'flex',
-    padding: '0  0 0  0.7rem',
     borderRadius: 'max(0px, min(5px, calc((100vw - 600px) * 99999)))',
     borderBottom: '1px solid rgba(0,0,0,0.2)',
     overflow: 'hidden',
     position: 'relative',
+    marginLeft: 'max(0px, min(1rem, calc((900px - 100vw ) * 99999)))',
   },
-  img: {
-    backgroundPosition: '50%',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
+  img_cart: {
     width: '85px',
     height: '85px',
-    marginLeft: 'max(0px, min(2rem, calc((100vw - 899px) * 99999)))',
+    objectFit: 'cover',
   },
   inforTop: {
     width: '100%',
@@ -107,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
   nameprice: {
     display: 'flex',
     flexDirection: 'column',
+    minHeight: '75px',
     '& > a': {
       minHeight: '34px',
       color: 'black',
@@ -175,10 +173,11 @@ const useStyles = makeStyles((theme) => ({
     borderTop: '1px solid rgba(0,0,0,0.2)',
     padding: '10px 0px',
   },
-  conta: {
-    '& .contai': {
-      padding: '0',
-    },
+  container: {
+    maxWidth: '1200px',
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   setwidth: {
     display: 'flex',
@@ -204,9 +203,6 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '0',
       width: '100%',
     },
-    // '& button.btnRemove': {
-    //   color: 'red',
-    // },
   },
   iconActive: {
     transform: 'rotate(180deg)',
@@ -215,14 +211,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Cart(props) {
-  const [local, setLocal] = useState(false);
-  const [checkoutLocal, setCheckoutLocal] = useState();
+  const [staticCheckout, setStaticCheckout] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const product = cartItems.product;
-  console.log(product);
-  const checkoutRef = useRef();
+
   const handleDecreaseOnCart = async (item) => {
     try {
       const action = dereaseOnCart({
@@ -262,17 +255,24 @@ function Cart(props) {
     dispatch(action);
   };
   const total = useSelector(cartTotalSelector);
+
+  const div_items = useRef();
   useEffect(() => {
-    setCheckoutLocal(checkoutRef.current.getBoundingClientRect().y);
-  });
-  const setLocation = () => {
-    if (window.scrollY > checkoutLocal / 2) {
-      setLocal(true);
-    } else {
-      setLocal(false);
+    if (window.innerHeight > div_items.current.clientHeight) {
+      setStaticCheckout(true);
     }
-  };
-  window.addEventListener('scroll', setLocation);
+  }, []);
+  useEffect(() => {
+    window.addEventListener('scroll', function (event) {
+      if (window.scrollY + window.innerHeight > div_items.current.clientHeight - 100) {
+        setStaticCheckout(true);
+      }
+      if (window.scrollY + window.innerHeight < div_items.current.clientHeight - 100) {
+        setStaticCheckout(false);
+      }
+    });
+  }, []);
+
   const [activeDiv, setActiveDiv] = useState();
   const [toggle, setToggle] = useState(false);
   var startX, moveX;
@@ -282,17 +282,15 @@ function Cart(props) {
   const handelMove = (e) => {
     moveX = e.touches[0].clientX;
   };
+
   const goToCategory = (item) => {
     console.log('item', item.product.category.id);
   };
-  const category = cartItems.map((item, index, cartItems) => {
-    return item.product.category.id;
-  });
-  console.log('b', category);
+
   return (
     <div className="cartpage">
-      <Box className={classes.conta}>
-        <Container className="contai">
+      <Box>
+        <Box className={classes.container} ref={div_items}>
           {cartItems.length === 0 ? (
             <EmptyCart />
           ) : (
@@ -314,15 +312,17 @@ function Cart(props) {
                     }
                   }}
                 >
-                  <Box
-                    className={classes.img}
-                    sx={{
-                      backgroundImage: item.product.thumbnail
-                        ? `url(${STATIC_HOST}${item.product.thumbnail?.url})`
-                        : `url(${IMG_URL})`,
-                    }}
-                  />
-
+                  <Box>
+                    <img
+                      className={classes.img_cart}
+                      src={`${
+                        item.product.thumbnail
+                          ? STATIC_HOST + item.product.thumbnail?.url
+                          : IMG_URL
+                      }`}
+                      alt={`${item.product.name}`}
+                    ></img>
+                  </Box>
                   <Box
                     className={
                       toggle && activeDiv === item.id
@@ -430,9 +430,12 @@ function Cart(props) {
               ))}
             </Box>
           )}
-          <Box ref={checkoutRef} className={classes.checkout}>
+          <Box className={classes.checkout}>
             <Button onClick={() => handleClearCart}>Clear</Button>
-            <Box className={local ? classes.checkouttotal : classes.static}>
+            <Box
+              id="div_checkout"
+              className={staticCheckout ? classes.checkouttotal : classes.static}
+            >
               <Box className={classes.setwidth}>
                 <span className={classes.pricetotal}>
                   <span>Total: </span>
@@ -445,7 +448,7 @@ function Cart(props) {
               </Box>
             </Box>
           </Box>
-        </Container>
+        </Box>
       </Box>
     </div>
   );

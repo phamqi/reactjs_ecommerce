@@ -54,7 +54,7 @@ function Header(props) {
     },
     headerTop: {
       height: '40px',
-      padding: '0px 20px',
+      padding: '0px 10px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -67,6 +67,7 @@ function Header(props) {
     },
     headerBot: {
       display: 'flex',
+      position: 'fixed',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row ',
@@ -74,6 +75,7 @@ function Header(props) {
       left: '0',
       width: '100%',
       zIndex: '9',
+
       '&> a': {
         color: 'black',
         fontSize: '1.2rem',
@@ -82,8 +84,6 @@ function Header(props) {
       },
     },
     headerBotFixed: {
-      transitionDuration: '1s',
-      transform: 'scale(1.01)',
       borderBottom: '1px solid rgba(0,0,0,0.5)',
       zIndex: '9999',
       position: 'fixed',
@@ -93,29 +93,29 @@ function Header(props) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      flexDirection: 'row nowrap',
       backgroundColor: 'white',
+      animation: `$myEffect 500ms ease-in-out`,
     },
     headerBotS: {
       width: '100%',
       maxWidth: '1200px',
-      padding: '5px 20px',
+      padding: '0px 10px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      backgroundColor: 'rgba(255,255,255,0.3)',
-      '&> div': {
+      backgroundColor: 'transparent',
+      '&> div': { display: 'flex' },
+      '& .headerMenu': {
         '&> a': {
           textDecoration: 'none',
           padding: '5px 20px',
           color: 'black',
           fontSize: '1.1rem',
           '&:visited': {
-            color: 'black',
+            color: 'rgba(0,0,0,0.7)',
           },
           '&:hover': {
-            fontSize: '1.2rem',
-            textDecoration: 'underline',
+            color: 'black',
           },
         },
       },
@@ -265,9 +265,18 @@ function Header(props) {
     up: {
       opacity: '1',
     },
+    '@keyframes myEffect': {
+      '0%': {
+        opacity: '0.3',
+        top: '40px',
+      },
+      '100%': {
+        opacity: '1',
+        top: '0px',
+      },
+    },
   }));
   const classes = useStyles();
-  console.log('header rerender');
   const loggedUser = useSelector((state) => state.user.current);
   const dispatch = useDispatch();
   const isLogged = loggedUser.id;
@@ -304,7 +313,7 @@ function Header(props) {
     setOpenSearch(true);
   };
   const navBarOnScroll = () => {
-    if (window.scrollY >= 80) {
+    if (window.scrollY >= 40) {
       setNavBar(true);
     } else {
       setNavBar(false);
@@ -317,9 +326,6 @@ function Header(props) {
   };
   const handleChangeSearch = () => {
     setOpenSearch(false);
-  };
-  const show = () => {
-    alert('ok ok');
   };
   const handleScrollToTop = () => {
     window.scrollTo({
@@ -336,7 +342,7 @@ function Header(props) {
   const countItems = useSelector(cartItemsCountSelector);
 
   const { categoryList, categoryOnLoad } = useCategoryList();
-  console.log(categoryList);
+
   return (
     <div className={classes.root}>
       <Box className={classes.header}>
@@ -344,8 +350,10 @@ function Header(props) {
           <Box className={classes.container}>
             <Box className={classes.header}>
               <Box className={classes.headerTop}>
-                <Typography>Buy for Freeship</Typography>
-                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Typography sx={{ opacity: { xs: '0', sm: '1' } }}>
+                  Buy for Freeship
+                </Typography>
+                <Box>
                   <ul className={classes.headerul}>
                     <li>FAQs</li>
                     <li>Contact</li>
@@ -373,14 +381,17 @@ function Header(props) {
           className={navBar ? classes.headerBotFixed : classes.headerBot}
         >
           <Box id="header_bots" className={classes.headerBotS}>
-            <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <Box>
               <NavLink to="/">
                 <CodeOffIcon />
               </NavLink>
-              <NavLink to="/">Shop</NavLink>
-              <NavLink to="/feature">Featured</NavLink>
-              <NavLink to="/about">About</NavLink>
+              <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                <NavLink to="/">Shop</NavLink>
+                <NavLink to="/feature">Featured</NavLink>
+                <NavLink to="/about">About</NavLink>
+              </Box>
             </Box>
+
             <Box
               sx={{
                 width: { xs: '100%', sm: 'auto' },
@@ -491,11 +502,6 @@ function Header(props) {
           />
           <SpeedDialAction
             key="2"
-            icon={<AccountCircleIcon onClick={show} />}
-            tooltipTitle="User"
-          />
-          <SpeedDialAction
-            key="3"
             icon={
               <NavLink to="/cart">
                 <IconButton sx={{ color: 'black' }}>
@@ -507,12 +513,12 @@ function Header(props) {
             }
           />
           <SpeedDialAction
-            key="4"
+            key="3"
             icon={<SearchIcon onClick={handleSearchMb} />}
             tooltipTitle="Filter"
           />
           <SpeedDialAction
-            key="5"
+            key="4"
             icon={<ExpandLessIcon onClick={handleScrollToTop} />}
             tooltipTitle="Back to Top"
           />

@@ -9,7 +9,27 @@ import { useDispatch } from 'react-redux';
 import addToCart from '../../../Cart/cartSlice';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    position: 'relative',
+    boxSizing: 'border-box',
+    '&:hover divpaper': {
+      boxShadow:
+        '0px 3px 1px -2px rgb(0 0 0 / 60%), 0px 2px 2px 0px rgb(0 0 0 / 64%), 0px 1px 5px 0px rgb(0 0 0 / 62%)',
+    },
+  },
+  divpaper: {
+    '-webkit-font-smoothing': 'antialiased',
+    backgroundColor: '#fff',
+    color: 'rgba(0, 0, 0, 0.87)',
+    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    borderRadius: '4px',
+    boxShadow:
+      '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
+    '&:hover': {
+      boxShadow:
+        '0px 3px 1px -2px rgba(0,0,0,0.52),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.82)',
+    },
+  },
   divName: { minHeight: '2.5rem' },
   name: {
     display: 'inline-block',
@@ -41,10 +61,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     '&:hover .btnBuy': {
       bottom: '20%',
-    },
-    '&:hover': {
-      transition: 'transform 0.6s ease',
-      transform: 'scale(1.1)',
     },
     '&  .btnBuy': {
       boxShadow: '1px 1px 1px grey',
@@ -92,12 +108,8 @@ function Product({ product }) {
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
   return (
-    <Box
-      sx={{ position: 'relative', cursor: 'pointer' }}
-      padding={1}
-      onClick={handleProductClick}
-    >
-      <Paper elevation={2}>
+    <Box className={classes.root} padding={1} onClick={handleProductClick}>
+      <Paper elevation={2} className={classes.divpaper}>
         <Box padding={1}>
           <Box
             className={classes.divimg}

@@ -4,16 +4,14 @@ import { makeStyles } from '@mui/styles';
 import queryString from 'query-string';
 import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import BannerRight from '../../../components/Banner';
-import { BANNER_HEIGHT, BANNER_IMG } from '../../../constants';
+
 import Slide from '../../Slide';
+import Banner from '../../Banner';
 import { dataSlides } from '../../Slide/dataSlides';
-import StoreInfor from '../../StoreInfor';
 import ProductFilters from '../components/Filters';
 import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
 import SkeletonProduct from '../components/skeletonProduct';
-import useCategoryList from '../hook/useCategoryList';
 import useProductList from '../hook/useProductList';
 ListPage.propTypes = {};
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +36,27 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  banner: {
-    display: 'flex',
-    height: `${BANNER_HEIGHT}px`,
+  grid: {
+    height: 'max(100vh, min(135vh, calc((100vw - 600px) * 99999)))',
+    display: 'grid',
+    gridRowGap: '40px',
+    gridTemplateColumns: 'unset',
+    gridTemplateRows:
+      'calc(100vh - 40px) max(35vh, min(60vh, calc((600px - 100vw ) * 99999)))',
+    scrollSnapType: 'y mandatory',
+    overflowY: 'scroll',
+    '&::-webkit-scrollbar': {
+      width: '0',
+    },
   },
+  gridItem2: {
+    scrollSnapAlign: 'start',
+  },
+  gridItem: {
+    scrollSnapAlign: 'end',
+  },
+  carousel: {},
+  banner: {},
 }));
 function ListPage() {
   const location = useLocation();
@@ -92,20 +107,17 @@ function ListPage() {
     navigate(locationSearch);
   };
 
-  const dataBanner = BANNER_IMG;
-
   return (
     <div>
-      <Grid Grid container className={classes.container}>
-        <Grid item xs={12} sm={8} md={8} lg={8}>
+      <div className={classes.grid}>
+        <div className={classes.carousel + ' ' + classes.gridItem}>
           <Slide dataSlides={data} />
-        </Grid>
-        <Grid item xs={0} sm={4} md={4} lg={4}>
-          <BannerRight dataBanner={dataBanner} />
-        </Grid>
-      </Grid>
-      <StoreInfor />
-      <Box pt={2}>
+        </div>
+        <div className={classes.banner + ' ' + classes.gridItem2}>
+          <Banner />
+        </div>
+      </div>
+      <Box>
         <Box className={classes.container}>
           <Grid container>
             <Grid sx={{ backgroundColor: 'white' }} item xs={12} sm={9} md={9.5} lg={10}>

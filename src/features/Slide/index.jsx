@@ -77,7 +77,7 @@ function Slide({ dataSlides }) {
         <ArrowForwardIosIcon />
       </button>
       <div
-        style={{ width: '100%', height: '' + `${BANNER_HEIGHT}` + 'px' }}
+        style={{ width: '100%', height: `${BANNER_HEIGHT}` }}
         className="carousel-list"
       >
         {dataSlides.map((slide, index) => (
@@ -91,13 +91,13 @@ function Slide({ dataSlides }) {
             }
           >
             <picture>
-              <source media="(min-width: 960px)" srcSet={slide.image} alt={slide.title} />
+              <source media="(min-width: 900px)" srcSet={slide.image} alt={slide.title} />
               <source
-                media="(min-width: 650px)"
+                media="(min-width: 600px)"
                 srcSet={slide.img_tb}
                 alt={slide.title}
               />
-              <source srcSet={slide.img_mb} alt={slide.title} />
+              <source media="(min-width: 0px)" srcSet={slide.img_mb} alt={slide.title} />
               <img className="carousel-image" src={slide.image} alt={slide.title} />
             </picture>
           </div>

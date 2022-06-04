@@ -1,10 +1,7 @@
-#body {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
+
 html {
   background-color: rgb(244, 244, 244);
+  height: -webkit-fill-available;
 }
 ul {
   list-style: none;
@@ -29,11 +26,10 @@ a:visited {
   color: black;
 }
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 header {
   padding: 0;
@@ -49,23 +45,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-img {
-  border-radius: 5px;
-}
-
-.DetailsPage img {
-  border-radius: 0px;
-}
-.cartpage img {
-  border-radius: 0px;
-}
-.cartpage #header_bot {
-  position: static;
-}
 
 @media screen and  (max-width:600px) {
   html{
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 @media (min-width:600px) and (max-width:900px) {

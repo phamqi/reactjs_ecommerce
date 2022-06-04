@@ -7,7 +7,9 @@ import BannerItem from './BannerItem';
 import { dataBanner } from './dataBanner';
 Banner.propTypes = {};
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    padding: '80px 0 50px 0',
+  },
   item: {},
   text: {},
   text_sub: {},
@@ -27,8 +29,8 @@ function Banner(props) {
           }}
         >
           {dataBanner.map((item) => (
-            <Grid item xs={12} sm={3.8} md={3.8} lg={3.8}>
-              <BannerItem key={item.id} dataBanner={item} />
+            <Grid key={item.id} item xs={12} sm={4} md={4} lg={4} p={2}>
+              <BannerItem dataBanner={item} />
             </Grid>
           ))}
         </Grid>

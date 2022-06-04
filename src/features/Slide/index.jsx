@@ -1,6 +1,6 @@
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './slide.scss';
 import { keyframes } from '@emotion/react';
@@ -18,10 +18,6 @@ function Slide({ dataSlides }) {
     SetFromX('70%');
     setCurrentSlide(currentSlide === countSlide - 1 ? 0 : currentSlide + 1);
   };
-  setTimeout(() => {
-    nextSlide();
-    SetFromX('70%');
-  }, 5000);
   const prevSlide = () => {
     SetFromX('-70%');
     setCurrentSlide(currentSlide === 0 ? countSlide - 1 : currentSlide - 1);
@@ -44,6 +40,14 @@ function Slide({ dataSlides }) {
   const handleActiveSlide = (index) => {
     setCurrentSlide(index);
   };
+  console.log('render ');
+  useEffect(() => {
+    setTimeout(() => {
+      nextSlide();
+      SetFromX('70%');
+      console.log('render in useEffect');
+    }, 5000);
+  });
   return (
     <div
       onTouchStart={handelMoveStart}
@@ -65,13 +69,13 @@ function Slide({ dataSlides }) {
         ))}
       </ul>
       <button
-        onClick={prevSlide}
+        onClick={() => prevSlide}
         className="carousel-button carousel-button__prev onhover"
       >
         <ArrowBackIosNewIcon />
       </button>
       <button
-        onClick={nextSlide}
+        onClick={() => nextSlide()}
         className="carousel-button carousel-button__next onhover"
       >
         <ArrowForwardIosIcon />

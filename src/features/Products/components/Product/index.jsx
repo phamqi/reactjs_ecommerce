@@ -18,13 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   divpaper: {
-    '-webkit-font-smoothing': 'antialiased',
     backgroundColor: '#fff',
-    color: 'rgba(0, 0, 0, 0.87)',
-    transition: 'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-    borderRadius: '4px',
-    boxShadow:
-      '0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
     '&:hover': {
       boxShadow:
         '0px 3px 1px -2px rgba(0,0,0,0.52),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.82)',
@@ -109,7 +103,7 @@ function Product({ product }) {
     : IMG_URL;
   return (
     <Box className={classes.root} padding={1} onClick={handleProductClick}>
-      <Paper elevation={2} className={classes.divpaper}>
+      <Box className={classes.divpaper}>
         <Box padding={1}>
           <Box
             className={classes.divimg}
@@ -142,7 +136,7 @@ function Product({ product }) {
             )}
           </Box>
         </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 }

@@ -31,6 +31,7 @@ import Product from '../Products/components/Product';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import useCategoryList from '../Products/hook/useCategoryList';
 import GoToByCategory from '../Products/components/GoToByCategory';
+import NavBarMobie from './NavBarMobie';
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -280,11 +281,10 @@ function Header(props) {
   const loggedUser = useSelector((state) => state.user.current);
   const dispatch = useDispatch();
   const isLogged = loggedUser.id;
-  const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [navBar, setNavBar] = useState(false);
-  const [pxX, setPxX] = useState(30);
-  const [pxL, setPxL] = useState(30);
+
   const [openSearch, setOpenSearch] = useState(false);
   const [listSearch, setListSearch] = useState([]);
   const [loadSearch, setLoadSearch] = useState(false);
@@ -301,12 +301,12 @@ function Header(props) {
     })();
   };
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenLogin(true);
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpenLogin(false);
   };
-  const handleLoguotClick = () => {
+  const handleLogOutClick = () => {
     dispatch(logout());
   };
   const handelSearchClick = () => {
@@ -320,23 +320,9 @@ function Header(props) {
     }
   };
   window.addEventListener('scroll', navBarOnScroll);
-  const handleMoveOnTouch = (e) => {
-    setPxX(window.innerWidth - e.touches[0].clientX);
-    setPxL(window.innerHeight - e.touches[0].clientY);
-  };
+
   const handleChangeSearch = () => {
     setOpenSearch(false);
-  };
-  const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  };
-  const handleSearchMb = () => {
-    handleScrollToTop();
-    setOpenSearch(!openSearch);
   };
 
   const countItems = useSelector(cartItemsCountSelector);
@@ -364,7 +350,7 @@ function Header(props) {
                           <li>
                             <Link to="/profiles">Profiles</Link>
                           </li>
-                          <li onClick={handleLoguotClick}>Logout</li>
+                          <li onClick={handleLogOutClick}>Logout</li>
                         </ul>
                       </li>
                     ) : (
@@ -463,68 +449,8 @@ function Header(props) {
           </Box>
         </Box>
       </Box>
-      <Box
-        sx={{
-          zIndex: '9999',
-          display: { xs: 'block', sm: 'none' },
-          position: 'fixed',
-          top: 'auto',
-          bottom: `${pxL}px`,
-          left: 'auto',
-          right: `${pxX}px`,
-          transform: 'translateZ(0px)',
-          flexGrow: 1,
-          opacity: '1',
-        }}
-      >
-        <SpeedDial
-          sx={{
-            'button.MuiSpeedDial-fab': {
-              width: '3.5rem',
-              height: '3.5rem',
-              background: `${BG_COLOR}`,
-              zIndex: '20',
-              opacity: '0.7',
-            },
-          }}
-          onTouchMove={handleMoveOnTouch}
-          ariaLabel="SpeedDial basic example"
-          icon={<SpeedDialIcon />}
-        >
-          <SpeedDialAction
-            key="1"
-            icon={
-              <NavLink sx={{ color: 'black' }} to="/">
-                <HomeIcon />
-              </NavLink>
-            }
-            tooltipTitle="Home"
-          />
-          <SpeedDialAction
-            key="2"
-            icon={
-              <NavLink to="/cart">
-                <IconButton sx={{ color: 'black' }}>
-                  <Badge badgeContent={countItems} color="error">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-              </NavLink>
-            }
-          />
-          <SpeedDialAction
-            key="3"
-            icon={<SearchIcon onClick={handleSearchMb} />}
-            tooltipTitle="Filter"
-          />
-          <SpeedDialAction
-            key="4"
-            icon={<ExpandLessIcon onClick={handleScrollToTop} />}
-            tooltipTitle="Back to Top"
-          />
-        </SpeedDial>
-      </Box>
-      <Dialog open={open}>
+      <NavBarMobie />
+      <Dialog open={openLogin} disableScrollLock={true}>
         <DialogContent
           sx={{
             maxWidth: '540px',

@@ -13,7 +13,7 @@ import ProductList from '../components/ProductList';
 import ProductSort from '../components/ProductSort';
 import SkeletonProduct from '../components/skeletonProduct';
 import useProductList from '../hook/useProductList';
-ListPage.propTypes = {};
+MainPage.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
@@ -36,29 +36,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  grid: {
-    height: 'max(100vh, min(135vh, calc((100vw - 600px) * 99999)))',
-    display: 'grid',
-    gridRowGap: '40px',
-    gridTemplateColumns: 'unset',
-    gridTemplateRows:
-      'calc(100vh - 40px) max(35vh, min(60vh, calc((600px - 100vw ) * 99999)))',
-    scrollSnapType: 'y mandatory',
-    overflowY: 'scroll',
-    '&::-webkit-scrollbar': {
-      width: '0',
-    },
-  },
-  gridItem2: {
-    scrollSnapAlign: 'start',
-  },
+  grid: {},
   gridItem: {
-    scrollSnapAlign: 'end',
+    scrollSnapAlign: 'start',
   },
   carousel: {},
   banner: {},
 }));
-function ListPage() {
+function MainPage() {
   const location = useLocation();
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
@@ -113,7 +98,7 @@ function ListPage() {
         <div className={classes.carousel + ' ' + classes.gridItem}>
           <Slide dataSlides={data} />
         </div>
-        <div className={classes.banner + ' ' + classes.gridItem2}>
+        <div className={classes.banner + ' ' + classes.gridItem}>
           <Banner />
         </div>
       </div>
@@ -152,4 +137,4 @@ function ListPage() {
   );
 }
 
-export default ListPage;
+export default MainPage;

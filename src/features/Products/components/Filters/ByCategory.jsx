@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Skeleton, Typography } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import useCategoryList from '../../hook/useCategoryList';
 
 ByCategory.propTypes = {
@@ -44,11 +44,6 @@ function ByCategory({ onChange }) {
     var j = Math.floor(Math.random() * (100 - 50) + 50) + '%';
     skeletons.push(<Skeleton key={i} width={j} />);
   }
-  const preActiveli = useRef(activeLi);
-
-  useEffect(() => {
-    preActiveli.current = activeLi;
-  }, [activeLi]);
 
   const handleCategoryClick = (category) => {
     if (activeLi === category.id) {

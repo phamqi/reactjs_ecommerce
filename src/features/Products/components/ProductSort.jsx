@@ -45,7 +45,6 @@ function ProductSort({ currentSort, onChange }) {
         defaultValue="created_at:ASC"
         value={currentSort}
         onChange={handleSortChange}
-        centered
       >
         <TabsListUnstyled className={classes.list}>
           <div className={classes.list}>

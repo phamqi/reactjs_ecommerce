@@ -33,7 +33,7 @@ function LoginForm(props) {
       .string()
       .required('Please enter your email')
       .email('Please enter a email'),
-    password: yup.string().required('Please enter your pasword'),
+    password: yup.string().required('Please enter your password'),
   });
   const form = useForm({
     defaultValues: {
@@ -48,7 +48,6 @@ function LoginForm(props) {
     if (onSubmit) {
       await onSubmit(values);
     }
-    // form.reset();
   };
   return (
     <div className="register">

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
 BannerItem.propTypes = {
-  dataBanner: PropTypes.array,
+  dataBanner: PropTypes.object,
 };
 const useStyles = makeStyles((theme) => ({
   divImg: {
     position: 'relative',
     width: '100%',
-    height: 'min(35vh, max(calc(20vh), calc((100vw - 600px ) * 99999)))',
+    height: 'max(35vh, min(calc(33vh), calc((600px - 100vw ) * 99999)))',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     display: 'flex',

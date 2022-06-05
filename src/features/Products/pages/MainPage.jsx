@@ -105,7 +105,7 @@ function MainPage() {
       <Box>
         <Box className={classes.container}>
           <Grid container>
-            <Grid sx={{ backgroundColor: 'white' }} item xs={12} sm={9} md={9.5} lg={10}>
+            <Grid sx={{ backgroundColor: 'white' }} item xs={12} sm={12} md={9.5} lg={10}>
               <ProductSort currentSort={queryParams._sort} onChange={handleSortChange} />
 
               {loading ? (
@@ -123,7 +123,7 @@ function MainPage() {
                 ></Pagination>
               </Box>
             </Grid>
-            <Grid className={classes.left} item xs={12} sm={3} md={2.5} lg={2}>
+            <Grid className={classes.left} item xs={0} sm={0} md={2.5} lg={2}>
               <Box sx={{ px: 1 }}>
                 <Paper elevation={2}>
                   <ProductFilters filters={queryParams} onChange={handleFiltersChange} />

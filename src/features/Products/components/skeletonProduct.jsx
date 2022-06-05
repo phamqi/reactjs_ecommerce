@@ -10,9 +10,6 @@ SkeletonProduct.propTypes = {
 const useStyles = makeStyles((theme) => ({
   boxSkeleton: {
     boxSizing: 'border-box',
-    display: '-webkit-box',
-    display: '-webkit-flex',
-    display: '-ms-flexbox',
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',

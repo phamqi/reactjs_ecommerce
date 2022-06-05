@@ -98,7 +98,7 @@ function DetailPage(props) {
   }, [limit]);
 
   return (
-    <div className="DetailsPage">
+    <div className="detailsPage">
       <Box sx={{ overflow: 'hidden' }}>
         <Box className={classes.container}>
           <Box>

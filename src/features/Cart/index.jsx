@@ -2,6 +2,7 @@ import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { BG_COLOR } from '../../constants/index';
 import CartItem from './CartItem';
 import { addOnToCart, clearCart, dereaseOnCart, removeFromCart } from './cartSlice';
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  btncheckout: {
+  btnCheckout: {
     backgroundImage: `${BG_COLOR}`,
     color: 'white',
     padding: '8px',
@@ -156,8 +157,8 @@ function Cart(props) {
             <EmptyCart />
           ) : (
             <Box>
-              {cartItems.map((item) => (
-                <CartItem item={item} key={item.id} handleChange={handleChange} />
+              {cartItems.map((item, index) => (
+                <CartItem item={item} key={index} handleChange={handleChange} />
               ))}
             </Box>
           )}
@@ -175,7 +176,7 @@ function Cart(props) {
                     currency: 'VND',
                   }).format(total)}
                 </span>
-                <button className={classes.btncheckout}>Check Out</button>
+                <button className={classes.btnCheckout}>Check Out</button>
               </Box>
             </Box>
           </Box>

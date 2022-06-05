@@ -29,6 +29,7 @@ body {
   font-family: -apple-system, 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 
 }
 header {

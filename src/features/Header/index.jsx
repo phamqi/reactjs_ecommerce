@@ -1,8 +1,5 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -12,26 +9,23 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import * as React from 'react';
-import { useState, useCallback, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+
 import productApi from '../../api/productApi';
-import { BG_COLOR } from '../../constants/index';
 import Login from '../Auth/components/Login';
 import Register from '../Auth/components/Register';
 import { logout } from '../Auth/userSlice';
+import MiniCart from '../Cart/MiniCart';
 import { cartItemsCountSelector } from '../Cart/selector';
-import Product from '../Products/components/Product';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import useCategoryList from '../Products/hook/useCategoryList';
 import GoToByCategory from '../Products/components/GoToByCategory';
-import NavBarMobie from './NavBarMobie';
+import Product from '../Products/components/Product';
+import useCategoryList from '../Products/hook/useCategoryList';
+import NavBarMobile from './NavBarMobile';
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -86,7 +80,7 @@ function Header(props) {
     },
     headerBotFixed: {
       borderBottom: '1px solid rgba(0,0,0,0.5)',
-      zIndex: '9999',
+      zIndex: '999',
       position: 'fixed',
       top: '0',
       left: '0',
@@ -100,7 +94,7 @@ function Header(props) {
     headerBotS: {
       width: '100%',
       maxWidth: '1200px',
-      padding: '0px 10px',
+      padding: '0px 15px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -121,7 +115,7 @@ function Header(props) {
         },
       },
     },
-    headerul: {
+    headerUl: {
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
@@ -139,16 +133,16 @@ function Header(props) {
         },
       },
     },
-    liuser: {
+    liUser: {
       position: 'relative',
-      '&:hover #uluser': {
+      '&:hover $ulUser': {
         opacity: '1',
         visibility: 'visible',
       },
     },
-    uluser: {
+    ulUser: {
       backgroundColor: 'white',
-      top: '85%',
+      top: '70%',
       right: '0',
       visibility: 'hidden',
       position: 'absolute',
@@ -208,8 +202,7 @@ function Header(props) {
       },
       '&::-webkit-scrollbar-thumb': {
         borderRadius: '10px',
-        backgroundImage:
-          '-webkit-gradient(linear,left bottom, left top,color-stop(0.44, rgb(122,153,217)),color-stop(0.72, rgb(73,125,189)),color-stop(0.86, rgb(28,58,148)))',
+        backgroundImage: '#888',
       },
       '& > div': {
         padding: '0',
@@ -276,14 +269,50 @@ function Header(props) {
         top: '0px',
       },
     },
+    btnCart: {
+      backgroundColor: 'transparent',
+      margin: '0',
+      padding: '0',
+      border: 'none',
+    },
+    dialogMiniCart: {
+      display: 'block',
+      '& .MuiDialog-container ': {
+        position: 'relative',
+        justifyContent: 'flex-end',
+        '& .MuiPaper-root': {
+          width: 'max(60vw, min(100vw, (calc((600px - 100vw)*99999))))',
+          margin: '0',
+          maxHeight: '100vh',
+          height: '100vh',
+          border: 'none',
+          borderRadius: '0',
+          maxWidth: '610px',
+          '& .MuiDialogContent-root ': {
+            overFlow: 'hidden',
+            padding: '0',
+            overflowY: 'hidden',
+          },
+        },
+      },
+    },
   }));
   const classes = useStyles();
   const loggedUser = useSelector((state) => state.user.current);
   const dispatch = useDispatch();
   const isLogged = loggedUser.id;
-  const [openLogin, setOpenLogin] = useState(false);
   const [mode, setMode] = useState(MODE.LOGIN);
   const [navBar, setNavBar] = useState(false);
+
+  const [openAuth, setOpenAuth] = useState(false);
+  const handleCloseAuth = () => {
+    setOpenAuth(false);
+  };
+
+  const [openMiniCart, setOpenMiniCart] = useState(false);
+  const handleCloseMiniCart = () => {
+    setOpenMiniCart(false);
+  };
 
   const [openSearch, setOpenSearch] = useState(false);
   const [listSearch, setListSearch] = useState([]);
@@ -301,10 +330,10 @@ function Header(props) {
     })();
   };
   const handleClickOpen = () => {
-    setOpenLogin(true);
+    setOpenAuth(true);
   };
   const handleClose = () => {
-    setOpenLogin(false);
+    setOpenAuth(false);
   };
   const handleLogOutClick = () => {
     dispatch(logout());
@@ -340,13 +369,13 @@ function Header(props) {
                   Buy for Freeship
                 </Typography>
                 <Box>
-                  <ul className={classes.headerul}>
+                  <ul className={classes.headerUl}>
                     <li>FAQs</li>
                     <li>Contact</li>
                     {isLogged ? (
-                      <li className={classes.liuser}>
-                        <a> {loggedUser.fullName.split(' ').pop()}</a>
-                        <ul id="uluser" className={classes.uluser}>
+                      <li className={classes.liUser}>
+                        <p> {loggedUser.fullName.split(' ').pop()}</p>
+                        <ul className={classes.ulUser}>
                           <li>
                             <Link to="/profiles">Profiles</Link>
                           </li>
@@ -377,7 +406,7 @@ function Header(props) {
                 <NavLink to="/about">About</NavLink>
               </Box>
             </Box>
-
+            {/*search */}
             <Box
               sx={{
                 width: { xs: '100%', sm: 'auto' },
@@ -437,20 +466,25 @@ function Header(props) {
                 )}
               </Box>
               <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
-                <NavLink to="/cart">
+                <button
+                  onClick={() => setOpenMiniCart(!openMiniCart)}
+                  className={classes.btnCart}
+                >
                   <IconButton sx={{ color: 'black' }}>
                     <Badge badgeContent={countItems} color="error">
                       <ShoppingCartIcon />
                     </Badge>
                   </IconButton>
-                </NavLink>
+                </button>
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
-      <NavBarMobie />
-      <Dialog open={openLogin} disableScrollLock={true}>
+      {/* Navbar mobile */}
+      <NavBarMobile />
+      {/* Login Register */}
+      <Dialog open={openAuth} disableScrollLock={true} onClose={handleCloseAuth}>
         <DialogContent
           sx={{
             maxWidth: '540px',
@@ -467,7 +501,7 @@ function Header(props) {
             <>
               <Login closeDialog={handleClose} />
               <Box className={classes.option}>
-                <span onClick={() => setMode(MODE.REGISTER)}>Singup</span>
+                <span onClick={() => setMode(MODE.REGISTER)}>Sign up</span>
               </Box>
             </>
           )}
@@ -475,10 +509,20 @@ function Header(props) {
             <>
               <Register redirectLogin={redirectLogin} />
               <Box className={classes.option}>
-                <span onClick={() => setMode(MODE.LOGIN)}>Singin</span>
+                <span onClick={() => setMode(MODE.LOGIN)}>Sign in</span>
               </Box>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        className={classes.dialogMiniCart}
+        open={openMiniCart}
+        disableScrollLock={true}
+        onClose={handleCloseMiniCart}
+      >
+        <DialogContent className={classes.dialogContent}>
+          <MiniCart onCloseMiniCart={handleCloseMiniCart} />
         </DialogContent>
       </Dialog>
     </div>

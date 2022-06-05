@@ -1,9 +1,8 @@
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './slide.scss';
-import { keyframes } from '@emotion/react';
 import { BANNER_HEIGHT } from '../../constants';
 
 Slide.propTypes = {
@@ -37,17 +36,26 @@ function Slide({ dataSlides }) {
       nextSlide();
     }
   };
-  const handleActiveSlide = (index) => {
+  const handleDotClick = (index) => {
     setCurrentSlide(index);
   };
-  console.log('render ');
+
+  const timeoutRef = useRef(null);
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
   useEffect(() => {
-    setTimeout(() => {
-      nextSlide();
+    resetTimeout();
+    timeoutRef.current = setTimeout(() => {
       SetFromX('70%');
-      console.log('render in useEffect');
+      setCurrentSlide(currentSlide === countSlide - 1 ? 0 : currentSlide + 1);
     }, 5000);
-  });
+    return () => {
+      resetTimeout();
+    };
+  }, [currentSlide, countSlide]);
   return (
     <div
       onTouchStart={handelMoveStart}
@@ -64,12 +72,12 @@ function Slide({ dataSlides }) {
                 ? 'carousel-slick-dot carousel-slick-dot__active'
                 : 'carousel-slick-dot'
             }
-            onClick={() => handleActiveSlide(index)}
+            onClick={() => handleDotClick(index)}
           ></li>
         ))}
       </ul>
       <button
-        onClick={() => prevSlide}
+        onClick={() => prevSlide()}
         className="carousel-button carousel-button__prev onhover"
       >
         <ArrowBackIosNewIcon />

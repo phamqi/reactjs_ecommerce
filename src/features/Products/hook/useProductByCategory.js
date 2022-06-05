@@ -18,6 +18,6 @@ export default function useProductByCategory(category) {
         setLoading(false);
       } catch (error) {}
     })();
-  }, [category]);
+  }, [params]);
   return { productList, loading };
 }

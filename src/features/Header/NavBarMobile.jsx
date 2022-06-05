@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles';
 
 import { cartItemsCountSelector } from '../Cart/selector';
 
-NavBarMobie.propTypes = {};
+NavBarMobile.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBarMobie(props) {
+function NavBarMobile(props) {
   const classes = useStyles();
   const countItems = useSelector(cartItemsCountSelector);
   const [pxX, setPxX] = useState(30);
@@ -86,4 +86,4 @@ function NavBarMobie(props) {
   );
 }
 
-export default memo(NavBarMobie);
+export default memo(NavBarMobile);

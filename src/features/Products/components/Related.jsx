@@ -16,14 +16,6 @@ Related.propTypes = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: { backgroundColor: 'white' },
-  relatedm: {
-    marginTop: '1.5rem',
-    backgroundColor: 'white',
-    position: 'relative',
-    overflowX: 'auto',
-    overflowY: 'hidden',
-  },
   related: {
     paddingBottom: '5px',
     margin: '1.5rem 0',
@@ -51,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '1rem',
     },
   },
-  relateds: {
+  root: {
     position: 'relative',
-    '&> button.btn': {
+    '&> button.btnNext': {
       padding: '0',
       margin: '0',
       height: '32px',
@@ -67,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
       bottom: '40%',
       right: '0',
     },
-    '&> button.btnn': {
+    '&> button.btnPrev': {
       padding: '0',
       margin: '0',
       height: '32px',
@@ -94,9 +86,9 @@ const useStyles = makeStyles((theme) => ({
 function Related({ category }) {
   const classes = useStyles();
   const [translate, setTranslate] = useState(0);
-  console.log('related rerender');
+
   const { productList, loading } = useProductByCategory(category);
-  console.log('product list by category', productList);
+
   const handleSetNext = () => {
     let a = 0;
     if (~~(window.innerWidth / 300) >= 4) {
@@ -112,7 +104,7 @@ function Related({ category }) {
   };
   const handleSetPrev = () => {
     const a = ~~(window.innerWidth / 300);
-    if (translate == 0) {
+    if (translate === 0) {
       handleSetNext();
     } else {
       setTranslate(translate + (10 / (6 - a)) * 10);
@@ -120,7 +112,7 @@ function Related({ category }) {
   };
 
   return (
-    <Box className={classes.relateds}>
+    <Box className={classes.root}>
       <Box
         className={classes.related}
         sx={{
@@ -150,14 +142,14 @@ function Related({ category }) {
       </Box>
       <Button
         onClick={handleSetPrev}
-        className="btnn"
+        className="btnPrev"
         sx={{ visibility: { xs: 'hidden', sm: 'hidden', md: 'visible' } }}
       >
         <ArrowBackIosOutlinedIcon />
       </Button>
       <Button
         onClick={handleSetNext}
-        className="btn"
+        className="btnNext"
         sx={{ visibility: { xs: 'hidden', sm: 'hidden', md: 'visible' } }}
       >
         <ArrowForwardIosIcon />

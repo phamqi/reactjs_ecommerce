@@ -19,18 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
   divpaper: {
     backgroundColor: '#fff',
-    '&:hover': {
-      boxShadow:
-        '0px 3px 1px -2px rgba(0,0,0,0.52),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.82)',
-    },
   },
   divName: { minHeight: '2.5rem' },
   name: {
+    color: '#999',
     display: 'inline-block',
     wordWrap: 'break-word',
     whiteSpace: 'normal',
     overflow: 'hidden',
-    display: '-webkit-box',
     textOverflow: 'ellipsis',
     lineHeight: '14px',
     fontSize: '.9rem',
@@ -41,41 +37,50 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    fontSize: '1.2rem',
-    color: '#ee4d2d',
+    fontSize: '1.05rem',
+    color: '#666',
     fontWeight: '500',
   },
   productImg: {
     width: '100%',
     objectFit: 'cover',
+    display: 'block',
+    overflow: 'hidden',
+    position: 'relative',
   },
   divimg: {
     display: 'block',
     position: 'relative',
     overflow: 'hidden',
-    '&:hover .btnBuy': {
-      bottom: '20%',
-    },
-    '&  .btnBuy': {
-      boxShadow: '1px 1px 1px grey',
-      transition: 'all 0.4s',
-      borderRadius: '20px',
-      border: '1px solid white',
-      bottom: '-50px',
-      position: 'absolute',
-      right: '0',
-      left: '0',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      backgroundColor: 'transparent',
-      width: '50%',
-      overflow: 'hidden',
-      color: 'white',
-      padding: '4px 24px',
-      '&:hover': {
-        backgroundColor: 'black',
-        border: 'none',
+    '&:hover': {
+      '& $btnBuy': {
+        bottom: '10%',
       },
+      '& $productImg': {
+        transform: 'scale(1.2)',
+        transition: 'all 0.7s ease-in-out',
+      },
+    },
+  },
+  btnBuy: {
+    boxShadow: '1px 1px 1px grey',
+    transition: 'all 0.4s',
+    borderRadius: '20px',
+    border: '1px solid white',
+    bottom: '-50px',
+    position: 'absolute',
+    right: '0',
+    left: '0',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    backgroundColor: 'transparent',
+    width: '50%',
+    overflow: 'hidden',
+    color: 'white',
+    padding: '4px 24px',
+    '&:hover': {
+      backgroundColor: 'white',
+      color: 'black',
     },
   },
   pricePercent: {
@@ -94,6 +99,7 @@ Product.propTypes = {
 function Product({ product }) {
   const classes = useStyles();
   const navigate = useNavigate();
+  const handleQuickView = (product) => {};
   const handleProductClick = () => {
     navigate(`/${product.name}_i${product.id}`);
     window.scrollTo(0, 0);
@@ -115,8 +121,11 @@ function Product({ product }) {
               alt={product.name}
               width="100%"
             />
+            <button onClick={() => handleQuickView()} className={classes.btnBuy}>
+              Buy
+            </button>
           </Box>
-          <Box sx={{ cursor: 'pointer' }}>
+          <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
             <div className={classes.divName}>
               <p title={product.name} className={classes.name}>
                 {product.name}

@@ -4,8 +4,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IMG_URL, STATIC_HOST } from '../../constants/index';
+import { addToCart } from './cartSlice';
 CartItem.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     marginLeft: 'max(0px, min(1rem, calc((900px - 100vw ) * 99999)))',
   },
-  img_cart: {
+  imgCart: {
     width: '85px',
     height: '85px',
     objectFit: 'cover',
@@ -86,11 +87,11 @@ const useStyles = makeStyles((theme) => ({
     color: '#ee4d2d',
     fontWeight: '500',
   },
-  nameprice: {
+  infor: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '75px',
-    '& > a': {
+    '& > $name': {
       minHeight: '34px',
       color: 'black',
       textDecoration: 'none',
@@ -99,14 +100,13 @@ const useStyles = makeStyles((theme) => ({
       wordWrap: 'break-word',
       whiteSpace: 'normal',
       overflow: 'hidden',
-      display: '-webkit-box',
       textOverflow: 'ellipsis',
       lineHeight: '17px',
       '-webkit-box-orient': 'vertical',
       '-webkit-line-clamp': '2',
     },
   },
-  btnoption: {
+  btnOption: {
     '& > button > svg': {
       fontSize: '1rem',
       color: 'black',
@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  divoption: {
+  divOption: {
     width: '10rem',
     marginRight: 'max(0px, min(1rem, calc((100vw - 899px) * 99999)))',
     textAlign: 'center',
@@ -153,7 +153,12 @@ function CartItem({ item, handleChange }) {
   const handleRemove = async (item) => {
     handleChange(item, 1);
   };
-
+  const onChange = () => {};
+  const navigate = useNavigate();
+  const handleProductClick = () => {
+    navigate(`/${item.product.name}_i${item.product.id}`);
+    window.scrollTo(0, 0);
+  };
   const [activeDiv, setActiveDiv] = useState();
   const [toggle, setToggle] = useState(false);
   var startX, moveX;
@@ -182,7 +187,7 @@ function CartItem({ item, handleChange }) {
     >
       <Box>
         <img
-          className={classes.img_cart}
+          className={classes.imgCart}
           src={`${
             item.product.thumbnail ? STATIC_HOST + item.product.thumbnail?.url : IMG_URL
           }`}
@@ -198,8 +203,10 @@ function CartItem({ item, handleChange }) {
           className={classes.inforCart}
           sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
         >
-          <Box className={classes.nameprice}>
-            <Link to={item.product.name + '_i' + item.id}>{item.product.name}</Link>
+          <Box className={classes.infor}>
+            <p className={classes.name} onClick={() => handleProductClick()}>
+              {item.product.name}
+            </p>
             <p className={classes.price}>{item.product.salePrice}</p>
           </Box>
           <Box
@@ -218,7 +225,7 @@ function CartItem({ item, handleChange }) {
                 type="number"
                 name="quantity"
                 value={item.quantity}
-                onChange=""
+                onChange={() => onChange()}
               />
               <IconButton
                 className={classes.button}
@@ -231,7 +238,7 @@ function CartItem({ item, handleChange }) {
         </Box>
         <Box
           sx={{ visibility: { xs: 'visible', sm: 'visible', md: 'hidden' } }}
-          className={classes.btnoption}
+          className={classes.btnOption}
         >
           <Button
             onClick={() => {
@@ -252,7 +259,7 @@ function CartItem({ item, handleChange }) {
           position: { xs: 'absolute', sm: 'absolute', md: 'relative' },
           flexDirection: { xs: 'row ', sm: 'row', md: 'column' },
         }}
-        className={classes.divoption}
+        className={classes.divOption}
       >
         <Button
           sx={{

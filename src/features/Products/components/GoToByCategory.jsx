@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
   },
   a: {
+    cursor: 'pointer',
     margin: '2px 5px',
     color: 'black',
     padding: '3px',
@@ -61,7 +62,7 @@ function GoToByCategory({ categoryList, categoryOnLoad }) {
           <h1>Dang load</h1>
         ) : (
           categoryList.map((category) => (
-            <a
+            <p
               key={category.id}
               onClick={() => {
                 handleCategoryClick(category);
@@ -69,7 +70,7 @@ function GoToByCategory({ categoryList, categoryOnLoad }) {
               className={classes.a}
             >
               {category.name}
-            </a>
+            </p>
           ))
         )}
       </Box>

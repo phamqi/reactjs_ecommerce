@@ -67,10 +67,10 @@
       box-shadow: 1px 2px 2px black;
       display: inline-block;
       cursor: pointer;
-      width: 0.75rem;
-      height: 0.75rem;
-      margin: 2px 25px;
-      padding: 0px;
+      width: 0.65rem;
+      height: 0.65rem;
+      margin: 2px 20px;
+      padding: 0;
       background-color: rgb(255, 255, 255);
       border-radius: 50%;
       outline: none;
@@ -93,7 +93,7 @@
       animation: slideAnimation 0.5s ease-in-out;
     }
   }
-  &:hover .onhover {
+  &:hover .onHover {
     opacity: 1;
   }
 }

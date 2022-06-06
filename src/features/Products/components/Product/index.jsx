@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   divName: { minHeight: '2.5rem' },
   name: {
     color: '#999',
-    display: 'inline-block',
+    display: '-webkit-box',
     wordWrap: 'break-word',
     whiteSpace: 'normal',
     overflow: 'hidden',
@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.05rem',
     color: '#666',
     fontWeight: '500',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': '2',
   },
   productImg: {
     width: '100%',
@@ -96,10 +99,12 @@ Product.propTypes = {
   product: PropTypes.object,
 };
 
-function Product({ product }) {
+function Product({ product, onQuickView }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const handleQuickView = (product) => {};
+  const handleQuickView = (product) => {
+    onQuickView(product);
+  };
   const handleProductClick = () => {
     navigate(`/${product.name}_i${product.id}`);
     window.scrollTo(0, 0);
@@ -108,7 +113,7 @@ function Product({ product }) {
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
   return (
-    <Box className={classes.root} padding={1} onClick={handleProductClick}>
+    <Box className={classes.root} padding={1}>
       <Box className={classes.divpaper}>
         <Box padding={1}>
           <Box
@@ -121,12 +126,12 @@ function Product({ product }) {
               alt={product.name}
               width="100%"
             />
-            <button onClick={() => handleQuickView()} className={classes.btnBuy}>
+            <button onClick={() => handleQuickView(product)} className={classes.btnBuy}>
               Buy
             </button>
           </Box>
           <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
-            <div className={classes.divName}>
+            <div className={classes.divName} onClick={handleProductClick}>
               <p title={product.name} className={classes.name}>
                 {product.name}
               </p>

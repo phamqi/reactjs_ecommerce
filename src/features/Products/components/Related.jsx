@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '&> div > div': { width: '100%' },
     '&> h2': {
-      marginLeft: '1rem',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: 'fit-content',
     },
   },
   root: {
@@ -79,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'hidden',
     '& .relatedSke': {
       flexWrap: 'nowrap',
-      height: '168',
+      height: '168px',
     },
   },
 }));

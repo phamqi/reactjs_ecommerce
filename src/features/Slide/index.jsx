@@ -78,7 +78,7 @@ function Slide({ dataSlides }) {
       </ul>
       <button
         onClick={() => prevSlide()}
-        className="carousel-button carousel-button__prev onhover"
+        className="carousel-button carousel-button__prev onHover"
       >
         <ArrowBackIosNewIcon />
       </button>

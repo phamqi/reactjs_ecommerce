@@ -11,7 +11,6 @@ export default function useProductList(queryParams) {
     (async () => {
       try {
         const { data, pagination } = await productApi.getAll(queryParams);
-        console.log('List product', data, pagination);
         setProductList(data);
         setPagination(pagination);
       } catch (error) {

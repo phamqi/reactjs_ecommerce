@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#333',
   },
   btnCloseMiniCart: {
-    height: '40px',
     textTransform: 'uppercase',
     border: 'none',
     borderRadius: '20px',
@@ -41,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'transparent',
     '&:hover': {
       color: '#717fe0',
+    },
+    '& svg': {
+      fontSize: '2rem',
     },
   },
   headerCartContent: {
@@ -153,6 +155,7 @@ function MiniCart({ onCloseMiniCart }) {
   const navigate = useNavigate();
   const handleProductClick = (item) => {
     navigate(`/${item.product.name}_i${item.product.id}`);
+    onCloseMiniCart();
     window.scrollTo(0, 0);
   };
   return (

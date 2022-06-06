@@ -26,6 +26,7 @@ import GoToByCategory from '../Products/components/GoToByCategory';
 import Product from '../Products/components/Product';
 import useCategoryList from '../Products/hook/useCategoryList';
 import NavBarMobile from './NavBarMobile';
+import SearchBox from './SearchBox';
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -33,6 +34,11 @@ const MODE = {
 Header.propTypes = {};
 
 function Header(props) {
+  const [openMiniCart, setOpenMiniCart] = useState(false);
+  const handleCloseMiniCart = () => {
+    setOpenMiniCart(false);
+  };
+
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
@@ -164,83 +170,13 @@ function Header(props) {
         },
       },
     },
-    searchBox: {
-      boxSizing: 'border-box',
-      boxShadow:
-        '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
-      borderRadius: '4px',
-      position: 'absolute',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      '&  input': {
-        boxSizing: 'border-box',
-        width: 'max(100%, min(30vw, calc((100vw - 600px) * 99999)))',
-        fontSize: '1rem',
-        padding: '5px 0px 5px 15px',
-        height: '32px',
-        borderRadius: '2px',
-        border: 'none',
-      },
-      '&  input:focus': {
-        outline: 'none',
-      },
-    },
-    productBox: {
-      maxHeight: '60vh',
-      minHeight: '30vh',
-      backgroundColor: 'rgba(255,255,255,0.8)',
-      opacity: '1',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      '&::-webkit-scrollbar': {
-        width: '0.5rem',
-      },
-      '&::-webkit-scrollbar-track': {
-        '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.3)',
-        backgroundColor: '#F5F5F5',
-        borderRadius: '10px',
-      },
-      '&::-webkit-scrollbar-thumb': {
-        borderRadius: '10px',
-        backgroundImage: '#888',
-      },
-      '& > div': {
-        padding: '0',
-        width: '100%',
-        opacity: '1',
-      },
-    },
     container: {
       maxWidth: '1200px',
       width: '100%',
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-    boxInput: {
-      '&> button.btnCloseSearch': {
-        position: 'absolute',
-        top: '0',
-        right: '0',
-        height: '26px',
-        margin: '3px',
-        boxSizing: 'content-box',
-        backgroundColor: 'transparent',
-        minWidth: '35px',
-        padding: '0',
-        fontSize: '1rem',
-        color: 'black',
-        borderRadius: '2px',
-      },
-    },
-    iconSearchOff: {
-      textAlign: 'center',
-      margin: '0',
-      '& > svg': {
-        color: 'rgba(128,128,128, 0.5)',
-        fontSize: '3rem',
-        marginTop: '20%',
-      },
-    },
+
     option: {
       textAlign: 'center',
       cursor: 'pointer',
@@ -288,12 +224,35 @@ function Header(props) {
           border: 'none',
           borderRadius: '0',
           maxWidth: '610px',
+          animation: `${
+            openMiniCart ? '$dialogAnimation' : '$dialogAnimationExit'
+          } 0.5s ease-in-out`,
           '& .MuiDialogContent-root ': {
             overFlow: 'hidden',
             padding: '0',
             overflowY: 'hidden',
           },
         },
+      },
+    },
+    '@keyframes dialogAnimation': {
+      '0%': {
+        opacity: '0',
+        transform: 'translateX(100%)',
+      },
+      '100%': {
+        opacity: '1',
+        transform: 'translateX(0%)',
+      },
+    },
+    '@keyframes dialogAnimationExit': {
+      '0%': {
+        opacity: '1',
+        transform: 'translateX(0%)',
+      },
+      '100%': {
+        opacity: '0',
+        transform: 'translateX(100%)',
       },
     },
   }));
@@ -309,25 +268,10 @@ function Header(props) {
     setOpenAuth(false);
   };
 
-  const [openMiniCart, setOpenMiniCart] = useState(false);
-  const handleCloseMiniCart = () => {
-    setOpenMiniCart(false);
-  };
-
   const [openSearch, setOpenSearch] = useState(false);
-  const [listSearch, setListSearch] = useState([]);
-  const [loadSearch, setLoadSearch] = useState(false);
+
   const redirectLogin = () => {
     setMode(MODE.LOGIN);
-  };
-  const onChangeSearch = (e) => {
-    (async () => {
-      try {
-        const data = await productApi.search(e.target.value);
-        setListSearch(data);
-        setLoadSearch(true);
-      } catch (error) {}
-    })();
   };
   const handleClickOpen = () => {
     setOpenAuth(true);
@@ -338,9 +282,11 @@ function Header(props) {
   const handleLogOutClick = () => {
     dispatch(logout());
   };
+
   const handelSearchClick = () => {
     setOpenSearch(true);
   };
+
   const navBarOnScroll = () => {
     if (window.scrollY >= 40) {
       setNavBar(true);
@@ -348,15 +294,15 @@ function Header(props) {
       setNavBar(false);
     }
   };
-  window.addEventListener('scroll', navBarOnScroll);
-
+  React.useEffect(() => {
+    window.addEventListener('scroll', navBarOnScroll);
+  }, []);
+  console.log('header rerender');
   const handleChangeSearch = () => {
     setOpenSearch(false);
   };
 
   const countItems = useSelector(cartItemsCountSelector);
-
-  const { categoryList, categoryOnLoad } = useCategoryList();
 
   return (
     <div className={classes.root}>
@@ -423,47 +369,7 @@ function Header(props) {
                 >
                   <SearchIcon />
                 </IconButton>
-                {openSearch ? (
-                  <Box
-                    sx={{
-                      maxWidth: '620px',
-                      width: { xs: '100vw', sm: '40vw' },
-                      top: { xs: '0', sm: '20%' },
-                      right: { xs: '-36%', sm: '20%' },
-                    }}
-                    className={classes.searchBox}
-                  >
-                    <Box className={classes.boxInput}>
-                      <input
-                        type="text"
-                        onChange={(e) => onChangeSearch(e)}
-                        placeholder="Search..."
-                      />
-                      <Button className="btnCloseSearch" onClick={handleChangeSearch}>
-                        <CloseIcon />
-                      </Button>
-                    </Box>
-                    <Box>
-                      <Box className={classes.productBox}>
-                        {loadSearch ? (
-                          listSearch.map((item) => <Product product={item} />)
-                        ) : (
-                          <h2 className={classes.iconSearchOff}>
-                            <SearchOffIcon />
-                          </h2>
-                        )}
-                      </Box>
-                      <Box sx={{ backgroundColor: 'white' }}>
-                        <GoToByCategory
-                          categoryList={categoryList}
-                          categoryOnLoad={categoryOnLoad}
-                        />
-                      </Box>
-                    </Box>
-                  </Box>
-                ) : (
-                  ''
-                )}
+                {openSearch ? <SearchBox handleChangeSearch={handleChangeSearch} /> : ''}
               </Box>
               <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
                 <button

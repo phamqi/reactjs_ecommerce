@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
@@ -85,10 +85,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function SearchBox({ handleChangeSearch }) {
+function SearchBox(props) {
   const classes = useStyles();
   const [listSearch, setListSearch] = useState([]);
   const [loadSearch, setLoadSearch] = useState(false);
+  const [openSearch, setOpenSearch] = useState(false);
+
+  const handelSearchClick = () => {
+    setOpenSearch(true);
+  };
+  const handleChangeSearch = () => {
+    setOpenSearch(false);
+  };
   const onChangeSearch = (e) => {
     (async () => {
       try {
@@ -99,33 +107,50 @@ function SearchBox({ handleChangeSearch }) {
     })();
   };
   return (
-    <Box
-      sx={{
-        maxWidth: '620px',
-        width: { xs: '100vw', sm: '40vw' },
-        top: { xs: '0', sm: '20%' },
-        right: { xs: '-36%', sm: '20%' },
-      }}
-      className={classes.searchBox}
-    >
-      <Box className={classes.boxInput}>
-        <input type="text" onChange={(e) => onChangeSearch(e)} placeholder="Search..." />
-        <Button className="btnCloseSearch" onClick={handleChangeSearch}>
-          <CloseIcon />
-        </Button>
-      </Box>
-      <Box>
-        <Box className={classes.productBox}>
-          {loadSearch ? (
-            listSearch.map((item) => <Product product={item} />)
-          ) : (
-            <h2 className={classes.iconSearchOff}>
-              <SearchOffIcon />
-            </h2>
-          )}
+    <Box sx={{ position: 'relative' }}>
+      <IconButton
+        onClick={handelSearchClick}
+        aria-label="menu"
+        sx={{ my: 1, mx: 1, px: 1, color: 'black' }}
+      >
+        <SearchIcon />
+      </IconButton>
+      {openSearch ? (
+        <Box
+          sx={{
+            maxWidth: '620px',
+            width: { xs: '100vw', sm: '40vw' },
+            top: { xs: '0', sm: '20%' },
+            right: { xs: '-36%', sm: '20%' },
+          }}
+          className={classes.searchBox}
+        >
+          <Box className={classes.boxInput}>
+            <input
+              type="text"
+              onChange={(e) => onChangeSearch(e)}
+              placeholder="Search..."
+            />
+            <Button className="btnCloseSearch" onClick={handleChangeSearch}>
+              <CloseIcon />
+            </Button>
+          </Box>
+          <Box>
+            <Box className={classes.productBox}>
+              {loadSearch ? (
+                listSearch.map((item) => <Product product={item} />)
+              ) : (
+                <h2 className={classes.iconSearchOff}>
+                  <SearchOffIcon />
+                </h2>
+              )}
+            </Box>
+            <Box sx={{ backgroundColor: 'white' }}></Box>
+          </Box>
         </Box>
-        <Box sx={{ backgroundColor: 'white' }}></Box>
-      </Box>
+      ) : (
+        ''
+      )}
     </Box>
   );
 }

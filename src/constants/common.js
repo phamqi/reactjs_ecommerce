@@ -6,4 +6,5 @@ export const URLS = ['/auth/local/register', '/auth/local'];
 export const LIMIT = 12;
 export const HEIGHT_SKT = 268;
 export const BANNER_IMG = 'https://i.imgur.com/Puqzh44.jpeg';
-export const BANNER_HEIGHT = 'calc(100vh - 40px)';
+export const SLIDE_HEIGHT = '100vh';
+export const IMG_EMPTY_CART = 'https://i.imgur.com/L13XiaV.png';

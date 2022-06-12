@@ -125,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
     top: '0',
     bottom: '0',
     display: 'flex',
+    justifyContent: 'space-around',
     '& > a': {
       textDecoration: 'none',
     },
@@ -132,6 +133,9 @@ const useStyles = makeStyles((theme) => ({
       textTransform: 'none',
       borderRadius: '0',
       width: '100%',
+      '&:hover': {
+        color: 'black',
+      },
     },
   },
   iconActive: {
@@ -283,7 +287,6 @@ function CartItem({ item, handleChange }) {
               md: 'transparent',
             },
           }}
-          className="btnRemove"
           onClick={() => {
             handleRemove(item);
           }}

@@ -6,20 +6,21 @@ import React, { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
-
-import Slide from '../../Slide';
-import Banner from '../../Banner';
-import { dataSlides } from '../../Slide/dataSlides';
-import ProductFilters from '../components/Filters';
-import ProductSort from '../components/ProductSort';
-import SkeletonProduct from '../components/skeletonProduct';
-import useProductList from '../hook/useProductList';
-import Product from '../components/Product';
-import ProductThumnail from '../components/ProductThumnail';
-import ProductInfor from '../components/ProductInfor';
-import AddToCartForm from '../components/AddToCartForm';
+import { useSnackbar } from 'notistack';
+import { dataSlides } from '../features/Slide/dataSlides';
+import useProductList from '../features/Products/hook/useProductList';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../Cart/cartSlice';
+import { addToCart } from '../features/Cart/cartSlice';
+import Slide from '../features/Slide';
+import Banner from '../features/Banner';
+import ProductSort from '../features/Products/components/ProductSort';
+import SkeletonProduct from '../features/Products/components/skeletonProduct';
+import Product from '../features/Products/components/Product';
+import ProductFilters from '../features/Products/components/Filters';
+import ProductThumnail from '../features/Products/components/ProductThumnail';
+import ProductInfor from '../features/Products/components/ProductInfor';
+import AddToCartForm from '../features/Products/components/AddToCartForm';
+
 MainPage.propTypes = {};
 const theme = createTheme({
   breakpoints: {
@@ -66,19 +67,23 @@ const useStyles = makeStyles((theme) => ({
       position: 'relative',
       justifyContent: 'center',
       '& .MuiPaper-root': {
-        width: 'max(60vw, min(100vw, (calc((600px - 100vw)*99999))))',
+        width: 'max(80vw, min(100vw, (calc((600px - 100vw)*99999))))',
         margin: '0',
         height: 'max(100%, min(100vw, (calc((600px - 100vw)*99999))))',
         border: 'none',
         borderRadius: '8px',
-        maxWidth: '610px',
+        maxWidth: '1200px',
         '& .MuiDialogContent-root ': {
           overFlow: 'hidden',
-          padding: '20px',
+          padding: '20px 24px',
           overflowY: 'hidden',
         },
       },
     },
+  },
+  handleQuickView: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   btnCloseQuickView: {
     textTransform: 'uppercase',
@@ -148,12 +153,13 @@ function MainPage() {
   const [productQuickView, setProductQuickView] = useState();
   const onQuickView = (product) => {
     setProductQuickView(product);
-    console.log('quick view', product);
     setOpenQuickView(true);
   };
   const handleCloseQuickView = () => {
     setOpenQuickView(false);
   };
+
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const handleAddToCartSubmit = async (values) => {
     try {
@@ -163,17 +169,18 @@ function MainPage() {
         quantity: values.quantity,
       });
       await dispatch(action);
+      enqueueSnackbar('Add to cart successfully', { variant: 'success' });
     } catch (error) {
       console.log('loi o details', error);
     }
   };
   return (
     <div>
-      <div className={classes.grid}>
-        <div className={classes.carousel + ' ' + classes.gridItem}>
+      <div>
+        <div className={classes.carousel}>
           <Slide dataSlides={data} />
         </div>
-        <div className={classes.banner + ' ' + classes.gridItem}>
+        <div className={classes.banner}>
           <Banner />
         </div>
       </div>
@@ -238,9 +245,11 @@ function MainPage() {
         onClose={handleCloseQuickView}
       >
         <DialogContent className={classes.dialogContent}>
-          <button onClick={handleCloseQuickView} className={classes.btnCloseQuickView}>
-            <CloseIcon />
-          </button>
+          <div className={classes.handleQuickView}>
+            <button onClick={handleCloseQuickView} className={classes.btnCloseQuickView}>
+              <CloseIcon />
+            </button>
+          </div>
           <Grid container>
             <Grid item xs={12} sm={6} md={5} lg={5}>
               <ProductThumnail product={productQuickView} />

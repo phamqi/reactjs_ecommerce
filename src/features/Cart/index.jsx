@@ -1,11 +1,13 @@
 import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useSnackbar } from 'notistack';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { BG_COLOR } from '../../constants/index';
 import CartItem from './CartItem';
-import { addOnToCart, clearCart, dereaseOnCart, removeFromCart } from './cartSlice';
+import { addOnToCart, clearCart, decreaseOnCart, removeFromCart } from './cartSlice';
 import EmptyCart from './EmptyCart';
 import { cartTotalSelector } from './selector';
 
@@ -85,6 +87,7 @@ function Cart(props) {
   const classes = useStyles();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const total = useSelector(cartTotalSelector);
+
   const handleChange = async (item, typeHandle) => {
     //1: xoa san pham
     //2: them 1 sam pham
@@ -94,10 +97,7 @@ function Cart(props) {
       try {
         const action = removeFromCart({ id: item.id });
         dispatch(action);
-        console.log('xoa thanh cong handle remove');
-      } catch (error) {
-        console.log('loi khi xoa', error);
-      }
+      } catch (error) {}
     }
     if (typeHandle === 2) {
       console.log(typeHandle);
@@ -108,15 +108,12 @@ function Cart(props) {
           quantity: item.quantity,
         });
         await dispatch(action);
-        console.log('them moi thnah cong', action);
-      } catch (error) {
-        console.log('loi o details', error);
-      }
+      } catch (error) {}
     }
     if (typeHandle === 3) {
       console.log(typeHandle);
       try {
-        const action = dereaseOnCart({
+        const action = decreaseOnCart({
           id: item.id,
           quantity: item.quantity,
         });
@@ -134,21 +131,30 @@ function Cart(props) {
 
   const div_items = useRef();
   useEffect(() => {
-    if (window.innerHeight > div_items.current.clientHeight) {
-      setStaticCheckout(true);
+    try {
+      if (window.innerHeight > div_items.current.clientHeight) {
+        setStaticCheckout(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, []);
   useEffect(() => {
     window.addEventListener('scroll', function () {
-      if (window.scrollY + window.innerHeight > div_items.current.clientHeight - 100) {
-        setStaticCheckout(true);
-      }
-      if (window.scrollY + window.innerHeight < div_items.current.clientHeight - 100) {
-        setStaticCheckout(false);
+      try {
+        if (window.scrollY + window.innerHeight > div_items.current.clientHeight - 100) {
+          setStaticCheckout(true);
+        }
+        if (window.scrollY + window.innerHeight < div_items.current.clientHeight - 100) {
+          setStaticCheckout(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
     });
   }, []);
-
+  const params = useParams();
+  console.log('params', params);
   return (
     <div className="cartpage">
       <Box>
@@ -160,26 +166,26 @@ function Cart(props) {
               {cartItems.map((item, index) => (
                 <CartItem item={item} key={index} handleChange={handleChange} />
               ))}
-            </Box>
-          )}
-          <Box className={classes.checkout}>
-            <Button onClick={() => handleClearCart}>Clear</Button>
-            <Box
-              id="div_checkout"
-              className={staticCheckout ? classes.checkouttotal : classes.static}
-            >
-              <Box className={classes.setwidth}>
-                <span className={classes.pricetotal}>
-                  <span>Total: </span>
-                  {new Intl.NumberFormat('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND',
-                  }).format(total)}
-                </span>
-                <button className={classes.btnCheckout}>Check Out</button>
+              <Box className={classes.checkout}>
+                <Button onClick={() => handleClearCart}>Clear</Button>
+                <Box
+                  id="div_checkout"
+                  className={staticCheckout ? classes.checkouttotal : classes.static}
+                >
+                  <Box className={classes.setwidth}>
+                    <span className={classes.pricetotal}>
+                      <span>Total: </span>
+                      {new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                      }).format(total)}
+                    </span>
+                    <button className={classes.btnCheckout}>Check Out</button>
+                  </Box>
+                </Box>
               </Box>
             </Box>
-          </Box>
+          )}
         </Box>
       </Box>
     </div>

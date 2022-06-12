@@ -19,6 +19,7 @@ function Register({ redirectLogin }) {
       const action = register(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
+
       enqueueSnackbar('Register Successfully', { variant: 'success' });
       if (redirectLogin) {
         redirectLogin();

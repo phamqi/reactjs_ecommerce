@@ -3,8 +3,8 @@ import Error404 from './components/Error404';
 import Cart from './features/Cart';
 import Footer from './features/Footer';
 import Header from './features/Header';
-import DetailPage from './features/Products/pages/DetailPage';
-import MainPage from './features/Products/pages/MainPage';
+import DetailPage from './pages/DetailPage';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (

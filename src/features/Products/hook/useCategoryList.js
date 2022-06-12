@@ -18,13 +18,11 @@ export default function useCategoryList() {
           setCategoryList(list);
           localStorage.setItem(StorageKeys.CATEGORY, JSON.stringify(list));
           setCategoryOnLoad(false);
-          console.log('2:', categoryList);
         } catch (error) {
           console.log('Error');
         }
       })();
     } else {
-      console.log('3:', categoryList);
       setCategoryOnLoad(false);
     }
   }, []);

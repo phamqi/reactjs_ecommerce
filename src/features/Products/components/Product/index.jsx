@@ -4,21 +4,13 @@ import { Box } from '@mui/system';
 import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
 import { useNavigate, useLocation } from 'react-router';
 import { makeStyles } from '@mui/styles';
-import { Paper, Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import addToCart from '../../../Cart/cartSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     boxSizing: 'border-box',
-    '&:hover divpaper': {
-      boxShadow:
-        '0px 3px 1px -2px rgb(0 0 0 / 60%), 0px 2px 2px 0px rgb(0 0 0 / 64%), 0px 1px 5px 0px rgb(0 0 0 / 62%)',
-    },
-  },
-  divpaper: {
-    backgroundColor: '#fff',
+    padding: '15px',
+    paddingBottom: '35px',
   },
   divName: { minHeight: '2.5rem' },
   name: {
@@ -28,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineHeight: '14px',
+    lineHeight: '1.3',
     fontSize: '.9rem',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': '2',
@@ -51,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     position: 'relative',
   },
-  divimg: {
+  divImg: {
     display: 'block',
     position: 'relative',
     overflow: 'hidden',
@@ -66,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   btnBuy: {
+    fontSize: '1rem',
     boxShadow: '1px 1px 1px grey',
     transition: 'all 0.4s',
     borderRadius: '20px',
@@ -80,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
     overflow: 'hidden',
     color: 'white',
-    padding: '4px 24px',
+    padding: '4px 0',
     '&:hover': {
       backgroundColor: 'white',
       color: 'black',
@@ -113,42 +106,40 @@ function Product({ product, onQuickView }) {
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
   return (
-    <Box className={classes.root} padding={1}>
-      <Box className={classes.divpaper}>
-        <Box padding={1}>
-          <Box
-            className={classes.divimg}
-            sx={{ display: 'block', overflow: 'hidden', position: 'relative' }}
-          >
-            <img
-              className={classes.productImg}
-              src={thumbnailUrl}
-              alt={product.name}
-              width="100%"
-            />
-            <button onClick={() => handleQuickView(product)} className={classes.btnBuy}>
-              Buy
-            </button>
-          </Box>
-          <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
-            <div className={classes.divName} onClick={handleProductClick}>
-              <p title={product.name} className={classes.name}>
-                {product.name}
-              </p>
-            </div>
-            <span className={classes.price}>
-              {new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND',
-              }).format(product.originalPrice)}
-            </span>
+    <Box className={classes.root}>
+      <Box>
+        <Box
+          className={classes.divImg}
+          sx={{ display: 'block', overflow: 'hidden', position: 'relative' }}
+        >
+          <img
+            className={classes.productImg}
+            src={thumbnailUrl}
+            alt={product.name}
+            width="100%"
+          />
+          <button onClick={() => handleQuickView(product)} className={classes.btnBuy}>
+            Buy
+          </button>
+        </Box>
+        <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
+          <div className={classes.divName} onClick={handleProductClick}>
+            <p title={product.name} className={classes.name}>
+              {product.name}
+            </p>
+          </div>
+          <span className={classes.price}>
+            {new Intl.NumberFormat('vi-VN', {
+              style: 'currency',
+              currency: 'VND',
+            }).format(product.originalPrice)}
+          </span>
 
-            {product.promotionPercent ? (
-              <span className={classes.pricePercent}> -{product.promotionPercent}% </span>
-            ) : (
-              ``
-            )}
-          </Box>
+          {product.promotionPercent ? (
+            <span className={classes.pricePercent}> -{product.promotionPercent}% </span>
+          ) : (
+            ``
+          )}
         </Box>
       </Box>
     </Box>

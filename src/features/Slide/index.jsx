@@ -3,7 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, { useState, memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './slide.scss';
-import { BANNER_HEIGHT } from '../../constants';
+import { SLIDE_HEIGHT } from '../../constants';
 
 Slide.propTypes = {
   dataSlides: PropTypes.array,
@@ -89,12 +89,11 @@ function Slide({ dataSlides }) {
         <ArrowForwardIosIcon />
       </button>
       <div
-        style={{ width: '100%', height: `${BANNER_HEIGHT}` }}
+        style={{ width: '100%', height: `${SLIDE_HEIGHT}`, '--from': `${fromX}` }}
         className="carousel-list"
       >
         {dataSlides.map((slide, index) => (
           <div
-            style={{ '--from': `${fromX}` }}
             key={slide.id}
             className={
               index === currentSlide

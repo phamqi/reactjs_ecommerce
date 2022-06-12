@@ -14,7 +14,8 @@ import { Box } from '@mui/system';
 import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
+import { boolean } from 'yup';
 
 import productApi from '../../api/productApi';
 import Login from '../Auth/components/Login';
@@ -68,7 +69,6 @@ function Header(props) {
     },
     headerBot: {
       display: 'flex',
-      position: 'fixed',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row ',
@@ -76,13 +76,21 @@ function Header(props) {
       left: '0',
       width: '100%',
       zIndex: '9',
-
       '&> a': {
         color: 'black',
         fontSize: '1.2rem',
         padding: '8px 20px 8px 20px',
         transitionDuration: '1s ease',
       },
+    },
+    positionStatic: {
+      position: 'static',
+      backgroundColor: 'white',
+      borderBottom: '1px solid rgba(0,0,0,0.5)',
+    },
+    positionFixed: {
+      position: 'fixed',
+      backgroundColor: 'transparent',
     },
     headerBotFixed: {
       borderBottom: '1px solid rgba(0,0,0,0.5)',
@@ -268,8 +276,6 @@ function Header(props) {
     setOpenAuth(false);
   };
 
-  const [openSearch, setOpenSearch] = useState(false);
-
   const redirectLogin = () => {
     setMode(MODE.LOGIN);
   };
@@ -283,10 +289,6 @@ function Header(props) {
     dispatch(logout());
   };
 
-  const handelSearchClick = () => {
-    setOpenSearch(true);
-  };
-
   const navBarOnScroll = () => {
     if (window.scrollY >= 40) {
       setNavBar(true);
@@ -298,11 +300,26 @@ function Header(props) {
     window.addEventListener('scroll', navBarOnScroll);
   }, []);
   console.log('header rerender');
-  const handleChangeSearch = () => {
-    setOpenSearch(false);
-  };
 
   const countItems = useSelector(cartItemsCountSelector);
+  console.log(window.location);
+  const b = window.location.href;
+  console.log('b', b);
+  const c = window.location.origin + '/';
+  console.log('c', c);
+  const [positionHeader, setPositionHeader] = useState(false);
+
+  React.useEffect(() => {
+    if (c === b) {
+      console.log('trang chu');
+      setPositionHeader(true);
+      console.log('postion', positionHeader);
+    }
+  }, []);
+  const a = window.location.pathname;
+  if (a === '/cart') {
+    console.log('cart');
+  }
 
   return (
     <div className={classes.root}>
@@ -338,18 +355,23 @@ function Header(props) {
           </Box>
         </div>
         <Box
-          id="header_bot"
-          className={navBar ? classes.headerBotFixed : classes.headerBot}
+          className={
+            navBar
+              ? classes.headerBotFixed
+              : classes.headerBot +
+                ' ' +
+                (positionHeader ? classes.positionFixed : classes.positionStatic)
+          }
         >
-          <Box id="header_bots" className={classes.headerBotS}>
+          <Box className={classes.headerBotS}>
             <Box>
               <NavLink to="/">
                 <CodeOffIcon />
               </NavLink>
               <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <NavLink to="/">Shop</NavLink>
-                <NavLink to="/feature">Featured</NavLink>
-                <NavLink to="/about">About</NavLink>
+                <a href="/">Shop</a>
+                <a href="/featured">Featured</a>
+                <a href="/about">About</a>
               </Box>
             </Box>
             {/*search */}
@@ -361,16 +383,7 @@ function Header(props) {
                 alignItems: 'center',
               }}
             >
-              <Box sx={{ position: 'relative' }}>
-                <IconButton
-                  onClick={handelSearchClick}
-                  aria-label="menu"
-                  sx={{ my: 1, mx: 1, px: 1, color: 'black' }}
-                >
-                  <SearchIcon />
-                </IconButton>
-                {openSearch ? <SearchBox handleChangeSearch={handleChangeSearch} /> : ''}
-              </Box>
+              <SearchBox />
               <Box sx={{ display: { xs: 'none', sm: 'block', md: 'block' } }}>
                 <button
                   onClick={() => setOpenMiniCart(!openMiniCart)}

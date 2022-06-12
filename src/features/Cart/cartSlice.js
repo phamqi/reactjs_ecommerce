@@ -30,7 +30,7 @@ const cartSlice = createSlice({
       }
       localStorage.setItem(StorageKeys.CART, JSON.stringify(state.cartItems));
     },
-    dereaseOnCart(state, action) {
+    decreaseOnCart(state, action) {
       const indexItem = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -55,6 +55,6 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const { clearCart, removeFromCart, addToCart, dereaseOnCart, addOnToCart } =
+export const { clearCart, removeFromCart, addToCart, decreaseOnCart, addOnToCart } =
   actions;
 export default reducer;

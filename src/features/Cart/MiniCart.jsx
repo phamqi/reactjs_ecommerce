@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '&::-webkit-scrollbar-thumb': {
       borderRadius: '10px',
-      backgroundColor: '#999',
+      backgroundColor: '#606060',
     },
   },
   miniCartItem: {

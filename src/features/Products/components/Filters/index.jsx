@@ -49,7 +49,7 @@ function ProductFilters({ filters, onChange }) {
 
   return (
     <div>
-      <Box sx={{ px: 2, pt: 1 }}>
+      <Box sx={{ px: 3, pt: 2 }}>
         <ByCategory onChange={handleCategoryChange} />
         <ByPrice onChange={handlePriceChange} />
         <ByService filters={filters} onChange={handleServiceChange} />

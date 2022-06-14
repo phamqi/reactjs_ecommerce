@@ -11,7 +11,6 @@ ProductThumnail.propTypes = {
 };
 
 function ProductThumnail({ product }) {
-  console.log('thumnail render');
   const classes = useStyles();
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`

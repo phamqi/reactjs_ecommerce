@@ -15,7 +15,7 @@ LoginForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
-  root: {
+  btn: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
     borderRadius: 3,
@@ -71,12 +71,12 @@ function LoginForm(props) {
         />
         <Button
           fullWidth
-          className={classes.root}
+          className={classes.btn}
           type="submit"
           variant="conteined"
           color="primary"
         >
-          Sign in
+          Log In
         </Button>
       </form>
     </div>

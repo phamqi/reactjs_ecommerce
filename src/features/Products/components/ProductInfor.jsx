@@ -1,8 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { memo } from 'react';
-import { IMG_URL, STATIC_HOST } from '../../../constants/index';
 import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '0 1.5rem',
@@ -55,7 +52,6 @@ ProductThumnail.propTypes = {
 
 function ProductThumnail({ product }) {
   const classes = useStyles();
-  console.log('product infor rerender');
   return (
     <div className={classes.root}>
       <h3>{product.name}</h3>
@@ -74,4 +70,4 @@ function ProductThumnail({ product }) {
   );
 }
 
-export default memo(ProductThumnail);
+export default ProductThumnail;

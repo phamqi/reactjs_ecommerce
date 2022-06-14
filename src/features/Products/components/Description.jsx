@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     height: '100%',
   },
-  divbg: {
+  divBg: {
     backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255) 84%)',
     height: '200px',
     position: 'absolute',
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     visibility: 'visible',
   },
 
-  divbgHidden: {
+  divBgHidden: {
     visibility: 'hidden',
   },
 }));
@@ -71,7 +71,7 @@ function Description({ product }) {
         className={heightContent ? classes.divShowContent : classes.divContent}
         dangerouslySetInnerHTML={{ __html: product.description }}
       ></Box>
-      <Box className={heightContent ? classes.divbgHidden : classes.divbg}></Box>
+      <Box className={heightContent ? classes.divBgHidden : classes.divBg}></Box>
       <Button className="btnShow" onClick={() => setHeightContent(!heightContent)}>
         {heightContent ? `Hidden` : `Show`}
       </Button>

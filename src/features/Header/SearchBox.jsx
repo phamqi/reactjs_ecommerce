@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '&::-webkit-scrollbar-thumb': {
       borderRadius: '10px',
-      backgroundImage: '#888',
+      backgroundColor: '#888',
     },
     '& > div': {
       padding: '0',

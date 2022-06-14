@@ -3,7 +3,7 @@ import productApi from '../../../api/productApi';
 
 export default function useProductDetail(productId) {
   const [product, setProduct] = useState({});
-  const [loadding, setLoadding] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState();
 
   useEffect(() => {
@@ -11,13 +11,12 @@ export default function useProductDetail(productId) {
       try {
         const result = await productApi.get(productId);
         setProduct(result);
-        console.log('result', result);
         setCategory(result.category.id);
-        setLoadding(false);
+        setLoading(false);
       } catch (error) {
         console.log('Loi ne', error);
       }
     })();
   }, [productId]);
-  return { product, loadding, category };
+  return { product, loading, category };
 }

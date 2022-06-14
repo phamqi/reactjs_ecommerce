@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
   root: {},
   divName: { minHeight: '45px' },
   name: {
-    display: 'inline-block',
     wordWrap: 'break-word',
     whiteSpace: 'normal',
     overflow: 'hidden',
@@ -34,37 +33,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     objectFit: 'cover',
   },
-  divimg: {
+  divImg: {
     display: 'block',
     position: 'relative',
     overflow: 'hidden',
     '&:hover .btnBuy': {
       bottom: '20%',
-    },
-    '&:hover': {
-      transition: 'transform 0.6s ease',
-      transform: 'scale(1.1)',
-    },
-    '&  .btnBuy': {
-      boxShadow: '1px 1px 1px grey',
-      transition: 'all 0.4s',
-      borderRadius: '20px',
-      border: '1px solid white',
-      bottom: '-50px',
-      position: 'absolute',
-      right: '0',
-      left: '0',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      backgroundColor: 'transparent',
-      width: '50%',
-      overflow: 'hidden',
-      color: 'white',
-      padding: '4px 24px',
-      '&:hover': {
-        backgroundColor: 'black',
-        border: 'none',
-      },
     },
   },
   pricePercent: {
@@ -76,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'rgb(255, 66, 78)',
   },
   productLink: {
+    width: '20%',
     padding: '8px',
     position: 'relative',
     cursor: 'pointer',
@@ -95,12 +70,11 @@ function Product({ product }) {
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
   return (
-    // <Link className={classes.productLink} to={`/${product.name}_i${product.id}`}>
     <a className={classes.productLink} href={`/${product.name}_i${product.id}`}>
       <Paper elevation={2}>
         <Box padding={1}>
           <Box
-            className={classes.divimg}
+            className={classes.divImg}
             sx={{ display: 'block', overflow: 'hidden', position: 'relative' }}
           >
             <img

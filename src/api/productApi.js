@@ -25,7 +25,20 @@ const productApi = {
       data: productList,
     };
   },
-
+  async innerProduct(params) {
+    const newParams = { ...params };
+    newParams._start =
+      !params._page || params._page <= 1 ? 0 : (params._page - 1) * (params._limit || 20);
+    delete newParams._page;
+    const productList = await axiosClient.get('/products', { params: newParams });
+    return {
+      data: productList,
+      pagination: {
+        limit: params._limit,
+        page: params._page,
+      },
+    };
+  },
   async search(params) {
     const query = `_where[_or][0][name]=${params}&_where[_or][1][category.name]=${params}`;
     return axiosClient.get(`/products?${query}`);

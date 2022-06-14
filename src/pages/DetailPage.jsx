@@ -1,24 +1,24 @@
 import { Box, Button, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 
-import useProductDetail from '../features/Products/hook/useProductDetail';
-import { addToCart } from '../features/Cart/cartSlice';
-import { LIMIT } from '../constants';
 import productApi from '../api/productApi';
 import Loading from '../components/Loading';
-import ProductThumnail from '../features/Products/components/ProductThumnail';
-import ProductInfor from '../features/Products/components/ProductInfor';
+import { LIMIT } from '../constants';
+import { addToCart } from '../features/Cart/cartSlice';
 import AddToCartForm from '../features/Products/components/AddToCartForm';
-import { Description } from '@mui/icons-material';
-import SkeletonProduct from '../features/Products/components/skeletonProduct';
-import Review from '../features/Products/components/Review';
-import Related from '../features/Products/components/Related';
+import Description from '../features/Products/components/Description';
+import ProductInfor from '../features/Products/components/ProductInfor';
 import ProductMenu from '../features/Products/components/ProductMenu';
+import ProductThumnail from '../features/Products/components/ProductThumnail';
+import Related from '../features/Products/components/Related';
+import Review from '../features/Products/components/Review';
+import SkeletonProduct from '../features/Products/components/skeletonProduct';
 import innerProduct from '../features/Products/hook/useInnerProduct';
+import useProductDetail from '../features/Products/hook/useProductDetail';
 
 DetailPage.propTypes = {};
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     overflow: 'hidden',
     backgroundColor: 'white',
-    marginTop: '1.5rem',
+    marginTop: '40px',
   },
   container: {
     maxWidth: '1200px',
@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme) => ({
   },
   related: {
     backgroundColor: 'white',
-    paddingBottom: '1px',
+    padding: ' 10px 0 1px',
+    margin: '40px 0 0 0',
   },
 }));
 
@@ -61,7 +62,6 @@ function DetailPage(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const params = useParams();
-  const [loadingS, setLoadingS] = useState(true);
   const [productList, setProductList] = useState([]);
   const [loadingMore, setLoadingMore] = useState(true);
 
@@ -85,22 +85,31 @@ function DetailPage(props) {
       enqueueSnackbar('Please try again', { variant: 'error' });
     }
   };
-  const [limit, setLimit] = useState(LIMIT);
-  const _limit = { _limit: limit };
+  console.log('details rerender');
 
-  useEffect(() => {
+  const [page, setPage] = useState(1);
+  useMemo(() => {
+    console.log('re render in memo');
+    const filter = { _limit: LIMIT, _page: page };
     (async () => {
       try {
-        const { data } = await productApi.getAll(_limit);
-        setProductList(data);
+        console.log('re render in async');
+        const { data } = await productApi.innerProduct(filter);
+        // const list = data.map((item) => productList.push(item))
+        setProductList(productList.concat(data));
         setLoadingMore(false);
+        console.log(page);
+        console.log('b', productList);
       } catch (error) {
         console.log('fail to get product', error);
       }
-      setLoadingS(false);
     })();
-  }, [_limit]);
+  }, [page]);
 
+  const handleLoadMore = () => {
+    setLoadingMore(true);
+    setPage(page + 1);
+  };
   return (
     <div className="detailsPage">
       <Box sx={{ overflow: 'hidden' }}>
@@ -130,7 +139,7 @@ function DetailPage(props) {
                 <Box className={classes.related}>
                   <Related category={category} />
                 </Box>
-                <Box className={classes.menu} sx={{ overflow: 'hidden' }}>
+                <Box className={classes.menu}>
                   <ProductMenu />
                   <Routes>
                     <Route exact path="/" element={<Description product={product} />} />
@@ -138,23 +147,17 @@ function DetailPage(props) {
                   </Routes>
                 </Box>
                 <Box className={classes.productList}>
-                  {loadingS ? <SkeletonProduct length={LIMIT} /> : ''}
+                  {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
                   <Grid container>
-                    {productList.map((product) => (
+                    {productList.map((product, index) => (
                       <div
-                        key={product.id}
+                        key={index}
                         className="mmui-item"
                         dangerouslySetInnerHTML={innerProduct(product)}
                       />
                     ))}
                   </Grid>
-                  <Button
-                    className="btnViewMore"
-                    onClick={() => {
-                      setLoadingMore(true);
-                      setLimit(limit + 12);
-                    }}
-                  >
+                  <Button className="btnViewMore" onClick={() => handleLoadMore()}>
                     {loadingMore ? `Loading...` : `View More`}
                   </Button>
                 </Box>

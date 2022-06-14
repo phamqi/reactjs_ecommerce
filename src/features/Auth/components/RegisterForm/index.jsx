@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     background: `${BG_COLOR}`,
     border: 0,
     borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
     height: 48,
     padding: '0 30px',
@@ -41,7 +40,7 @@ function RegisterForm(props) {
     email: yup.string().required('Please enter your email').email('Please enter a email'),
     password: yup
       .string()
-      .required('Please enter your pasword')
+      .required('Please enter your password')
       .min(8, 'Please enter 8 character or more'),
     retypePassword: yup.string().required('Please retype your password'),
     retypePassword: yup
@@ -99,9 +98,9 @@ function RegisterForm(props) {
           className={classes.btnRegister}
           type="submit"
           variant="conteined"
-          color="primary"
+          color="white"
         >
-          SignUp
+          Register
         </Button>
       </form>
     </div>

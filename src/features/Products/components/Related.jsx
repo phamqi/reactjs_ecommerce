@@ -1,16 +1,13 @@
-import { Box, Button } from '@mui/material';
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import productApi from '../../../api/productApi';
-import SkeletonProduct from '../components/skeletonProduct';
-import Product from './Product';
-import { makeStyles } from '@mui/styles';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined';
-import { memo } from 'react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
+import { memo, useState } from 'react';
 import { LIMIT } from '../../../constants';
+import SkeletonProduct from '../components/skeletonProduct';
 import useProductByCategory from '../hook/useProductByCategory';
+import Product from './ProductRelated';
 Related.propTypes = {
   category: PropTypes.number,
 };
@@ -31,19 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
     '&::-webkit-scrollbar-thumb': {
       borderRadius: '10px',
-      backgroundImage:
-        'linear-gradient(to right , rgb(28,58,148) ,rgb(73,125,189), rgb(122,153,217))',
+      backgroundColor: '#888',
     },
     '&::-webkit-scrollbar-button': {
       display: 'block',
       width: '10vw',
     },
     '&> div > div': { width: '100%' },
-    '&> h2': {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: 'fit-content',
-    },
   },
   root: {
     position: 'relative',
@@ -58,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: '0px 1px 3px grey',
       position: 'absolute',
       zIndex: '1',
-      bottom: '40%',
+      bottom: '50%',
       right: '0',
     },
     '&> button.btnPrev': {
@@ -72,9 +63,14 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: '0px 1px 3px grey',
       position: 'absolute',
       zIndex: '1',
-      bottom: '40%',
+      bottom: '50%',
       left: '0',
     },
+  },
+  text: {
+    width: 'fit-content',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   boxRelated: {
     display: 'flex',
@@ -92,7 +88,7 @@ function Related({ category }) {
   const { productList, loading } = useProductByCategory(category);
 
   const handleSetNext = () => {
-    let a = 0;
+    var a = 0;
     if (~~(window.innerWidth / 300) >= 4) {
       a = 4;
     } else {
@@ -105,7 +101,7 @@ function Related({ category }) {
     }
   };
   const handleSetPrev = () => {
-    const a = ~~(window.innerWidth / 300);
+    var a = ~~(window.innerWidth / 300);
     if (translate === 0) {
       handleSetNext();
     } else {
@@ -115,18 +111,22 @@ function Related({ category }) {
 
   return (
     <Box className={classes.root}>
+      <h2 className={classes.text}>Related</h2>
       <Box
         className={classes.related}
         sx={{
           overflowX: { xs: 'auto', sm: 'auto', md: 'hidden', lg: 'hidden' },
-          overflowY: 'hidden',
         }}
       >
-        <h2>Related</h2>
         <Box
           className={classes.boxRelated}
           sx={{
-            width: { xs: '400%', sm: '300%', md: '300%', lg: '200%' },
+            width: {
+              xs: 'min(600%, max(400%, calc((420px - 100vw)*999999)))',
+              sm: '400%',
+              md: '300%',
+              lg: '200%',
+            },
             overflowX: { xs: 'auto', sm: 'auto', md: 'hidden', lg: 'hidden' },
             transform: {
               xs: 'translateX(0)',

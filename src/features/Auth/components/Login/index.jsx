@@ -18,10 +18,6 @@ function Login(props) {
       const action = login(values);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      const { closeDialog } = props;
-      if (closeDialog) {
-        closeDialog();
-      }
     } catch (error) {
       enqueueSnackbar(error.message, { variant: 'error' });
     }

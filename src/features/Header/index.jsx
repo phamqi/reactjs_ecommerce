@@ -1,37 +1,23 @@
-import CloseIcon from '@mui/icons-material/Close';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
-import SearchIcon from '@mui/icons-material/Search';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Typography } from '@mui/material';
 import Badge from '@mui/material/Badge';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, useParams } from 'react-router-dom';
-import { boolean } from 'yup';
+import { Link, NavLink } from 'react-router-dom';
+import Auth from '../Auth';
 
-import productApi from '../../api/productApi';
-import Login from '../Auth/components/Login';
-import Register from '../Auth/components/Register';
 import { logout } from '../Auth/userSlice';
 import MiniCart from '../Cart/MiniCart';
 import { cartItemsCountSelector } from '../Cart/selector';
-import GoToByCategory from '../Products/components/GoToByCategory';
-import Product from '../Products/components/Product';
-import useCategoryList from '../Products/hook/useCategoryList';
 import NavBarMobile from './NavBarMobile';
 import SearchBox from './SearchBox';
-const MODE = {
-  LOGIN: 'login',
-  REGISTER: 'register',
-};
+
 Header.propTypes = {};
 
 function Header(props) {
@@ -184,16 +170,6 @@ function Header(props) {
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-
-    option: {
-      textAlign: 'center',
-      cursor: 'pointer',
-      margin: '1rem',
-      fontSize: '1rem',
-      '& > span:hover': {
-        textDecoration: 'underline',
-      },
-    },
     btnScrollToTop: {
       position: 'fixed',
       bottom: '50%',
@@ -268,7 +244,6 @@ function Header(props) {
   const loggedUser = useSelector((state) => state.user.current);
   const dispatch = useDispatch();
   const isLogged = loggedUser.id;
-  const [mode, setMode] = useState(MODE.LOGIN);
   const [navBar, setNavBar] = useState(false);
 
   const [openAuth, setOpenAuth] = useState(false);
@@ -276,9 +251,6 @@ function Header(props) {
     setOpenAuth(false);
   };
 
-  const redirectLogin = () => {
-    setMode(MODE.LOGIN);
-  };
   const handleClickOpen = () => {
     setOpenAuth(true);
   };
@@ -296,30 +268,18 @@ function Header(props) {
       setNavBar(false);
     }
   };
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('scroll', navBarOnScroll);
   }, []);
-  console.log('header rerender');
 
   const countItems = useSelector(cartItemsCountSelector);
-  console.log(window.location);
-  const b = window.location.href;
-  console.log('b', b);
-  const c = window.location.origin + '/';
-  console.log('c', c);
-  const [positionHeader, setPositionHeader] = useState(false);
 
-  React.useEffect(() => {
-    if (c === b) {
-      console.log('trang chu');
+  const [positionHeader, setPositionHeader] = useState(false);
+  useEffect(() => {
+    if (window.location.href === window.location.origin + '/') {
       setPositionHeader(true);
-      console.log('postion', positionHeader);
     }
   }, []);
-  const a = window.location.pathname;
-  if (a === '/cart') {
-    console.log('cart');
-  }
 
   return (
     <div className={classes.root}>
@@ -403,37 +363,9 @@ function Header(props) {
       {/* Navbar mobile */}
       <NavBarMobile />
       {/* Login Register */}
-      <Dialog open={openAuth} disableScrollLock={true} onClose={handleCloseAuth}>
-        <DialogContent
-          sx={{
-            maxWidth: '540px',
-            width: { xs: '70vw', sm: '55vw', md: ' 25vw' },
-            overflowY: 'hidden',
-          }}
-        >
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-            <Button onClick={handleClose}>
-              <CloseIcon sx={{ color: 'black' }} />
-            </Button>
-          </Box>
-          {mode === MODE.LOGIN && (
-            <>
-              <Login closeDialog={handleClose} />
-              <Box className={classes.option}>
-                <span onClick={() => setMode(MODE.REGISTER)}>Sign up</span>
-              </Box>
-            </>
-          )}
-          {mode === MODE.REGISTER && (
-            <>
-              <Register redirectLogin={redirectLogin} />
-              <Box className={classes.option}>
-                <span onClick={() => setMode(MODE.LOGIN)}>Sign in</span>
-              </Box>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+      <Auth openAuth={openAuth} handleCloseAuth={handleCloseAuth} />
+
+      {/* Mini cart */}
       <Dialog
         className={classes.dialogMiniCart}
         open={openMiniCart}

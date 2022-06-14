@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     '& a': {
       marginLeft: '7px',
+      textDecoration: 'underline',
     },
   },
 }));

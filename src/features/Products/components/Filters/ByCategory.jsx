@@ -1,7 +1,7 @@
 import { Box, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useCategoryList from '../../hook/useCategoryList';
 
 ByCategory.propTypes = {

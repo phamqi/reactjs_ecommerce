@@ -1,44 +1,28 @@
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Dialog, DialogContent, Grid, Paper } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { makeStyles } from '@mui/styles';
-import queryString from 'query-string';
-import React, { useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CloseIcon from '@mui/icons-material/Close';
 import { useSnackbar } from 'notistack';
-import { dataSlides } from '../features/Slide/dataSlides';
-import useProductList from '../features/Products/hook/useProductList';
+import queryString from 'query-string';
+import { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../features/Cart/cartSlice';
-import Slide from '../features/Slide';
+import { useLocation, useNavigate } from 'react-router-dom';
+import GridSS from '../components/CustomGrid/GridSS';
 import Banner from '../features/Banner';
-import ProductSort from '../features/Products/components/ProductSort';
-import SkeletonProduct from '../features/Products/components/skeletonProduct';
-import Product from '../features/Products/components/Product';
-import ProductFilters from '../features/Products/components/Filters';
-import ProductThumnail from '../features/Products/components/ProductThumnail';
-import ProductInfor from '../features/Products/components/ProductInfor';
+import { addToCart } from '../features/Cart/cartSlice';
 import AddToCartForm from '../features/Products/components/AddToCartForm';
+import ProductFilters from '../features/Products/components/Filters';
+import Product from '../features/Products/components/Product';
+import ProductInfor from '../features/Products/components/ProductInfor';
+import ProductSort from '../features/Products/components/ProductSort';
+import ProductThumnail from '../features/Products/components/ProductThumnail';
+import SkeletonProduct from '../features/Products/components/skeletonProduct';
+import useProductList from '../features/Products/hook/useProductList';
+import Slide from '../features/Slide';
+import { dataSlides } from '../features/Slide/dataSlides';
 
 MainPage.propTypes = {};
-const theme = createTheme({
-  breakpoints: {
-    keys: ['ss', 'xs', 'sm', 'md', 'lg', 'xl'],
-    values: {
-      ss: 0,
-      xs: 420,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1500,
-    },
-  },
-});
-const GridWithSS = ({ ss, ...other }) => {
-  const ssClass = `MuiGrid-grid-ss-${ss}`;
-  return <Grid className={ssClass} {...other} />;
-};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
@@ -170,9 +154,7 @@ function MainPage() {
       });
       await dispatch(action);
       enqueueSnackbar('Add to cart successfully', { variant: 'success' });
-    } catch (error) {
-      console.log('loi o details', error);
-    }
+    } catch (error) {}
   };
   return (
     <div>
@@ -193,23 +175,13 @@ function MainPage() {
               {loading ? (
                 <SkeletonProduct length={pagination.limit} />
               ) : (
-                <ThemeProvider theme={theme}>
-                  <Grid container>
-                    {productList.map((product) => (
-                      <GridWithSS
-                        item
-                        key={product.id}
-                        ss={12}
-                        xs={6}
-                        sm={4}
-                        md={3}
-                        lg={3}
-                      >
-                        <Product product={product} onQuickView={onQuickView} />
-                      </GridWithSS>
-                    ))}
-                  </Grid>
-                </ThemeProvider>
+                <Grid container>
+                  {productList.map((product, index) => (
+                    <GridSS key={index} ss={12} xs={6} sm={4} md={3} lg={3}>
+                      <Product product={product} onQuickView={onQuickView} />
+                    </GridSS>
+                  ))}
+                </Grid>
               )}
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination

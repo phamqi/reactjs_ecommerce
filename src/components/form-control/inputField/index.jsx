@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
-import FormHelperText from '@mui/material/FormHelperText';
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,

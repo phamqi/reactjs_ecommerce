@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import useProductDetail from '../hook/useProductDetail';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { BG_COLOR } from '../../../constants';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 Review.propTypes = {
   product: PropTypes.object,
@@ -64,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 function Review({ product }) {
   const [heightContent, setHeightContent] = useState(false);
   const classes = useStyles();
-  console.log(product);
   return (
     <Box className={classes.root}>
       <Box className={heightContent ? classes.divShowContent : classes.divContent}>

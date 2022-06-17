@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { IMG_URL, STATIC_HOST } from '../../../constants/index';
 import { makeStyles } from '@mui/styles';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import PropTypes from 'prop-types';
 import { memo } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { IMG_URL, STATIC_HOST } from '../../../constants/index';
 const useStyles = makeStyles((theme) => ({}));
 ProductThumnail.propTypes = {
   product: PropTypes.object,

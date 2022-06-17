@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
 import ByCategory from './ByCategory';
 import ByPrice from './ByPrice';
 import ByService from './ByService';
-import { makeStyles } from '@mui/styles';
-import useCategoryList from '../../hook/useCategoryList';
 
 ProductFilters.propTypes = {
   filters: PropTypes.object,

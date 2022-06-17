@@ -3,10 +3,9 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IMG_URL, STATIC_HOST } from '../../constants/index';
-import { addToCart } from './cartSlice';
 CartItem.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,36 +83,36 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     fontSize: '1rem',
-    color: '#ee4d2d',
+    color: '#666',
     fontWeight: '500',
   },
   infor: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '75px',
-    '& > $name': {
-      minHeight: '34px',
-      color: 'black',
-      textDecoration: 'none',
-      fontSize: '0.9rem',
-      display: 'inline-block',
-      wordWrap: 'break-word',
-      whiteSpace: 'normal',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      lineHeight: '17px',
-      '-webkit-box-orient': 'vertical',
-      '-webkit-line-clamp': '2',
-    },
+  },
+  name: {
+    cursor: 'pointer',
+    minHeight: '34px',
+    color: '#999',
+    textDecoration: 'none',
+    fontSize: '0.9rem',
+    display: 'inline-block',
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    lineHeight: '17px',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': '2',
   },
   btnOption: {
     '& > button > svg': {
       fontSize: '1rem',
-      color: 'black',
+      color: '#999',
       backgroundColor: 'white',
       '&:hover': {
-        color: 'red',
-        fontSize: '1.05rem',
+        color: '#666',
       },
     },
   },
@@ -208,9 +207,9 @@ function CartItem({ item, handleChange }) {
           sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
         >
           <Box className={classes.infor}>
-            <p className={classes.name} onClick={() => handleProductClick()}>
+            <a className={classes.name} href={`/${item.product.name}_i${item.id}`}>
               {item.product.name}
-            </p>
+            </a>
             <p className={classes.price}>{item.product.salePrice}</p>
           </Box>
           <Box

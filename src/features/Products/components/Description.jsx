@@ -1,10 +1,7 @@
-import React, { useState, memo } from 'react';
-import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
-import useProductDetail from '../hook/useProductDetail';
 import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { BG_COLOR } from '../../../constants';
+import PropTypes from 'prop-types';
+import { memo, useState } from 'react';
 
 Description.propTypes = {
   product: PropTypes.object,

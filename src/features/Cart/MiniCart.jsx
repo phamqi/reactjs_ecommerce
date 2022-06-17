@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@mui/styles';
-import { useSelector } from 'react-redux';
-import { Box } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { IMG_URL, STATIC_HOST } from '../../constants';
 import { cartTotalSelector } from './selector';

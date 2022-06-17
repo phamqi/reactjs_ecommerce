@@ -1,15 +1,13 @@
-import React, { memo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
-import { Button, IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import CloseIcon from '@mui/icons-material/Close';
-import CodeOffIcon from '@mui/icons-material/CodeOff';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
+import { Button, IconButton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import { memo, useState } from 'react';
 
-import Product from '../Products/components/Product';
 import productApi from '../../api/productApi';
+import Product from '../Products/components/Product';
 
 SearchBox.propTypes = {};
 const useStyles = makeStyles((theme) => ({

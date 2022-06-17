@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import productApi from '../../../api/productApi';
 
 export default function useProductDetail(productId) {
@@ -6,16 +6,14 @@ export default function useProductDetail(productId) {
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState();
 
-  useEffect(() => {
+  useMemo(() => {
     (async () => {
       try {
         const result = await productApi.get(productId);
         setProduct(result);
         setCategory(result.category.id);
         setLoading(false);
-      } catch (error) {
-        console.log('Loi ne', error);
-      }
+      } catch (error) {}
     })();
   }, [productId]);
   return { product, loading, category };

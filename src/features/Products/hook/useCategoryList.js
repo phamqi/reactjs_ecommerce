@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 
 import categoryApi from '../../../api/categoryApi';
 import StorageKeys from '../../../constants/storagekey';
@@ -8,8 +8,7 @@ export default function useCategoryList() {
     JSON.parse(localStorage.getItem(StorageKeys.CATEGORY)) || []
   );
   const [categoryOnLoad, setCategoryOnLoad] = useState(true);
-  useEffect(() => {
-    console.log(categoryList);
+  useMemo(() => {
     if (categoryList.length === 0) {
       (async () => {
         try {
@@ -18,9 +17,7 @@ export default function useCategoryList() {
           setCategoryList(list);
           localStorage.setItem(StorageKeys.CATEGORY, JSON.stringify(list));
           setCategoryOnLoad(false);
-        } catch (error) {
-          console.log('Error');
-        }
+        } catch (error) {}
       })();
     } else {
       setCategoryOnLoad(false);

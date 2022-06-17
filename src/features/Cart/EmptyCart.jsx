@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import KeyboardBackspaceSharpIcon from '@mui/icons-material/KeyboardBackspaceSharp';
-import { IMG_EMPTY_CART } from '../../constants';
 import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
+import { IMG_EMPTY_CART } from '../../constants';
 
 EmptyCart.propTypes = {};
 const useStyles = makeStyles((theme) => ({

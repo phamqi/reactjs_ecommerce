@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Box } from '@mui/system';
-import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
-import { useNavigate, useLocation } from 'react-router';
 import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router';
+import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     padding: '15px',
     paddingBottom: '35px',
+    '&:hover': {
+      boxShadow:
+        '3px 1px 1px 1px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+    },
   },
   divName: { minHeight: '2.5rem' },
   name: {
@@ -123,10 +126,14 @@ function Product({ product, onQuickView }) {
           </button>
         </Box>
         <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
-          <div className={classes.divName} onClick={handleProductClick}>
-            <p title={product.name} className={classes.name}>
+          <div className={classes.divName}>
+            <a
+              href={`/${product.name}_i${product.id}`}
+              title={product.name}
+              className={classes.name}
+            >
               {product.name}
-            </p>
+            </a>
           </div>
           <span className={classes.price}>
             {new Intl.NumberFormat('vi-VN', {

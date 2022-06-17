@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Box, Grid } from '@mui/material';
 
 import BannerItem from './BannerItem';
 import { dataBanner } from './dataBanner';

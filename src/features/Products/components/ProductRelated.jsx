@@ -2,15 +2,13 @@ import { Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { IMG_URL, STATIC_HOST } from '../../../constants/index';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   divName: { minHeight: '45px' },
   name: {
+    color: '#999',
     wordWrap: 'break-word',
     whiteSpace: 'normal',
     overflow: 'hidden',

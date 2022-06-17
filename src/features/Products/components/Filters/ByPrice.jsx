@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { Box, Button, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Box, TextField, Button } from '@mui/material';
+import { useState } from 'react';
 import { BG_COLOR } from '../../../../constants';
 
 ByPrice.propTypes = {
@@ -12,7 +12,6 @@ function ByPrice({ onChange }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,

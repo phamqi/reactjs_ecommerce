@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
 
 import productApi from '../api/productApi';
-import Loading from '../components/Loading';
 import { LIMIT } from '../constants';
 import { addToCart } from '../features/Cart/cartSlice';
 import AddToCartForm from '../features/Products/components/AddToCartForm';
@@ -19,6 +18,7 @@ import Review from '../features/Products/components/Review';
 import SkeletonProduct from '../features/Products/components/skeletonProduct';
 import innerProduct from '../features/Products/hook/useInnerProduct';
 import useProductDetail from '../features/Products/hook/useProductDetail';
+import SkeletonPage from './Skeleton/SkeletionPage';
 
 DetailPage.propTypes = {};
 
@@ -85,24 +85,16 @@ function DetailPage(props) {
       enqueueSnackbar('Please try again', { variant: 'error' });
     }
   };
-  console.log('details rerender');
 
   const [page, setPage] = useState(1);
   useMemo(() => {
-    console.log('re render in memo');
     const filter = { _limit: LIMIT, _page: page };
     (async () => {
       try {
-        console.log('re render in async');
         const { data } = await productApi.innerProduct(filter);
-        // const list = data.map((item) => productList.push(item))
         setProductList(productList.concat(data));
         setLoadingMore(false);
-        console.log(page);
-        console.log('b', productList);
-      } catch (error) {
-        console.log('fail to get product', error);
-      }
+      } catch (error) {}
     })();
   }, [page]);
 
@@ -117,15 +109,11 @@ function DetailPage(props) {
           <Box>
             {loading ? (
               <div>
-                ABC
-                <Loading />
+                <SkeletonPage />
               </div>
             ) : (
               <div>
-                <Box
-                  className={classes.root}
-                  sx={{ padding: { xs: '0', sm: '1.7rem ' } }}
-                >
+                <Box className={classes.root} sx={{ padding: { xs: '0', sm: '24px' } }}>
                   <Grid container>
                     <Grid item xs={12} sm={6} md={5} lg={5}>
                       <ProductThumnail product={product} />

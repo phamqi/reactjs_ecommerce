@@ -36,10 +36,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     '& .subscribeBtn': {
-      backgroundImage: `${BG_COLOR}`,
+      backgroundColor: 'black',
       color: 'white',
       height: '42px',
       boxSizing: 'border-box',
+      '&:hover': {
+        color: 'white',
+        backgroundColor: '#717fe0',
+      },
     },
     '& input': {
       height: '32px',
@@ -71,7 +75,7 @@ function Footer(props) {
         <Box>
           <h3>Newletter Subscription</h3>
           <p>
-            Sing up for Code update to receive information about fature events and
+            Sing up for Code update to receive information about feature events and
             specials
           </p>
           <form onSubmit={form.handleSubmit(handleSubmit)}>

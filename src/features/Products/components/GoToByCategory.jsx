@@ -1,11 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Skeleton, Typography } from '@mui/material';
-import categoryApi from '../../../api/categoryApi';
+import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import useCategoryList from '../hook/useCategoryList';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 GoToByCategory.propTypes = {
   onChange: PropTypes.func,

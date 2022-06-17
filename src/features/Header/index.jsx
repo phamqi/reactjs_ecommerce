@@ -254,9 +254,6 @@ function Header(props) {
   const handleClickOpen = () => {
     setOpenAuth(true);
   };
-  const handleClose = () => {
-    setOpenAuth(false);
-  };
   const handleLogOutClick = () => {
     dispatch(logout());
   };
@@ -275,11 +272,13 @@ function Header(props) {
   const countItems = useSelector(cartItemsCountSelector);
 
   const [positionHeader, setPositionHeader] = useState(false);
+  const appHref = window.location.href;
+  const appOrigin = window.location.origin;
   useEffect(() => {
-    if (window.location.href === window.location.origin + '/') {
+    if (appHref === appOrigin + '/') {
       setPositionHeader(true);
     }
-  }, []);
+  }, [appHref, appOrigin]);
 
   return (
     <div className={classes.root}>

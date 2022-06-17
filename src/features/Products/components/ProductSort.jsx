@@ -3,9 +3,7 @@ import TabsListUnstyled from '@mui/base/TabsListUnstyled';
 import TabsUnstyled from '@mui/base/TabsUnstyled';
 import TabUnstyled from '@mui/base/TabUnstyled';
 import { makeStyles } from '@mui/styles';
-import { height } from '@mui/system';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {},

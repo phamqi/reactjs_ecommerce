@@ -1,5 +1,5 @@
 import { IMG_URL, STATIC_HOST } from '../../../constants';
-
+// css in index.css
 export default function innerProduct(product) {
   const linkProduct = `/${product.name}_i${product.id}`;
   const thumbnailUrl = product.thumbnail
@@ -17,7 +17,7 @@ export default function innerProduct(product) {
     __html:
       '<a href="' +
       linkProduct +
-      '"><div class="css-1vl0eai" ><div class="css-MuiPaper-root"><div class="css-pd8"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
+      '"><div class="css-MuiPaper-root"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
       thumbnailUrl +
       '  width="100%" alt="' +
       nameProduct +
@@ -27,6 +27,6 @@ export default function innerProduct(product) {
       priceVN +
       '</span>' +
       pricePercent +
-      '</div></div></div></div></a>',
+      '</div></div></a>',
   };
 }

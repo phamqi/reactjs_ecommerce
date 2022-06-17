@@ -1,6 +1,5 @@
-import { Checkbox, Box, FormControlLabel } from '@mui/material';
+import { Box, Checkbox, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 ByService.propTypes = {
   filters: PropTypes.object,

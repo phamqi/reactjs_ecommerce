@@ -1,10 +1,9 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import React from 'react';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { login } from '../../userSlice';
 import LoginForm from '../LoginForm';
-import PropTypes from 'prop-types';
-import { useSnackbar } from 'notistack';
 
 Login.propTypes = {
   closeDialog: PropTypes.func,

@@ -1,30 +1,49 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import { Avatar } from '@mui/material';
-import Button from '@mui/material/Button';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
-import React from 'react';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import InputField from '../../../../components/form-control/inputField';
 import PasswordField from '../../../../components/form-control/passwordField';
 import Loading from '../../../../components/Loading';
 import './styles.scss';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { BG_COLOR } from '../../../../constants';
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
 };
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  btnRegister: {
-    background: `${BG_COLOR}`,
-    border: 0,
-    borderRadius: 3,
+  btn: {
     color: 'white',
-    height: 48,
-    padding: '0 30px',
+    backgroundColor: '#717fe0',
+    height: '48px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    boxSizing: 'border-box',
+    outline: '0',
+    border: '0',
+    margin: '0',
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    lineHeight: '1.75',
+    letterSpacing: '0.02857rem',
+    textTransform: 'uppercase',
+    minWidth: '64px',
+    padding: '6px 16px',
+    borderRadius: '4px',
+    width: '100%',
+    textDecoration: 'none',
+    '&:hover': {
+      backgroundColor: 'rgba(113, 127, 224, 0.7)',
+      color: 'white',
+    },
   },
 }));
 
@@ -42,11 +61,10 @@ function RegisterForm(props) {
       .string()
       .required('Please enter your password')
       .min(8, 'Please enter 8 character or more'),
-    retypePassword: yup.string().required('Please retype your password'),
     retypePassword: yup
       .string()
       .required('Please retype your password')
-      .oneOf([yup.ref('password')], 'Please retype your passwrd'),
+      .oneOf([yup.ref('password')], 'Please retype your password'),
   });
   const form = useForm({
     defaultValues: {
@@ -93,15 +111,15 @@ function RegisterForm(props) {
           label="Retype Password"
           form={form}
         />
-        <Button
+        <button
           fullWidth
-          className={classes.btnRegister}
+          className={classes.btn}
           type="submit"
           variant="conteined"
-          color="white"
+          color="primary"
         >
           Register
-        </Button>
+        </button>
       </form>
     </div>
   );

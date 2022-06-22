@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Skeleton, Box, Grid } from '@mui/material';
+import { Box, Grid, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
 import { HEIGHT_SKT } from '../../../constants';
 
 SkeletonProduct.propTypes = {
@@ -20,7 +19,7 @@ function SkeletonProduct({ length }) {
   const classes = useStyles();
   return (
     <Box>
-      <Grid container className={`${classes.boxSkeleton}` + ' relatedSke'}>
+      <Grid container className={`${classes.boxSkeleton}   relatedSke`}>
         {Array.from(new Array(length)).map((x, index) => (
           <Grid item key={index} xs={6} sm={4} md={3} lg={3}>
             <Box padding={1}>

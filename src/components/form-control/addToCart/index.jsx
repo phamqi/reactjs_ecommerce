@@ -4,8 +4,7 @@ import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import QuantityField from '../../../components/form-control/quantity';
-import { BG_COLOR } from '../../../constants';
+import QuantityField from './quantity';
 
 const useStyles = makeStyles((theme) => ({
   divQuantity: {
@@ -14,10 +13,13 @@ const useStyles = makeStyles((theme) => ({
   formQuantity: {
     '&> button': {
       width: '50%',
-      backgroundImage: `${BG_COLOR}`,
+      backgroundColor: '#333',
       color: 'white',
       height: '2.55rem',
       borderRadius: '5px',
+      '&:hover': {
+        backgroundColor: '#717fe0',
+      },
     },
     '& > div > div > div > button': {
       border: '1px solid rgba(0,0,0,0.3)',

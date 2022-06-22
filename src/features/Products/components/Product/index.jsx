@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     overflow: 'hidden',
     '&:hover': {
-      '& $btnBuy': {
+      '& $btnView': {
         bottom: '10%',
       },
       '& $productImg': {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  btnBuy: {
+  btnView: {
     fontSize: '1rem',
     boxShadow: '1px 1px 1px grey',
     transition: 'all 0.4s',
@@ -97,14 +97,10 @@ Product.propTypes = {
 
 function Product({ product, onQuickView }) {
   const classes = useStyles();
-  const navigate = useNavigate();
   const handleQuickView = (product) => {
     onQuickView(product);
   };
-  const handleProductClick = () => {
-    navigate(`/${product.name}_i${product.id}`);
-    window.scrollTo(0, 0);
-  };
+
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
@@ -121,8 +117,8 @@ function Product({ product, onQuickView }) {
             alt={product.name}
             width="100%"
           />
-          <button onClick={() => handleQuickView(product)} className={classes.btnBuy}>
-            Buy
+          <button onClick={() => handleQuickView(product)} className={classes.btnView}>
+            View
           </button>
         </Box>
         <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>

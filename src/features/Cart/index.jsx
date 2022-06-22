@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Cart(props) {
+  document.querySelector('meta[name="description"]').innerText = 'Your page description';
   const [staticCheckout, setStaticCheckout] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();

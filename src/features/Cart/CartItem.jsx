@@ -157,11 +157,6 @@ function CartItem({ item, handleChange }) {
     handleChange(item, 1);
   };
   const onChange = () => {};
-  const navigate = useNavigate();
-  const handleProductClick = () => {
-    navigate(`/${item.product.name}_i${item.product.id}`);
-    window.scrollTo(0, 0);
-  };
   const [activeDiv, setActiveDiv] = useState();
   const [toggle, setToggle] = useState(false);
   var startX, moveX;

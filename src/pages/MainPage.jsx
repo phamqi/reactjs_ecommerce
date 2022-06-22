@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import GridSS from '../components/CustomGrid/GridSS';
 import Banner from '../features/Banner';
 import { addToCart } from '../features/Cart/cartSlice';
-import AddToCartForm from '../features/Products/components/AddToCartForm';
+import AddToCartForm from '../components/form-control/addToCart';
 import ProductFilters from '../features/Products/components/Filters';
 import Product from '../features/Products/components/Product';
 import ProductInfor from '../features/Products/components/ProductInfor';

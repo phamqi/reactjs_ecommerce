@@ -39,6 +39,8 @@
   &-list {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    height: calc(100vh - 40px);
   }
   &-image {
     width: 100vw;

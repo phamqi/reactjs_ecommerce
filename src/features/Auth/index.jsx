@@ -19,8 +19,11 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     margin: '1rem',
     fontSize: '1rem',
-    '& > span:hover': {
+    '& > span': {
       textDecoration: 'underline',
+      '&:hover': {
+        textDecoration: 'none',
+      },
     },
   },
 }));

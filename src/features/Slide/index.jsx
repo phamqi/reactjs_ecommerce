@@ -88,10 +88,7 @@ function Slide({ dataSlides }) {
       >
         <ArrowForwardIosIcon />
       </button>
-      <div
-        style={{ width: '100%', height: `${SLIDE_HEIGHT}`, '--from': `${fromX}` }}
-        className="carousel-list"
-      >
+      <div style={{ '--from': `${fromX}` }} className="carousel-list">
         {dataSlides.map((slide, index) => (
           <div
             key={slide.id}

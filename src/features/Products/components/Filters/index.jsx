@@ -1,5 +1,4 @@
 import { Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import ByCategory from './ByCategory';
 import ByPrice from './ByPrice';
@@ -9,9 +8,6 @@ ProductFilters.propTypes = {
   filters: PropTypes.object,
   onChange: PropTypes.func,
 };
-const useStyles = makeStyles((theme) => ({
-  root: {},
-}));
 function ProductFilters({ filters, onChange }) {
   const handlePriceChange = (values) => {
     if (onChange) {

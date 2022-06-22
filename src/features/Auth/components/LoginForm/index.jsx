@@ -16,13 +16,35 @@ LoginForm.propTypes = {
 };
 const useStyles = makeStyles((theme) => ({
   btn: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
-    height: 48,
-    padding: '0 30px',
+    backgroundColor: '#717fe0',
+    height: '48px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    boxSizing: 'border-box',
+    outline: '0',
+    border: '0',
+    margin: '0',
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: '500',
+    fontSize: '0.875rem',
+    lineHeight: '1.75',
+    letterSpacing: '0.02857rem',
+    textTransform: 'uppercase',
+    minWidth: '64px',
+    padding: '6px 16px',
+    borderRadius: '4px',
+    width: '100%',
+    textDecoration: 'none',
+    '&:hover': {
+      backgroundColor: 'rgba(113, 127, 224, 0.7)',
+      color: 'white',
+    },
   },
 }));
 
@@ -69,7 +91,7 @@ function LoginForm(props) {
           label="Password"
           form={form}
         />
-        <Button
+        <button
           fullWidth
           className={classes.btn}
           type="submit"
@@ -77,7 +99,7 @@ function LoginForm(props) {
           color="primary"
         >
           Log In
-        </Button>
+        </button>
       </form>
     </div>
   );

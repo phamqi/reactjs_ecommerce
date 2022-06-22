@@ -41,17 +41,13 @@ function CartPage(props) {
   const [loadingMore, setLoadingMore] = useState(true);
 
   useMemo(() => {
-    console.log('re render in memo');
     const filter = { _limit: LIMIT, _page: page };
     (async () => {
       try {
-        console.log('re render in async');
         const { data } = await productApi.innerProduct(filter);
         setProductList(productList.concat(data));
         setLoadingMore(false);
-      } catch (error) {
-        console.log('fail to get product', error);
-      }
+      } catch (error) {}
     })();
   }, [page]);
   const handleLoadMore = () => {

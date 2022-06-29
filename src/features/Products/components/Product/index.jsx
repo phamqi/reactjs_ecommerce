@@ -124,7 +124,7 @@ function Product({ product, onQuickView }) {
         <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
           <div className={classes.divName}>
             <a
-              href={`/${product.name}_i${product.id}`}
+              href={`products/${product.name}_i${product.id}`}
               title={product.name}
               className={classes.name}
             >

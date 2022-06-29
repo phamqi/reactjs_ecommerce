@@ -69,6 +69,7 @@ function DetailPage(props) {
   const oldProductId = stringProduct.split('_i', 2).pop();
   const arrayProductId = oldProductId.split(',', 1);
   const productId = arrayProductId[0];
+
   const { enqueueSnackbar } = useSnackbar();
 
   const { product, loading, category } = useProductDetail(productId);

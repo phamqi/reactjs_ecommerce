@@ -18,11 +18,20 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     color: 'rgba(0,0,0,0.5)',
     backgroundColor: 'transparent',
-    fontSize: '1.1rem',
-    marginRight: '1rem',
-    padding: '1rem 1rem 2rem 0px',
+    fontSize: '1rem',
+    display: 'flex',
     '&.Mui-selected': {
       color: 'rgb(0,0,0)',
+    },
+  },
+  item_box: {
+    display: 'flex',
+  },
+  item_text: {
+    '& p': {
+      fontSize: '10px',
+      margin: '0',
+      padding: '0',
     },
   },
 }));
@@ -46,14 +55,27 @@ function ProductSort({ currentSort, onChange }) {
       >
         <TabsListUnstyled className={classes.list}>
           <div className={classes.list}>
+            Sort by:
             <TabUnstyled className={classes.item} value="name:ASC">
-              All
+              Name
+              <div className={classes.item_box}>
+                <div className={classes.item_text}>
+                  <p>A</p>
+                </div>
+                <span>&#8595;</span>
+              </div>
             </TabUnstyled>
             <TabUnstyled className={classes.item} value="created_at:ASC">
-              Featured
+              New
             </TabUnstyled>
             <TabUnstyled className={classes.item} value="salePrice:DESC">
-              Sale
+              Price
+              <div className={classes.item_box}>
+                <div className={classes.item_text}>
+                  <p>$</p>
+                </div>
+                <span>&#8595;</span>
+              </div>
             </TabUnstyled>
           </div>
         </TabsListUnstyled>

@@ -1,4 +1,3 @@
-import CodeOffIcon from '@mui/icons-material/CodeOff';
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
@@ -88,7 +87,6 @@ function Header(props) {
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor: 'transparent',
-      '&> div': { display: 'flex' },
       '& .headerMenu': {
         '&> a': {
           textDecoration: 'none',
@@ -178,6 +176,13 @@ function Header(props) {
         top: '0px',
       },
     },
+    flexAlignCenter: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    imgIcon: {
+      height: '13px',
+    },
   }));
   const classes = useStyles();
   const loggedUser = useSelector((state) => state.user.current);
@@ -260,9 +265,11 @@ function Header(props) {
           }
         >
           <Box className={classes.headerBotS}>
-            <Box>
+            <Box className={classes.flexAlignCenter}>
               <NavLink to="/">
-                <CodeOffIcon />
+                <div className={classes.flexAlignCenter}>
+                  <img className={classes.imgIcon} alt="logo" src="logo.png"></img>
+                </div>
               </NavLink>
               <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
                 <a href="/">Shop</a>

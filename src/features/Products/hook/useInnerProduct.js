@@ -1,7 +1,7 @@
 import { IMG_URL, STATIC_HOST } from '../../../constants';
 // css in index.css
 export default function innerProduct(product) {
-  const linkProduct = `/${product.name}_i${product.id}`;
+  const linkProduct = `products/${product.name}_i${product.id}`;
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;

@@ -5,7 +5,6 @@ import Header from './features/Header';
 import CartPage from './pages/CartPage';
 import DetailPage from './pages/DetailPage';
 import MainPage from './pages/MainPage';
-import Personal from './personal';
 
 function App() {
   return (
@@ -13,10 +12,10 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/" element={<MainPage />} />
-        <Route path="/:productId/*" element={<DetailPage />} />
+        <Route path="products/:productId/*" element={<DetailPage />} />
         <Route path="/cart" element={<CartPage />} />
-        {/* <Route path="/error" element={<Error404 />} /> */}
-        <Route path="/error" element={<Personal />} />
+        <Route path="*" element={<Error404 />} />
+        <Route path="/error" element={<Error404 />} />
       </Routes>
       <Footer />
     </div>

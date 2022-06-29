@@ -68,7 +68,7 @@ function Product({ product }) {
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
   return (
-    <a className={classes.productLink} href={`/${product.name}_i${product.id}`}>
+    <a className={classes.productLink} href={`products/${product.name}_i${product.id}`}>
       <Paper elevation={2}>
         <Box padding={1}>
           <Box

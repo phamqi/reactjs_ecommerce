@@ -202,7 +202,10 @@ function CartItem({ item, handleChange }) {
           sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
         >
           <Box className={classes.infor}>
-            <a className={classes.name} href={`/${item.product.name}_i${item.id}`}>
+            <a
+              className={classes.name}
+              href={`products/${item.product.name}_i${item.id}`}
+            >
               {item.product.name}
             </a>
             <p className={classes.price}>{item.product.salePrice}</p>

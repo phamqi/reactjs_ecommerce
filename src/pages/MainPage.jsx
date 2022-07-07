@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import GridSS from '../components/CustomGrid/GridSS';
+import AddToCartForm from '../components/form-control/addToCart';
 import Banner from '../features/Banner';
 import { addToCart } from '../features/Cart/cartSlice';
-import AddToCartForm from '../components/form-control/addToCart';
 import ProductFilters from '../features/Products/components/Filters';
+import ProductSort from '../features/Products/components/Filters/ProductSort';
 import Product from '../features/Products/components/Product';
 import ProductInfor from '../features/Products/components/ProductInfor';
-import ProductSort from '../features/Products/components/Filters/ProductSort';
 import ProductThumnail from '../features/Products/components/ProductThumnail';
 import SkeletonProduct from '../features/Products/components/skeletonProduct';
 import useProductList from '../features/Products/hook/useProductList';
@@ -89,7 +89,6 @@ function MainPage() {
   const location = useLocation();
   const queryParams = useMemo(() => {
     const params = queryString.parse(location.search);
-    console.log(params);
     return {
       ...params,
       _page: Number.parseInt(params._page) || 1,

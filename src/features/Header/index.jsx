@@ -16,7 +16,7 @@ Header.propTypes = {};
 function Header(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      width: '100%',
+      width: '100vw',
     },
     roots: {
       width: '100%',
@@ -48,7 +48,7 @@ function Header(props) {
       flexDirection: 'row ',
       top: '40px',
       left: '0',
-      width: '100%',
+      width: '100vw',
       zIndex: '9',
       '&> a': {
         color: 'black',
@@ -215,7 +215,9 @@ function Header(props) {
 
   const [positionHeader, setPositionHeader] = useState(false);
   const appHref = window.location.href;
+
   const appOrigin = window.location.origin;
+
   useEffect(() => {
     if (appHref === appOrigin + '/') {
       setPositionHeader(true);
@@ -230,7 +232,7 @@ function Header(props) {
             <Box className={classes.header}>
               <Box className={classes.headerTop}>
                 <Typography sx={{ opacity: { xs: '0', sm: '1' } }}>
-                  Buy for Freeship
+                  Free shipping for standard order over $10
                 </Typography>
                 <Box>
                   <ul className={classes.headerUl}>
@@ -272,9 +274,9 @@ function Header(props) {
                 </div>
               </NavLink>
               <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <a href="/">Shop</a>
-                <a href="/featured">Featured</a>
-                <a href="/about">About</a>
+                <NavLink to="/">Shop</NavLink>
+                <NavLink to="/featured">Featured</NavLink>
+                <NavLink to="/about">About</NavLink>
               </Box>
             </Box>
             {/*search */}

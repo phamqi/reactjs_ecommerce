@@ -2,7 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { IMG_URL, STATIC_HOST } from '../../constants';
 import { cartTotalSelector } from './selector';
@@ -191,15 +191,15 @@ function MiniCart({ onCloseMiniCart }) {
         <div className={classes.headerCartHandle}>
           <div className={classes.totalMiniCart}>
             <span>
-              Total:{' '}
+              Total:
               {new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
                 currency: 'VND',
               }).format(total)}
             </span>
-            <a href="/cart" className={classes.link}>
+            <NavLink to="/cart" className={classes.link}>
               View Cart
-            </a>
+            </NavLink>
           </div>
           <button className={classes.btnCheckOut}>Check out</button>
         </div>

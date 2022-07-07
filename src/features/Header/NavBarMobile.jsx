@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function NavBarMobile(props) {
   const classes = useStyles();
   const countItems = useSelector(cartItemsCountSelector);
-  const [pxX, setPxX] = useState(30);
+  const [pxX, setPxX] = useState(50);
   const [pxY, setPxY] = useState(50);
 
   const handleMoveOnTouch = (e) => {

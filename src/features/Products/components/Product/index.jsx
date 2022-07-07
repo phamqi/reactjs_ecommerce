@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
 
 const useStyles = makeStyles((theme) => ({
@@ -123,13 +123,13 @@ function Product({ product, onQuickView }) {
         </Box>
         <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
           <div className={classes.divName}>
-            <a
-              href={`products/${product.name}_i${product.id}`}
+            <NavLink
+              to={`products/${product.name}_i${product.id}`}
               title={product.name}
               className={classes.name}
             >
               {product.name}
-            </a>
+            </NavLink>
           </div>
           <span className={classes.price}>
             {new Intl.NumberFormat('vi-VN', {

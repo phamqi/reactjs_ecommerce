@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes, useParams } from 'react-router-dom';
 
 import productApi from '../api/productApi';
+import AddToCartForm from '../components/form-control/addToCart';
 import { LIMIT } from '../constants';
 import { addToCart } from '../features/Cart/cartSlice';
-import AddToCartForm from '../components/form-control/addToCart';
 import Description from '../features/Products/components/Description';
 import ProductInfor from '../features/Products/components/ProductInfor';
 import ProductMenu from '../features/Products/components/ProductMenu';

@@ -1,9 +1,8 @@
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import React, { useState, memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { memo, useEffect, useRef, useState } from 'react';
 import './slide.scss';
-import { SLIDE_HEIGHT } from '../../constants';
 
 Slide.propTypes = {
   dataSlides: PropTypes.array,
@@ -84,7 +83,7 @@ function Slide({ dataSlides }) {
       </button>
       <button
         onClick={() => nextSlide()}
-        className="carousel-button carousel-button__next onhover"
+        className="carousel-button carousel-button__next onHover"
       >
         <ArrowForwardIosIcon />
       </button>
@@ -99,6 +98,21 @@ function Slide({ dataSlides }) {
             }
           >
             <picture>
+              <source
+                media="(min-width: 3840px)"
+                srcSet={slide.image_lg}
+                alt={slide.title}
+              />
+              <source
+                media="(min-width: 2560px)"
+                srcSet={slide.image_xl}
+                alt={slide.title}
+              />
+              <source
+                media="(min-width: 1200px)"
+                srcSet={slide.image_xl}
+                alt={slide.title}
+              />
               <source media="(min-width: 900px)" srcSet={slide.image} alt={slide.title} />
               <source
                 media="(min-width: 600px)"

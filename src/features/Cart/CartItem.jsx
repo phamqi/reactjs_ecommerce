@@ -4,7 +4,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { IMG_URL, STATIC_HOST } from '../../constants/index';
 CartItem.propTypes = {};
 const useStyles = makeStyles((theme) => ({

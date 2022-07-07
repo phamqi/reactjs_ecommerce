@@ -1,6 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@mui/styles';
+import PropTypes from 'prop-types';
 BannerItem.propTypes = {
   dataBanner: PropTypes.object,
 };

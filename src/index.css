@@ -58,19 +58,23 @@ code {
   align-items: center;
   flex-direction: column;
 }
-
-@media screen and  (max-width:600px) {
-  html{
+@media screen and  (max-width:420px) {
+  html {
     font-size: 13px;
   }
 }
-@media (min-width:600px) and (max-width:900px) {
-  html{
+@media (min-width: 420px) and  (max-width:600px) {
+  html {
     font-size: 14px;
   }
 }
-@media screen and (min-width: 1200px) {
-  html{
+@media (min-width:600px) and (max-width:900px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media (min-width: 900px) and (min-width: 1200px) {
+  html {
     font-size: 17px;
   }
 }
@@ -203,4 +207,25 @@ code {
   margin-left: 7px;
   border-radius: 2px;
   background-color: rgb(255, 240, 241);
+}
+/* loading css */
+.loading {
+  position: absolute;
+  top: calc(50% - 3rem);
+  left: calc(50% - 3rem);
+  width: 3rem;
+  height: 3rem;
+  border: 0.7rem solid rgba(0, 0, 0, 0.2);
+  border-left: 0.7rem solid #000000;
+  border-radius: 50%;
+  animation: load 1.1s infinite linear;
+  transition: opacity 0.3s;
+}
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

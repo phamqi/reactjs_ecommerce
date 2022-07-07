@@ -15,9 +15,7 @@ export default function innerProduct(product) {
     : '';
   return {
     __html:
-      '<a href="' +
-      linkProduct +
-      '"><div class="css-MuiPaper-root"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
+      '<a ><div class="css-MuiPaper-root"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
       thumbnailUrl +
       '  width="100%" alt="' +
       nameProduct +

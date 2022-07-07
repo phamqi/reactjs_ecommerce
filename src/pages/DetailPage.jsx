@@ -19,6 +19,7 @@ import SkeletonProduct from '../features/Products/components/skeletonProduct';
 import innerProduct from '../features/Products/hook/useInnerProduct';
 import useProductDetail from '../features/Products/hook/useProductDetail';
 import SkeletonPage from './Skeleton/SkeletionPage';
+import NavigateComponent from '../components/NavigateComponent';
 
 DetailPage.propTypes = {};
 
@@ -139,11 +140,14 @@ function DetailPage(props) {
                   {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
                   <Grid container>
                     {productList.map((product, index) => (
-                      <div
+                      <NavigateComponent
                         key={index}
+                        href={`/products/${product.name}_i${product.id}`}
+                        title={product.name}
                         className="mmui-item"
-                        dangerouslySetInnerHTML={innerProduct(product)}
-                      />
+                      >
+                        <div dangerouslySetInnerHTML={innerProduct(product)} />
+                      </NavigateComponent>
                     ))}
                   </Grid>
                   <Button className="btnViewMore" onClick={() => handleLoadMore()}>

@@ -56,11 +56,9 @@ function NavBarMobile(props) {
           key="2"
           icon={
             <NavLink to="/cart">
-              <IconButton sx={{ color: 'black' }}>
-                <Badge badgeContent={countItems} color="error">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
+              <Badge badgeContent={countItems} color="error">
+                <ShoppingCartIcon />
+              </Badge>
             </NavLink>
           }
           tooltipTitle="Cart"

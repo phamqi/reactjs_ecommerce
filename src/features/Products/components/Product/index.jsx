@@ -1,8 +1,9 @@
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+
 import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
+import NavigateComponent from '../../../../components/NavigateComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,7 +101,7 @@ function Product({ product, onQuickView }) {
   const handleQuickView = (product) => {
     onQuickView(product);
   };
-
+  const href = `products/${product.name}_i${product.id}`;
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
@@ -123,13 +124,9 @@ function Product({ product, onQuickView }) {
         </Box>
         <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
           <div className={classes.divName}>
-            <NavLink
-              to={`products/${product.name}_i${product.id}`}
-              title={product.name}
-              className={classes.name}
-            >
+            <NavigateComponent href={href} title={product.name} className={classes.name}>
               {product.name}
-            </NavLink>
+            </NavigateComponent>
           </div>
           <span className={classes.price}>
             {new Intl.NumberFormat('vi-VN', {

@@ -112,6 +112,8 @@ function MainPage() {
       pathname: location.pathname,
       search: queryString.stringify(filters),
     };
+    console.log(locationSearch);
+    console.log(location.pathname);
     navigate(locationSearch);
   };
   const handleFiltersChange = (newFilters) => {

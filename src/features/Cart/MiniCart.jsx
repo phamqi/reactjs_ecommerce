@@ -198,7 +198,7 @@ function MiniCart({ onCloseMiniCart }) {
               }).format(total)}
             </span>
             <NavLink to="/cart" className={classes.link}>
-              View Cart
+              <div onClick={handleCloseMiniCart}> View Cart</div>
             </NavLink>
           </div>
           <button className={classes.btnCheckOut}>Check out</button>

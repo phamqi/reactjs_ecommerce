@@ -82,13 +82,13 @@ function Header(props) {
 
   return (
     <div>
-      <button onClick={() => setOpenMiniCart(!openMiniCart)} className={classes.btnCart}>
+      <div onClick={() => setOpenMiniCart(!openMiniCart)} className={classes.btnCart}>
         <IconButton sx={{ color: 'black' }}>
           <Badge badgeContent={countItems} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-      </button>
+      </div>
       {/* Mini cart */}
       <Dialog
         className={classes.dialogMiniCart}

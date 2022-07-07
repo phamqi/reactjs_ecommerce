@@ -2,8 +2,10 @@ import { Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import { IMG_URL, STATIC_HOST } from '../../../constants/index';
+import NavigateComponent from '../../../components/NavigateComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -64,11 +66,11 @@ function Product({ product }) {
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
+
+  const href = `/products/${product.name}_i${product.id}`;
+
   return (
-    <NavLink
-      className={classes.productLink}
-      to={`products/${product.name}_i${product.id}`}
-    >
+    <NavigateComponent href={href} className={classes.productLink}>
       <Paper elevation={2}>
         <Box padding={1}>
           <Box
@@ -103,7 +105,7 @@ function Product({ product }) {
           </Box>
         </Box>
       </Paper>
-    </NavLink>
+    </NavigateComponent>
   );
 }
 

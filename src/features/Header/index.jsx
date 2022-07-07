@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import Auth from '../Auth';
@@ -213,16 +213,21 @@ function Header(props) {
     window.addEventListener('scroll', navBarOnScroll);
   }, []);
 
-  const [positionHeader, setPositionHeader] = useState(false);
-  const appHref = window.location.href;
+  const [positionHeader, setPositionHeader] = useState();
+  const appHref = window.location.pathname;
 
-  const appOrigin = window.location.origin;
-
-  useEffect(() => {
-    if (appHref === appOrigin + '/') {
+  const checkLocation = () => {
+    if (appHref === '/') {
       setPositionHeader(true);
+      console.log('alo alo');
+    } else {
+      console.log('cac cac');
+      setPositionHeader(false);
     }
-  }, [appHref, appOrigin]);
+  };
+  useMemo(() => {
+    checkLocation();
+  }, [appHref]);
 
   return (
     <div className={classes.root}>
@@ -270,13 +275,16 @@ function Header(props) {
             <Box className={classes.flexAlignCenter}>
               <NavLink to="/">
                 <div className={classes.flexAlignCenter}>
-                  <img className={classes.imgIcon} alt="logo" src="logo.png"></img>
+                  <img
+                    className={classes.imgIcon}
+                    alt="logo"
+                    src={`${window.location.origin}/logo.png`}
+                  ></img>
                 </div>
               </NavLink>
               <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <NavLink to="/">Shop</NavLink>
                 <NavLink to="/featured">Featured</NavLink>
-                <NavLink to="/about">About</NavLink>
+                <NavLink to="/new">New</NavLink>
               </Box>
             </Box>
             {/*search */}

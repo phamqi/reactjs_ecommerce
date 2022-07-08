@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       padding: '5px',
       paddingLeft: '15px',
       fontSize: '1rem',
-      minWidth: '333px',
+      // minWidth: '333px',
     },
   },
 }));

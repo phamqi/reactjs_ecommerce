@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Auth from '../Auth';
 
 import { logout } from '../Auth/userSlice';
@@ -110,6 +110,9 @@ function Header(props) {
         color: 'white',
         padding: '10px 20px',
         borderRight: '1px solid #D3D3D3',
+        '&:first-child': {
+          flexShrink: 0,
+        },
         '&:last-child': {
           textAlign: 'center',
           minWidth: '40px',
@@ -117,6 +120,7 @@ function Header(props) {
           paddingRight: '0px',
           maxWidth: '60px',
           overFlow: 'hidden',
+          flexShrink: '1',
         },
       },
     },
@@ -214,20 +218,23 @@ function Header(props) {
   }, []);
 
   const [positionHeader, setPositionHeader] = useState();
-  const appHref = window.location.pathname;
-
+  const location = useLocation();
+  const appPathname = location.pathname;
   const checkLocation = () => {
-    if (appHref === '/') {
+    if (appPathname === '/') {
       setPositionHeader(true);
-      console.log('alo alo');
     } else {
-      console.log('cac cac');
       setPositionHeader(false);
     }
   };
   useMemo(() => {
     checkLocation();
-  }, [appHref]);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [appPathname]);
 
   return (
     <div className={classes.root}>

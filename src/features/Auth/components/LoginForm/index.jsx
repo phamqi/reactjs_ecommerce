@@ -1,15 +1,11 @@
-import CodeOffIcon from '@mui/icons-material/CodeOff';
-import { Avatar } from '@mui/material';
-import Button from '@mui/material/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
-import React from 'react';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import InputField from '../../../../components/form-control/inputField';
 import PasswordField from '../../../../components/form-control/passwordField';
 import Loading from '../../../../components/Loading';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -74,10 +70,7 @@ function LoginForm(props) {
   return (
     <div className="register">
       {isSubmitting && <Loading className="register__loading" />}
-      <h2 className="register__title">Login</h2>
-      <Avatar className="register__avatar">
-        <CodeOffIcon />
-      </Avatar>
+
       <form className="register__form" onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField
           className="register__input"

@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
+import { Avatar } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,7 +8,7 @@ import { Box } from '@mui/system';
 import { useState } from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
-
+import './styles.scss';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiPaper-root': {
@@ -39,7 +40,7 @@ function Auth({ openAuth, handleCloseAuth }) {
   const redirectLogin = () => {
     setMode(MODE.LOGIN);
   };
-
+  const myOrigin = window.location.origin;
   return (
     <div className={classes.root}>
       <Dialog open={openAuth} disableScrollLock={true} onClose={handleCloseAuth}>
@@ -55,6 +56,11 @@ function Auth({ openAuth, handleCloseAuth }) {
               <CloseIcon sx={{ color: 'black' }} />
             </Button>
           </Box>
+
+          <div className="register__avatar">
+            <img src={`${myOrigin}/logo.png`} />
+          </div>
+
           {mode === MODE.LOGIN && (
             <>
               <Login />

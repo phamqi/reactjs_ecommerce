@@ -31,12 +31,6 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
     zIndex: 1,
   },
-  left: {
-    width: '250px',
-  },
-  right: {
-    flex: '1 1 0',
-  },
   'div.MuiFormControl-root': {
     margin: 0,
   },
@@ -186,7 +180,7 @@ function MainPage() {
                   ))}
                 </Grid>
               )}
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', padding: '13px 0' }}>
                 <Pagination
                   siblingCount={1}
                   color="primary"

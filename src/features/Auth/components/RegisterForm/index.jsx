@@ -1,6 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import CodeOffIcon from '@mui/icons-material/CodeOff';
-import { Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -8,7 +6,6 @@ import * as yup from 'yup';
 import InputField from '../../../../components/form-control/inputField';
 import PasswordField from '../../../../components/form-control/passwordField';
 import Loading from '../../../../components/Loading';
-import './styles.scss';
 
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -87,10 +84,6 @@ function RegisterForm(props) {
   return (
     <div className="register">
       {isSubmitting && <Loading />}
-      <h2 className="register__title">Creat a Account</h2>
-      <Avatar className="register__avatar">
-        <CodeOffIcon />
-      </Avatar>
       <form className="register__form" onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField
           className="register__input"

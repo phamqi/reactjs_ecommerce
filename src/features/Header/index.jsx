@@ -110,17 +110,16 @@ function Header(props) {
         color: 'white',
         padding: '10px 20px',
         borderRight: '1px solid #D3D3D3',
-        '&:first-child': {
-          flexShrink: 0,
-        },
+        flexShrink: '1',
         '&:last-child': {
+          display: 'block',
           textAlign: 'center',
           minWidth: '40px',
           borderRight: 'none',
           paddingRight: '0px',
           maxWidth: '60px',
-          overFlow: 'hidden',
-          flexShrink: '1',
+          overflow: 'hidden',
+          flexShrink: '0',
         },
       },
     },
@@ -248,8 +247,8 @@ function Header(props) {
                 </Typography>
                 <Box>
                   <ul className={classes.headerUl}>
-                    <li>FAQs</li>
-                    <li>Contact</li>
+                    <li className="li_header_user">FAQs</li>
+                    <li className="li_header_user">Contact</li>
                     {isLogged ? (
                       <li className={classes.liUser}>
                         <p> {loggedUser.fullName.split(' ').pop()}</p>

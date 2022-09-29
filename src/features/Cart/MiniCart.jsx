@@ -125,8 +125,14 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#717fe0',
     },
+    '& > div': {
+      fontSize: '1.1rem',
+    },
   },
   btnCheckOut: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: '40px',
     width: '60%',
     margin: '0 auto',
@@ -138,6 +144,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#333',
     '&:hover': {
       backgroundColor: '#717fe0',
+    },
+    '&:visited': {
+      color: '#fff',
     },
   },
 }));
@@ -201,7 +210,9 @@ function MiniCart({ onCloseMiniCart }) {
               <div onClick={handleCloseMiniCart}> View Cart</div>
             </NavLink>
           </div>
-          <button className={classes.btnCheckOut}>Check out</button>
+          <NavLink to="/cart" className={classes.btnCheckOut}>
+            <div onClick={handleCloseMiniCart}> Check out</div>
+          </NavLink>
         </div>
       </div>
     </div>

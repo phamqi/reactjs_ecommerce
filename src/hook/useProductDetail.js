@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import productApi from '../../../api/productApi';
+import productApi from '../api/productApi';
 
 export default function useProductDetail(productId) {
   const [product, setProduct] = useState({});

@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { memo } from 'react';
-import Product from '../components/Product';
+import Product from './Product';
 
 ProductList.propTypes = {};
 const theme = createTheme({

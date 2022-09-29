@@ -12,13 +12,15 @@ import GridSS from '../components/CustomGrid/GridSS';
 import AddToCartForm from '../components/form-control/addToCart';
 import Banner from '../features/Banner';
 import { addToCart } from '../features/Cart/cartSlice';
-import ProductFilters from '../features/Products/components/Filters';
-import ProductSort from '../features/Products/components/Filters/ProductSort';
-import Product from '../features/Products/components/Product';
-import ProductInfor from '../features/Products/components/ProductInfor';
-import ProductThumnail from '../features/Products/components/ProductThumnail';
-import SkeletonProduct from '../features/Products/components/skeletonProduct';
-import useProductList from '../features/Products/hook/useProductList';
+import {
+  ProductFilters,
+  ProductSort,
+  Product,
+  ProductInfor,
+  ProductThumnail,
+  SkeletonProduct,
+} from '../features/Products';
+import { useProductList } from '../hook';
 import Slide from '../features/Slide';
 import { dataSlides } from '../features/Slide/dataSlides';
 
@@ -106,8 +108,6 @@ function MainPage() {
       pathname: location.pathname,
       search: queryString.stringify(filters),
     };
-    console.log(locationSearch);
-    console.log(location.pathname);
     navigate(locationSearch);
   };
   const handleFiltersChange = (newFilters) => {
@@ -150,7 +150,7 @@ function MainPage() {
         quantity: values.quantity,
       });
       await dispatch(action);
-      enqueueSnackbar('Add to cart successfully', { variant: 'success' });
+      enqueueSnackbar('Item added to cart', { variant: 'success' });
     } catch (error) {}
   };
   return (
@@ -172,7 +172,7 @@ function MainPage() {
               {loading ? (
                 <SkeletonProduct length={pagination.limit} />
               ) : (
-                <Grid container>
+                <Grid container p={2}>
                   {productList.map((product, index) => (
                     <GridSS key={index} ss={12} xs={6} sm={4} md={3} lg={3}>
                       <Product product={product} onQuickView={onQuickView} />

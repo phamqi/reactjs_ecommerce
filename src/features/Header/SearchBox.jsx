@@ -7,11 +7,12 @@ import { Box } from '@mui/system';
 import { memo, useState } from 'react';
 
 import productApi from '../../api/productApi';
-import Product from '../Products/components/Product';
+import Product from '../Products/Product';
 
 SearchBox.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   searchBox: {
+    minWidth: '320px',
     boxSizing: 'border-box',
     boxShadow:
       '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
@@ -58,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   productBox: {
-    maxHeight: '60vh',
+    padding: '12px 36px',
+    height: 'min(100vh, max(70vh, calc((600px - 100vw)*99999)))',
     minHeight: '30vh',
     backgroundColor: 'rgba(255,255,255,0.8)',
     opacity: '1',

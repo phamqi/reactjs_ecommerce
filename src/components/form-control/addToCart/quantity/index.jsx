@@ -26,7 +26,12 @@ function QuantityField(props) {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton
                 onClick={() =>
-                  setValue(name, Number.parseInt(value) ? Number.parseInt(value) - 1 : 0)
+                  setValue(
+                    name,
+                    Number.parseInt(value) > 1
+                      ? Number.parseInt(value) - 1
+                      : Number.parseInt(value) <= 1 && Number.parseInt(value) - 0
+                  )
                 }
               >
                 <ExpandMoreIcon />

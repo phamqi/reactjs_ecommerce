@@ -2,9 +2,8 @@ import { Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { IMG_URL, STATIC_HOST } from '../../../constants/index';
+import { IMG_URL, STATIC_HOST } from '../../../constants';
 import NavigateComponent from '../../../components/NavigateComponent';
 
 const useStyles = makeStyles((theme) => ({

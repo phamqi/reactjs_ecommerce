@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 ProductMenu.propTypes = {};
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +25,8 @@ function ProductMenu(props) {
     <Box className={classes.root}>
       <Container className={classes.root}>
         <Box>
-          <NavLink to="">Description</NavLink>
-          <NavLink to="reviews">Review</NavLink>
+          <Link to="">Description</Link>
+          <Link to="reviews">Review</Link>
         </Box>
       </Container>
     </Box>

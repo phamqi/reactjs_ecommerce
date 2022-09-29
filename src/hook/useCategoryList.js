@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
-import categoryApi from '../../../api/categoryApi';
-import StorageKeys from '../../../constants/storagekey';
+import categoryApi from '../api/categoryApi';
+import StorageKeys from '../constants/storageKeys';
 
 export default function useCategoryList() {
   const [categoryList, setCategoryList] = useState(

@@ -8,3 +8,9 @@ export const HEIGHT_SKT = 268;
 export const BANNER_IMG = 'https://i.imgur.com/Puqzh44.jpeg';
 export const SLIDE_HEIGHT = '100vh';
 export const IMG_EMPTY_CART = 'https://i.imgur.com/L13XiaV.png';
+export const MESSAGEBOX = {
+  add: 'Item added to cart',
+  decrease: 'Item was decreased',
+  remove: 'Item was removed from cart',
+  error: 'Please try again',
+};

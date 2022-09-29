@@ -7,17 +7,18 @@ import { Route, Routes, useParams } from 'react-router-dom';
 
 import productApi from '../api/productApi';
 import AddToCartForm from '../components/form-control/addToCart';
-import { LIMIT } from '../constants';
+import { LIMIT, MESSAGEBOX } from '../constants';
 import { addToCart } from '../features/Cart/cartSlice';
-import Description from '../features/Products/components/Description';
-import ProductInfor from '../features/Products/components/ProductInfor';
-import ProductMenu from '../features/Products/components/ProductMenu';
-import ProductThumnail from '../features/Products/components/ProductThumnail';
-import Related from '../features/Products/components/Related';
-import Review from '../features/Products/components/Review';
-import SkeletonProduct from '../features/Products/components/skeletonProduct';
-import innerProduct from '../features/Products/hook/useInnerProduct';
-import useProductDetail from '../features/Products/hook/useProductDetail';
+import {
+  Description,
+  ProductInfor,
+  ProductMenu,
+  ProductThumnail,
+  Related,
+  Review,
+  SkeletonProduct,
+} from '../features/Products';
+import { innerProduct, useProductDetail } from '../hook';
 import SkeletonPage from './Skeleton/SkeletionPage';
 import NavigateComponent from '../components/NavigateComponent';
 
@@ -82,9 +83,9 @@ function DetailPage(props) {
         quantity: values.quantity,
       });
       await dispatch(action);
-      enqueueSnackbar('Add to cart successfully', { variant: 'success' });
+      enqueueSnackbar(`${MESSAGEBOX.add}`, { variant: 'success' });
     } catch (error) {
-      enqueueSnackbar('Please try again', { variant: 'error' });
+      enqueueSnackbar(`${MESSAGEBOX.error}`, { variant: 'error' });
     }
   };
 
@@ -132,8 +133,8 @@ function DetailPage(props) {
                 <Box className={classes.menu}>
                   <ProductMenu />
                   <Routes>
-                    <Route exact path="/" element={<Description product={product} />} />
-                    <Route exact path="reviews" element={<Review product={product} />} />
+                    <Route path="/" element={<Description product={product} />} />
+                    <Route path="reviews" element={<Review product={product} />} />
                   </Routes>
                 </Box>
                 <Box className={classes.productList}>

@@ -1,7 +1,6 @@
-import { IMG_URL, STATIC_HOST } from '../../../constants';
+import { IMG_URL, STATIC_HOST } from '../constants';
 // css in index.css
 export default function innerProduct(product) {
-  const linkProduct = `products/${product.name}_i${product.id}`;
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
@@ -15,7 +14,7 @@ export default function innerProduct(product) {
     : '';
   return {
     __html:
-      '<a ><div class="css-MuiPaper-root"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
+      '<div class="css-MuiPaper-root"><div class="makeStyles-divImg"><img class="makeStyles-productImg" src=' +
       thumbnailUrl +
       '  width="100%" alt="' +
       nameProduct +
@@ -25,6 +24,6 @@ export default function innerProduct(product) {
       priceVN +
       '</span>' +
       pricePercent +
-      '</div></div></a>',
+      '</div></div>',
   };
 }

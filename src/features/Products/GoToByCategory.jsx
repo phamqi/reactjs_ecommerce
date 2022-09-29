@@ -56,7 +56,7 @@ function GoToByCategory({ categoryList, categoryOnLoad }) {
       <h4 className={classes.brh4}>Category</h4>
       <Box className={classes.categoryBox}>
         {categoryOnLoad ? (
-          <h1>Dang load</h1>
+          <h1>Loading</h1>
         ) : (
           categoryList.map((category) => (
             <p

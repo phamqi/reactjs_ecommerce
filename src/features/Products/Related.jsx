@@ -4,10 +4,10 @@ import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { memo, useState } from 'react';
-import { LIMIT } from '../../../constants';
-import SkeletonProduct from '../components/skeletonProduct';
-import useProductByCategory from '../hook/useProductByCategory';
-import Product from './ProductRelated';
+import { LIMIT } from '../../constants';
+import SkeletonProduct from './skeletonProduct';
+import { useProductByCategory } from '../../hook';
+import Product from './Product/ProductRelated';
 Related.propTypes = {
   category: PropTypes.number,
 };

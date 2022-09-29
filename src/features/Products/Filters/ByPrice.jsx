@@ -1,15 +1,42 @@
 import { Box, Button, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { BG_COLOR } from '../../../../constants';
 
 ByPrice.propTypes = {
   onChange: PropTypes.func,
 };
-
+const useStyles = makeStyles((theme) => ({
+  btnPrice: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    textDecoration: 'none',
+    fontWeight: 500,
+    fontSize: '0.875rem',
+    lineHeight: '1.75',
+    letterSpacing: '0.02857em',
+    textTransform: 'uppercase',
+    minWidth: '64px',
+    padding: '6px 8px',
+    borderRadius: '8px',
+    width: '100%',
+    backgroundColor: '#333',
+    margin: '10px 0 20px',
+    color: '#fff',
+    border: 'none',
+    '&:hover': {
+      backgroundColor: '#717fe0',
+    },
+  },
+}));
 function ByPrice({ onChange }) {
   const [values, setValues] = useState({ salePrice_gte: 0, salePrice_lte: 0 });
-
+  const classes = useStyles();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues((prevValues) => ({
@@ -36,18 +63,9 @@ function ByPrice({ onChange }) {
           onChange={handleChange}
           value={values.salePrice_lte}
         />
-        <Button
-          sx={{
-            background: `${BG_COLOR}`,
-            mb: 2,
-            mt: '10px',
-            color: 'white',
-          }}
-          fullWidth
-          onClick={handleSubmit}
-        >
+        <button onClick={handleSubmit} className={classes.btnPrice}>
           Ap dung
-        </Button>
+        </button>
       </Box>
     </div>
   );

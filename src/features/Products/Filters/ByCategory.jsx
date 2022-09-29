@@ -2,7 +2,7 @@ import { Box, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import useCategoryList from '../../hook/useCategoryList';
+import { useCategoryList } from '../../../hook';
 
 ByCategory.propTypes = {
   onChange: PropTypes.func,
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     '&:hover': {
       textDecoration: 'underline',
+      color: '#717fe0',
     },
   },
   activeLi: {

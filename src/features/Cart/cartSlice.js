@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import StorageKeys from '../../constants/storagekey';
+import StorageKeys from '../../constants/storageKeys';
 
 const cartSlice = createSlice({
   name: 'cart',

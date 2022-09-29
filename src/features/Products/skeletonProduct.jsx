@@ -1,7 +1,7 @@
 import { Box, Grid, Skeleton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
-import { HEIGHT_SKT } from '../../../constants';
+import { HEIGHT_SKT } from '../../constants';
 
 SkeletonProduct.propTypes = {
   length: PropTypes.number,

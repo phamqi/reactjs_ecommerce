@@ -2,11 +2,13 @@ import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
 
 import CartItem from './CartItem';
 import { addOnToCart, clearCart, decreaseOnCart, removeFromCart } from './cartSlice';
 import EmptyCart from './EmptyCart';
 import { cartTotalSelector } from './selector';
+import { MESSAGEBOX } from '../../constants/index';
 
 Cart.propTypes = {};
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 'max(0px, min(5px, calc((100vw - 600px) * 99999)))',
   },
   btnClear: {
+    fontSize: '1rem',
     fontWeight: '600',
     padding: '8px 1.1rem 10px',
     border: '1px solid #ee4d2d ',
@@ -95,6 +98,7 @@ function Cart(props) {
   const classes = useStyles();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const total = useSelector(cartTotalSelector);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleChange = async (item, typeHandle) => {
     //1: xoa san pham
@@ -104,6 +108,7 @@ function Cart(props) {
       try {
         const action = removeFromCart({ id: item.id });
         dispatch(action);
+        enqueueSnackbar(`${MESSAGEBOX.remove}`, { variant: 'error' });
       } catch (error) {}
     }
     if (typeHandle === 2) {
@@ -114,15 +119,23 @@ function Cart(props) {
           quantity: item.quantity,
         });
         await dispatch(action);
+        enqueueSnackbar(`${MESSAGEBOX.add}`, { variant: 'success' });
       } catch (error) {}
     }
     if (typeHandle === 3) {
       try {
-        const action = decreaseOnCart({
-          id: item.id,
-          quantity: item.quantity,
-        });
-        await dispatch(action);
+        if (item.quantity <= 1) {
+          const action = removeFromCart({ id: item.id });
+          dispatch(action);
+          enqueueSnackbar(`${MESSAGEBOX.remove}`, { variant: 'error' });
+        } else {
+          const action = decreaseOnCart({
+            id: item.id,
+            quantity: item.quantity,
+          });
+          await dispatch(action);
+          enqueueSnackbar(`${MESSAGEBOX.decrease}`, { variant: 'error' });
+        }
       } catch (error) {}
     }
   };

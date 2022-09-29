@@ -106,6 +106,30 @@ code {
 }
 
 /* inner product css */
+@media screen and (min-width:1500px){
+  .mmui-item {
+    -webkit-flex-basis: 16.66668%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 16.66668%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.66668%;
+}
+}
+@media (min-width:1200px) and  (max-width: 1500px){
+  .mmui-item {
+    -webkit-flex-basis: 20%;
+    -ms-flex-preferred-size: 20%;
+    flex-basis: 20%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 20%;
+}
+}
 @media (min-width:900px) and  (max-width: 1200px){
   .mmui-item {
     -webkit-flex-basis: 25%;
@@ -152,7 +176,7 @@ code {
     flex-grow: 0;
     max-width: 100%;
 }}
-@media screen and (min-width: 1200px){
+/* @media screen and (min-width: 1200px){
   .mmui-item {
     -webkit-flex-basis: 25%;
     -ms-flex-preferred-size: 25%;
@@ -163,7 +187,7 @@ code {
     flex-grow: 0;
     max-width: 25%;
 }
-}
+} */
 .mmui-item {
     box-sizing: border-box;
     margin: 0;

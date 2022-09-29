@@ -2,8 +2,8 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 
-import { IMG_URL, STATIC_HOST } from '../../../../constants/index';
-import NavigateComponent from '../../../../components/NavigateComponent';
+import { IMG_URL, STATIC_HOST } from '../../../constants/index';
+import NavigateComponent from '../../../components/NavigateComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {

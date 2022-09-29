@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import productApi from '../../../api/productApi';
-import { LIMIT } from '../../../constants';
+import productApi from '../api/productApi';
+import { LIMIT } from '../constants';
 
 export default function useProductList(queryParams) {
   const [productList, setProductList] = useState([]);

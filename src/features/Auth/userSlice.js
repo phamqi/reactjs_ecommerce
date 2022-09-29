@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import StorageKeys from '../../constants/storagekey';
+import StorageKeys from '../../constants/storageKeys';
 import userApi from '../../api/userApi';
 
 export const register = createAsyncThunk('user/register', async (payload) => {

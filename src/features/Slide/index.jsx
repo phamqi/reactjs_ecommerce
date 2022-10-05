@@ -1,7 +1,7 @@
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useRef, useState } from 'react';
+
+import SlideshowItem from './Slideshow';
 import './slide.scss';
 
 Slide.propTypes = {
@@ -9,123 +9,66 @@ Slide.propTypes = {
 };
 
 function Slide({ dataSlides }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const countSlide = dataSlides.length;
-  const [fromX, SetFromX] = useState('70%');
-  const nextSlide = () => {
-    SetFromX('70%');
-    setCurrentSlide(currentSlide === countSlide - 1 ? 0 : currentSlide + 1);
+  const [active, setActive] = useState(0);
+  const array = [
+    'ani-rotate',
+    'ani-translateX',
+    'ani-translateY',
+    'ani-opacity',
+    'ani-rotate2',
+    'ani-translateX2',
+    'ani-translateY2',
+    'ani-rotate3',
+  ];
+  const aniName = array[Math.floor(Math.random() * array.length)];
+  const aniInfo = array[Math.floor(Math.random() * array.length)];
+  const aniLink = array[Math.floor(Math.random() * array.length)];
+  const callbackFunction = (childData) => {
+    setActive(childData);
   };
-  const prevSlide = () => {
-    SetFromX('-70%');
-    setCurrentSlide(currentSlide === 0 ? countSlide - 1 : currentSlide - 1);
-  };
-  var startX, moveX;
-  const handelMoveStart = (e) => {
-    startX = e.touches[0].clientX;
-  };
-  const handelMove = (e) => {
-    moveX = e.touches[0].clientX;
-  };
-  const handelMoveEnd = (e) => {
-    if (startX + 30 < moveX) {
-      prevSlide();
-    }
-    if (startX - 30 > moveX) {
-      nextSlide();
-    }
-  };
-  const handleDotClick = (index) => {
-    setCurrentSlide(index);
-  };
-
-  const timeoutRef = useRef(null);
-  const resetTimeout = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  };
-  useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(() => {
-      SetFromX('70%');
-      setCurrentSlide(currentSlide === countSlide - 1 ? 0 : currentSlide + 1);
-    }, 5000);
-    return () => {
-      resetTimeout();
-    };
-  }, [currentSlide, countSlide]);
+  console.log(active);
   return (
-    <div
-      onTouchStart={handelMoveStart}
-      onTouchEnd={handelMoveEnd}
-      onTouchMove={handelMove}
-      className="carousel"
-    >
-      <ul className="carousel-slick-dots">
-        {dataSlides.map((slide, index) => (
-          <li
-            key={slide.id}
-            className={
-              index === currentSlide
-                ? 'carousel-slick-dot carousel-slick-dot__active'
-                : 'carousel-slick-dot'
-            }
-            onClick={() => handleDotClick(index)}
-          ></li>
-        ))}
-      </ul>
-      <button
-        onClick={() => prevSlide()}
-        className="carousel-button carousel-button__prev onHover"
-      >
-        <ArrowBackIosNewIcon />
-      </button>
-      <button
-        onClick={() => nextSlide()}
-        className="carousel-button carousel-button__next onHover"
-      >
-        <ArrowForwardIosIcon />
-      </button>
-      <div style={{ '--from': `${fromX}` }} className="carousel-list">
-        {dataSlides.map((slide, index) => (
+    <SlideshowItem parentCallback={callbackFunction}>
+      {dataSlides.map((item, index) => (
+        <div
+          key={index}
+          className={
+            index === active ? 'section__item section__item--active' : 'section__item'
+          }
+        >
+          <picture>
+            <source media="(max-width:465px)" srcSet={item.img_mb} />
+            <img src={item.img} alt="img" className="section__item__img" />
+          </picture>
           <div
-            key={slide.id}
             className={
-              index === currentSlide
-                ? 'carousel-item carousel-item__active'
-                : 'carousel-item'
+              index === active ? 'active section__item__txt' : 'section__item__txt'
             }
           >
-            <picture>
-              <source
-                media="(min-width: 3840px)"
-                srcSet={slide.image_lg}
-                alt={slide.title}
-              />
-              <source
-                media="(min-width: 2560px)"
-                srcSet={slide.image_xl}
-                alt={slide.title}
-              />
-              <source
-                media="(min-width: 1200px)"
-                srcSet={slide.image_xl}
-                alt={slide.title}
-              />
-              <source media="(min-width: 900px)" srcSet={slide.image} alt={slide.title} />
-              <source
-                media="(min-width: 600px)"
-                srcSet={slide.img_tb}
-                alt={slide.title}
-              />
-              <source media="(min-width: 0px)" srcSet={slide.img_mb} alt={slide.title} />
-              <img className="carousel-image" src={slide.image} alt={slide.title} />
-            </picture>
+            <div
+              className="section__item__txt__name"
+              style={{ '--ani-name': `${aniName}` }}
+            >
+              <span>{item.name}</span>
+            </div>
+            <div
+              className="section__item__txt__info"
+              style={{ '--ani-info': `${aniInfo}` }}
+            >
+              <h2 className="section__item__txt__info--h2">{item.info}</h2>
+            </div>
+            <div
+              className="section__item__txt__link"
+              style={{ '--ani-link': `${aniLink}` }}
+            >
+              <a className="section__item__txt__link--a" href={item.link}>
+                Shop now
+              </a>
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      ))}
+    </SlideshowItem>
   );
 }
 

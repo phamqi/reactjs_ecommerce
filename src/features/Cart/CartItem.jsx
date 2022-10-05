@@ -7,18 +7,25 @@ import { useState } from 'react';
 import { IMG_URL, STATIC_HOST } from '../../constants/index';
 CartItem.propTypes = {};
 const useStyles = makeStyles((theme) => ({
+  wraper: {
+    padding: 'max(0px,min(1rem, calc((100vw - 600px )*99999)))',
+    backgroundColor: 'white',
+    borderRadius: 'max(0px, min(8px, calc((100vw - 600px) * 99999)))',
+    border: '1px solid rgba(0,0,0,0.2)',
+    borderTop: 'none',
+    margin: '1rem 0 0 0',
+  },
   root: {
     backgroundColor: 'white',
-    margin: '1rem 0 0 0',
     display: 'flex',
-    borderRadius: 'max(0px, min(5px, calc((100vw - 600px) * 99999)))',
-    borderBottom: '1px solid rgba(0,0,0,0.2)',
     overflow: 'hidden',
     position: 'relative',
   },
   imgCart: {
-    width: '85px',
-    height: '85px',
+    minWidth: '85px',
+    maxWidth: '120px',
+    width: '10vw',
+    height: 'auto',
     objectFit: 'cover',
     margin: '1rem',
   },
@@ -74,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
       height: '32px',
       padding: '0',
       border: '1px solid rgba(0,0,0,0.2)',
-      borderRadius: '3px',
+      borderRadius: '5px',
     },
   },
   price: {
@@ -167,129 +174,133 @@ function CartItem({ item, handleChange }) {
   };
 
   return (
-    <div
-      className={classes.root}
-      onTouchStart={handelMoveStart}
-      onTouchMove={handelMove}
-      onTouchEnd={(e) => {
-        if (startX - 30 > moveX) {
-          setActiveDiv(item.id);
-          setToggle(true);
-        }
-        if (startX + 30 < moveX) {
-          setActiveDiv(item.id);
-          setToggle(false);
-        }
-      }}
-    >
-      <Box>
-        <img
-          className={classes.imgCart}
-          src={`${
-            item.product.thumbnail ? STATIC_HOST + item.product.thumbnail?.url : IMG_URL
-          }`}
-          alt={`${item.product.name}`}
-        ></img>
-      </Box>
-      <Box
-        className={
-          toggle && activeDiv === item.id ? classes.inforTopActive : classes.inforTop
-        }
+    <div className={classes.wraper}>
+      <div
+        className={classes.root}
+        onTouchStart={handelMoveStart}
+        onTouchMove={handelMove}
+        onTouchEnd={(e) => {
+          if (startX - 30 > moveX) {
+            setActiveDiv(item.id);
+            setToggle(true);
+          }
+          if (startX + 30 < moveX) {
+            setActiveDiv(item.id);
+            setToggle(false);
+          }
+        }}
       >
+        <Box>
+          <img
+            className={classes.imgCart}
+            src={`${
+              item.product.thumbnail ? STATIC_HOST + item.product.thumbnail?.url : IMG_URL
+            }`}
+            alt={`${item.product.name}`}
+          ></img>
+        </Box>
         <Box
-          className={classes.inforCart}
-          sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
+          className={
+            toggle && activeDiv === item.id ? classes.inforTopActive : classes.inforTop
+          }
         >
-          <Box className={classes.infor}>
-            <a
-              className={classes.name}
-              href={`products/${item.product.name}_i${item.id}`}
-            >
-              {item.product.name}
-            </a>
-            <p className={classes.price}>{item.product.salePrice}</p>
-          </Box>
           <Box
-            sx={{ justifyContent: { xs: 'space-between', sm: '' } }}
-            className={classes.control}
+            className={classes.inforCart}
+            sx={{ flexDirection: { xs: 'column', sm: 'row' } }}
           >
-            <Box className={classes.controlQuantity}>
-              <IconButton
-                className={classes.button}
-                onClick={() => handleDecreaseOnCart(item)}
+            <Box className={classes.infor}>
+              <a
+                className={classes.name}
+                href={`products/${item.product.name}_i${item.id}`}
               >
-                <ExpandMoreIcon />
-              </IconButton>
-              <input
-                width="100px"
-                type="number"
-                name="quantity"
-                value={item.quantity}
-                onChange={() => onChange()}
-              />
-              <IconButton
-                className={classes.button}
-                onClick={() => handleAddToCart(item)}
-              >
-                <ExpandLessIcon />
-              </IconButton>
+                {item.product.name}
+              </a>
+              <p className={classes.price}>{item.product.salePrice}</p>
+            </Box>
+            <Box
+              sx={{ justifyContent: { xs: 'space-between', sm: '' } }}
+              className={classes.control}
+            >
+              <Box className={classes.controlQuantity}>
+                <IconButton
+                  className={classes.button}
+                  onClick={() => handleDecreaseOnCart(item)}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+                <input
+                  width="100px"
+                  type="number"
+                  name="quantity"
+                  value={item.quantity}
+                  onChange={() => onChange()}
+                />
+                <IconButton
+                  className={classes.button}
+                  onClick={() => handleAddToCart(item)}
+                >
+                  <ExpandLessIcon />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
+          <Box
+            sx={{ visibility: { xs: 'visible', sm: 'visible', md: 'hidden' } }}
+            className={classes.btnOption}
+          >
+            <Button
+              onClick={() => {
+                setActiveDiv(item.id);
+                setToggle(!toggle);
+              }}
+            >
+              <ArrowBackIosIcon
+                className={
+                  toggle && activeDiv === item.id ? classes.iconActive : classes.icon
+                }
+              />
+            </Button>
+          </Box>
         </Box>
         <Box
-          sx={{ visibility: { xs: 'visible', sm: 'visible', md: 'hidden' } }}
-          className={classes.btnOption}
+          sx={{
+            position: { xs: 'absolute', sm: 'absolute', md: 'relative' },
+            flexDirection: { xs: 'row ', sm: 'row', md: 'column' },
+          }}
+          className={classes.divOption}
         >
           <Button
+            sx={{
+              color: { xs: 'white', sm: 'white', md: 'rgb(73,125,189)' },
+              backgroundColor: {
+                xs: 'rgb(73,125,189)',
+                sm: 'rgb(73,125,189)',
+                md: 'transparent',
+              },
+              fontSize: '1rem',
+            }}
+            onClick={() => {}}
+          >
+            Related
+          </Button>
+          <Button
+            sx={{
+              color: { xs: 'white', sm: 'white', md: 'red' },
+              backgroundColor: {
+                xs: '#ee4d2d',
+                sm: '#ee4d2d',
+                md: 'transparent',
+              },
+              fontSize: '1rem',
+            }}
             onClick={() => {
-              setActiveDiv(item.id);
-              setToggle(!toggle);
+              handleRemove(item);
             }}
           >
-            <ArrowBackIosIcon
-              className={
-                toggle && activeDiv === item.id ? classes.iconActive : classes.icon
-              }
-            />
+            Remove
           </Button>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          position: { xs: 'absolute', sm: 'absolute', md: 'relative' },
-          flexDirection: { xs: 'row ', sm: 'row', md: 'column' },
-        }}
-        className={classes.divOption}
-      >
-        <Button
-          sx={{
-            color: { xs: 'white', sm: 'white', md: 'rgb(73,125,189)' },
-            backgroundColor: {
-              xs: 'rgb(73,125,189)',
-              sm: 'rgb(73,125,189)',
-              md: 'transparent',
-            },
-          }}
-          onClick={() => {}}
-        >
-          Related
-        </Button>
-        <Button
-          sx={{
-            color: { xs: 'white', sm: 'white', md: 'red' },
-            backgroundColor: {
-              xs: '#ee4d2d',
-              sm: '#ee4d2d',
-              md: 'transparent',
-            },
-          }}
-          onClick={() => {
-            handleRemove(item);
-          }}
-        >
-          Remove
-        </Button>
-      </Box>
+      </div>
     </div>
   );
 }

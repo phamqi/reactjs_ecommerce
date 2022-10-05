@@ -159,13 +159,13 @@ function MainPage() {
         <div className={classes.carousel}>
           <Slide dataSlides={data} />
         </div>
-        <div className={classes.banner}>
+        <div id="banner" className={classes.banner}>
           <Banner />
         </div>
       </div>
       <Box>
         <Box className={classes.container}>
-          <Grid container>
+          <Grid container p={2}>
             <Grid sx={{ backgroundColor: 'white' }} item xs={12} sm={12} md={9.5} lg={10}>
               <ProductSort currentSort={queryParams._sort} onChange={handleSortChange} />
 

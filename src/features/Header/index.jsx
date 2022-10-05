@@ -82,17 +82,19 @@ function Header(props) {
     headerBotS: {
       width: '100%',
       maxWidth: '1200px',
-      padding: '0px 15px',
+      padding: '15px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor: 'transparent',
       '& .headerMenu': {
+        marginLeft: '1rem',
         '&> a': {
           textDecoration: 'none',
-          padding: '5px 20px',
+          padding: '5px 0 5px 20px',
           color: 'black',
-          fontSize: '1.1rem',
+          fontSize: '1.3rem',
+          fontWeight: 500,
           '&:visited': {
             color: 'rgba(0,0,0,0.7)',
           },
@@ -183,8 +185,14 @@ function Header(props) {
       display: 'flex',
       alignItems: 'center',
     },
+    linkIcon: {
+      color: '#333',
+      '&:visited': {
+        color: '#333',
+      },
+    },
     imgIcon: {
-      height: '13px',
+      height: '20px',
     },
   }));
   const classes = useStyles();
@@ -279,7 +287,7 @@ function Header(props) {
         >
           <Box className={classes.headerBotS}>
             <Box className={classes.flexAlignCenter}>
-              <NavLink to="/">
+              <NavLink className={classes.linkIcon} to="/">
                 <div className={classes.flexAlignCenter}>
                   <img
                     className={classes.imgIcon}
@@ -289,6 +297,8 @@ function Header(props) {
                 </div>
               </NavLink>
               <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/products">Shop</NavLink>
                 <NavLink to="/featured">Featured</NavLink>
                 <NavLink to="/new">New</NavLink>
               </Box>

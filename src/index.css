@@ -51,6 +51,9 @@ body {
 header {
   padding: 0;
 }
+#body .headerMenu a.active {
+  color: #6c7ae0;
+}
 .li_header_user {
   display: block;
 }

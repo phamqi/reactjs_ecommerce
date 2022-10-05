@@ -37,14 +37,26 @@ const useStyles = makeStyles((theme) => ({
       color: 'white',
     },
   },
+  cart_header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    margin: '1rem 0 0 0',
+    padding: '1rem',
+    fontWeight: '500',
+    color: '#555',
+    fontSize: '1.2rem',
+    background: 'white',
+    border: '2px solid rgba(224,168,0,.4)',
+    borderRadius: 'max(0px, min(8px, calc((100vw - 600px) * 99999)))',
+  },
   checkout: {
     display: 'flex',
     justifyContent: 'space-between',
     margin: '1rem 0 0 0',
     background: 'white',
-    padding: '10px 10px',
-    borderBottom: '1px solid rgba(0,0,0,0.2)',
-    borderRadius: 'max(0px, min(5px, calc((100vw - 600px) * 99999)))',
+    padding: '1rem',
+    border: '1px solid rgba(0,0,0,0.2)',
+    borderRadius: 'max(0px, min(8px, calc((100vw - 600px) * 99999)))',
   },
   btnClear: {
     fontSize: '1rem',
@@ -173,6 +185,25 @@ function Cart(props) {
             <EmptyCart />
           ) : (
             <Box>
+              <div className={classes.cart_header}>
+                Product
+                <Box
+                  sx={{
+                    display: { xs: 'flex', sm: 'flex', md: 'flex' },
+                    width: { xs: '10.5rem', sm: '10.5rem', md: '20rem' },
+                    justifyContent: {
+                      xs: 'flex-end',
+                      sm: 'space-between',
+                      md: 'space-around',
+                    },
+                  }}
+                >
+                  <Box sx={{ display: { xs: 'none', sm: 'flex', md: 'flex' } }}>
+                    Quantity
+                  </Box>
+                  <div>Option</div>
+                </Box>
+              </div>
               {cartItems.map((item, index) => (
                 <CartItem item={item} key={index} handleChange={handleChange} />
               ))}

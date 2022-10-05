@@ -4,7 +4,7 @@ BannerItem.propTypes = {
   dataBanner: PropTypes.object,
 };
 const useStyles = makeStyles((theme) => ({
-  divImg: {
+  banner_bg: {
     position: 'relative',
     width: '100%',
     height: 'max(35vh, min(calc(33vh), calc((600px - 100vw ) * 99999)))',
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    border: '1px solid #e6e6e6',
     '&:hover': {
       color: 'white',
       backgroundColor: 'rgba(103,117,214,0.5)',
@@ -76,7 +77,7 @@ function BannerItem({ dataBanner }) {
   const classes = useStyles();
   return (
     <div
-      className={classes.divImg}
+      className={classes.banner_bg}
       style={{ backgroundImage: `url('${dataBanner.img}')` }}
     >
       <div className={classes.text}>

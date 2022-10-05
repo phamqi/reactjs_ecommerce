@@ -59,6 +59,7 @@ function CartPage(props) {
   return (
     <Box className={classes.container}>
       <Cart />
+      <h3>More to love</h3>
       <Box className={classes.productList}>
         {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
         <Grid container>

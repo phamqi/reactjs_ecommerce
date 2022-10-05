@@ -26,7 +26,6 @@ function Slide({ dataSlides }) {
   const callbackFunction = (childData) => {
     setActive(childData);
   };
-  console.log(active);
   return (
     <SlideshowItem parentCallback={callbackFunction}>
       {dataSlides.map((item, index) => (

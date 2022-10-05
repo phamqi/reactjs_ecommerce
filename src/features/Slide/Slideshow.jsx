@@ -62,11 +62,6 @@ function SlideshowItem({ children, parentCallback }) {
       setActive(left - 1);
     }
   };
-  function preventScroll(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  }
   useEffect(() => {
     section.current.scrollLeft = 0;
     let startX, moveX;
@@ -110,9 +105,6 @@ function SlideshowItem({ children, parentCallback }) {
       }
     });
     setMaxlength(section.current.children.length - 1);
-    window.addEventListener('resize', () => {
-      setSectionWidth(section.current.clientWidth);
-    });
   }, [sectionWidth]);
   useEffect(() => {
     resetTimeout();
@@ -124,6 +116,11 @@ function SlideshowItem({ children, parentCallback }) {
       resetTimeout();
     };
   }, [active, sectionWidth]);
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setSectionWidth(section.current.clientWidth);
+    });
+  }, [sectionWidth]);
   return (
     <div id="section__wrapper" className={`container  section__wrapper`}>
       <div className={`section__wrapper__btn`}>

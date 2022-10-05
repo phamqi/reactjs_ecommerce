@@ -96,12 +96,19 @@ Product.propTypes = {
   product: PropTypes.object,
 };
 
-function Product({ product, onQuickView }) {
+function Product({ product, onQuickView, productPage = false }) {
   const classes = useStyles();
   const handleQuickView = (product) => {
     onQuickView(product);
   };
-  const href = `products/${product.name}_i${product.id}`;
+  const checkPage = (product, productPage) => {
+    if (productPage) {
+      return `${product.name}_i${product.id}`;
+    } else {
+      return `products/${product.name}_i${product.id}`;
+    }
+  };
+  const href = checkPage(product, productPage);
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;

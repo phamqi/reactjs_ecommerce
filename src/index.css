@@ -102,14 +102,16 @@ code {
     font-size: 14px;
   }
 }
-@media (min-width: 900px) and (min-width: 1200px) {
+@media (min-width: 900px) and (max-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
+}
+/* inner product css */
+@media screen and (min-width:1500px){
   html {
     font-size: 17px;
   }
-}
-
-/* inner product css */
-@media screen and (min-width:1500px){
   .mmui-item {
     -webkit-flex-basis: 16.66668%;
     -ms-flex-preferred-size: 25%;

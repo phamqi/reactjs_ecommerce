@@ -93,7 +93,7 @@ function Header(props) {
           textDecoration: 'none',
           padding: '5px 0 5px 20px',
           color: 'black',
-          fontSize: '1rem',
+          fontSize: '0.9rem',
           fontWeight: 500,
           '&:visited': {
             color: 'rgba(0,0,0,0.7)',

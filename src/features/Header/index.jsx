@@ -82,7 +82,7 @@ function Header(props) {
     headerBotS: {
       width: '100%',
       maxWidth: '1200px',
-
+      height: '70px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -93,7 +93,7 @@ function Header(props) {
           textDecoration: 'none',
           padding: '5px 0 5px 20px',
           color: 'black',
-          fontSize: '1.3rem',
+          fontSize: '1rem',
           fontWeight: 500,
           '&:visited': {
             color: 'rgba(0,0,0,0.7)',

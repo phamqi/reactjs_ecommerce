@@ -124,13 +124,14 @@ html {
         margin: 0;
       }
       &__name {
-        font-size: 2rem;
+        font-size: 1.9rem;
         font-weight: 400;
+        line-height: 1.2857;
       }
       &__info {
         &--h2 {
-          margin: 0.5rem 0 3rem 0;
-          font-size: 3rem;
+          margin: 0.5rem 0;
+          font-size: 3.5rem;
           font-weight: 500;
           text-transform: uppercase;
           line-height: 1.1;
@@ -139,10 +140,10 @@ html {
       &__link {
         width: fit-content;
         background-color: #717fe0;
-        padding: 0.5rem;
+        padding: 0.6rem;
         border-radius: 4px;
         &--a {
-          font-size: 0.9rem;
+          font-size: 1rem;
           line-height: 1.47;
           text-transform: uppercase;
           font-weight: 500;

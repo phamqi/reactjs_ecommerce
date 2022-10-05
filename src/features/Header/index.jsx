@@ -82,7 +82,7 @@ function Header(props) {
     headerBotS: {
       width: '100%',
       maxWidth: '1200px',
-      padding: '15px',
+
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -192,7 +192,7 @@ function Header(props) {
       },
     },
     imgIcon: {
-      height: '20px',
+      height: '17px',
     },
   }));
   const classes = useStyles();

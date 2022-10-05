@@ -7,10 +7,15 @@ html {
   flex-direction: row;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+
   &__wrapper {
     position: relative !important;
     touch-action: none;
+    &:hover .section__btn {
+      opacity: 0.3;
+    }
     &__btn {
+      padding: 2rem 1rem;
       position: absolute;
       z-index: 20;
       bottom: 50%;
@@ -18,6 +23,9 @@ html {
       display: flex;
       justify-content: center;
       align-items: center;
+      &:hover button.section__btn {
+        opacity: 1;
+      }
       &__scrolldown {
         color: white;
         position: absolute;
@@ -28,6 +36,9 @@ html {
         animation-name: ani-bounce;
         animation-duration: 1.75s;
         animation-iteration-count: infinite;
+        & > a {
+          color: white;
+        }
         & > a:visited {
           color: white;
         }
@@ -41,6 +52,7 @@ html {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    opacity: 0;
   }
   &__counter {
     min-width: 110px;
@@ -112,13 +124,13 @@ html {
         margin: 0;
       }
       &__name {
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 400;
       }
       &__info {
         &--h2 {
           margin: 0.5rem 0 3rem 0;
-          font-size: 4rem;
+          font-size: 3rem;
           font-weight: 500;
           text-transform: uppercase;
           line-height: 1.1;
@@ -127,10 +139,10 @@ html {
       &__link {
         width: fit-content;
         background-color: #717fe0;
-        padding: 0.7rem;
+        padding: 0.5rem;
         border-radius: 4px;
         &--a {
-          font-size: 1rem;
+          font-size: 0.9rem;
           line-height: 1.47;
           text-transform: uppercase;
           font-weight: 500;

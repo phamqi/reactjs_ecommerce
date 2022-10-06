@@ -117,9 +117,11 @@ function SlideshowItem({ children, parentCallback }) {
     };
   }, [active, sectionWidth]);
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      setSectionWidth(section.current.clientWidth);
-    });
+    try {
+      window.addEventListener('resize', () => {
+        setSectionWidth(section.current.clientWidth);
+      });
+    } catch {}
   }, [sectionWidth]);
   return (
     <div id="section__wrapper" className={`container  section__wrapper`}>

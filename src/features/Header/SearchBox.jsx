@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
   searchBox: {
     minWidth: '320px',
     boxSizing: 'border-box',
-    boxShadow:
-      '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
     borderRadius: '4px',
     position: 'absolute',
     overflowY: 'auto',
@@ -24,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
       boxSizing: 'border-box',
       width: 'max(100%, min(30vw, calc((100vw - 600px) * 99999)))',
       fontSize: '1rem',
-      padding: '5px 0px 5px 15px',
-      height: '32px',
+      padding: '5px 30px 5px 30px',
+      height: '40px',
       borderRadius: '2px',
       border: 'none',
     },
@@ -45,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
   boxInput: {
     '&> button.btnCloseSearch': {
       position: 'absolute',
-      top: '0',
-      right: '0',
+      top: '5px',
+      right: '15px',
       height: '26px',
       margin: '3px',
       boxSizing: 'content-box',
@@ -59,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   productBox: {
-    padding: '12px 36px',
     height: 'min(100vh, max(70vh, calc((600px - 100vw)*99999)))',
     minHeight: '30vh',
     backgroundColor: 'rgba(255,255,255,0.8)',
@@ -79,9 +76,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#888',
     },
     '& > div': {
-      padding: '0',
-      width: '100%',
-      opacity: '1',
+      boxSizing: 'border-box',
+      width: '90%',
+      opacity: 1,
+      padding: '15px',
+      margin: '15px',
+      background: 'white',
+      borderRadius: '8px',
     },
   },
 }));
@@ -118,10 +119,11 @@ function SearchBox(props) {
       {openSearch ? (
         <Box
           sx={{
-            maxWidth: '620px',
+            maxWidth: '420px',
+            padding: '0',
             width: { xs: '100vw', sm: '40vw' },
-            top: { xs: '0', sm: '20%' },
-            right: { xs: '-36%', sm: '20%' },
+            top: { xs: '10%', sm: '20%' },
+            right: { xs: '0%', sm: '20%' },
           }}
           className={classes.searchBox}
         >

@@ -14,3 +14,5 @@ export const MESSAGEBOX = {
   remove: 'Item was removed from cart',
   error: 'Please try again',
 };
+export const BTN_QUICK_VIEW_TEXT = 'Quick View';
+export const BTN_SLIDESHOW_TEXT = 'Shop now';

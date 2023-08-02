@@ -98,6 +98,7 @@ function SlideshowItem({ children, parentCallback }) {
     setSectionWidth(section.current.clientWidth);
     arrayChild.forEach((element) => {
       if (sectionWidth > 0) {
+        console.log(sectionWidth);
         element.style.overflow = 'hidden';
         element.style.width = `${sectionWidth}px`;
         element.style.flex = `0 0 auto`;
@@ -119,7 +120,9 @@ function SlideshowItem({ children, parentCallback }) {
   useEffect(() => {
     try {
       window.addEventListener('resize', () => {
-        setSectionWidth(section.current.clientWidth);
+        if (section.current.clientWidth) {
+          setSectionWidth(section.current.clientWidth);
+        }
       });
     } catch {}
   }, [sectionWidth]);

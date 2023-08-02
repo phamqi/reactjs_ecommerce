@@ -15,9 +15,7 @@ Header.propTypes = {};
 
 function Header(props) {
   const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100vw',
-    },
+    root: {},
     roots: {
       width: '100%',
       backgroundColor: 'black',
@@ -87,6 +85,7 @@ function Header(props) {
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor: 'transparent',
+      padding: '0 30px',
       '& .headerMenu': {
         marginLeft: '1rem',
         '&> a': {

@@ -25,10 +25,10 @@ GridSS.propTypes = {
   ]),
   stt: PropTypes.number,
 };
-function GridSS({ children, ss, xs, sm, md, lg }) {
+function GridSS({ children, ss, xs, sm, md, lg, sx }) {
   return (
     <ThemeProvider theme={theme}>
-      <GridWithSS item ss={ss} xs={xs} sm={sm} md={md} lg={lg}>
+      <GridWithSS item ss={ss} xs={xs} sm={sm} md={md} lg={lg} sx={{ sx }}>
         {children}
       </GridWithSS>
     </ThemeProvider>

@@ -11,6 +11,7 @@ html {
   &__wrapper {
     position: relative !important;
     touch-action: none;
+    display: block;
     &:hover .section__btn {
       opacity: 0.3;
     }
@@ -30,7 +31,9 @@ html {
         color: white;
         position: absolute;
         z-index: 20;
-        left: 50%;
+        height: 56px;
+        width: 56px;
+        left: calc(50% - 23px);
         transform: translateX(-50%);
         bottom: 10%;
         animation-name: ani-bounce;
@@ -53,6 +56,9 @@ html {
     border: none;
     cursor: pointer;
     opacity: 0;
+    & > svg {
+      filter: drop-shadow(0px 0px 4px #fff);
+    }
   }
   &__counter {
     min-width: 110px;
@@ -96,6 +102,7 @@ html {
     overflow: hidden;
     &::after {
       content: var(--total);
+      padding: 0 5px;
       position: absolute;
       font-size: 2rem;
       top: -0.5rem;
@@ -128,12 +135,14 @@ html {
         font-size: 1.9rem;
         font-weight: 400;
         line-height: 1.2857;
+        text-shadow: 0 0 5px #fff;
       }
       &__info {
         &--h2 {
           margin: 2.5rem 0;
           font-size: 3.5rem;
           font-weight: 500;
+          text-shadow: 0 0 5px #fff;
           text-transform: uppercase;
           line-height: 1.1;
         }
@@ -141,8 +150,11 @@ html {
       &__link {
         width: fit-content;
         background-color: #717fe0;
-        padding: 0.6rem;
-        border-radius: 4px;
+        padding: 0.65rem;
+        border-radius: 0.8rem;
+        &:hover {
+          background-color: #000;
+        }
         &--a {
           font-size: 1rem;
           line-height: 1.47;
@@ -247,14 +259,13 @@ html {
 @keyframes ani-opacity {
   0% {
     opacity: 0;
-  }
-  80% {
-    opacity: 0.3;
+    transform: scale(0);
   }
   90% {
-    opacity: 0.6;
+    opacity: 1;
   }
   100% {
+    transform: scale(1);
     opacity: 1;
   }
 }

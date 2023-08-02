@@ -49,15 +49,16 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       '& .MuiPaper-root': {
         width: 'max(80vw, min(100vw, (calc((600px - 100vw)*99999))))',
-        margin: '0',
-        height: 'max(100%, min(100vw, (calc((600px - 100vw)*99999))))',
+        margin: '0 15px',
+        height: 'fit-content',
         border: 'none',
         borderRadius: '8px',
         maxWidth: '1200px',
-        '& .MuiDialogContent-root ': {
-          overFlow: 'hidden',
+        '& .MuiDialogContent-root': {
           padding: '20px 24px',
-          overflowY: 'hidden',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         },
       },
     },
@@ -67,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   btnCloseQuickView: {
-    textTransform: 'uppercase',
+    margin: '0',
+    padding: '0',
     border: 'none',
     borderRadius: '20px',
     color: '#333',
@@ -78,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
     },
     '& svg': {
       fontSize: '2rem',
+    },
+  },
+  pagination: {
+    '& > ul > li > .MuiPaginationItem-root.Mui-selected': {
+      backgroundColor: '#717fe0',
     },
   },
 }));
@@ -174,7 +181,15 @@ function MainPage() {
               ) : (
                 <Grid container p={2}>
                   {productList.map((product, index) => (
-                    <GridSS key={index} ss={12} xs={6} sm={4} md={3} lg={3}>
+                    <GridSS
+                      key={index}
+                      ss={12}
+                      xs={6}
+                      sm={4}
+                      md={3}
+                      lg={3}
+                      sx={{ width: '100%' }}
+                    >
                       <Product product={product} onQuickView={onQuickView} />
                     </GridSS>
                   ))}
@@ -183,7 +198,7 @@ function MainPage() {
               <Box sx={{ display: 'flex', justifyContent: 'center', padding: '13px 0' }}>
                 <Pagination
                   siblingCount={1}
-                  color="primary"
+                  className={classes.pagination}
                   count={Math.ceil(pagination.total / pagination.limit)}
                   page={pagination.page}
                   onChange={handlePageChange}

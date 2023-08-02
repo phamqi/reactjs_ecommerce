@@ -4,19 +4,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: '0 1.5rem',
 
-    '& h3': {
+    '& h4': {
       display: '-webkit-box',
       overflow: 'hidden',
-      fontSize: '1.5rem',
+      fontSize: '1.4rem',
       wordWrap: 'break-word',
-      lineHeight: '1.7rem',
+      lineHeight: '1.5',
       whiteSpace: 'normal',
       textOverflow: 'ellipsis',
       '-webkit-box-orient': 'vertical',
-      ' -webkit-line-clamp': '2',
+      ' -webkit-line-clamp': '3',
       marginBottom: '0',
-      fontWeight: '400',
-      minHeight: '54px',
+      fontWeight: '500',
+      maxHeight: '6.3rem',
+      margin: '0',
     },
   },
   pricePercent: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'rgb(255, 240, 241)',
     color: 'rgb(255, 66, 78)',
   },
-  price: {
+  salePrice: {
     color: '#ee4d2d',
     overflow: 'hidden',
     fontSize: '1.6rem',
@@ -35,10 +36,24 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
-  divPrice: {
-    padding: '1rem 1.3rem',
+  price: {
     display: 'flex',
     alignItems: 'flex-end',
+  },
+  description: {
+    display: '-webkit-box',
+    overflow: 'hidden',
+    fontSize: '0.9rem',
+    wordWrap: 'break-word',
+    lineHeight: '1.3',
+    whiteSpace: 'normal',
+    textOverflow: 'ellipsis',
+    '-webkit-box-orient': 'vertical',
+    ' -webkit-line-clamp': '3',
+    marginBottom: '0',
+    fontWeight: '400',
+    minHeight: '3.51rem',
+    margin: '0',
   },
   originalPrice: {
     textDecoration: 'line-through',
@@ -54,9 +69,9 @@ function ProductThumnail({ product }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h3>{product.name}</h3>
-      <div className={classes.divPrice}>
-        <span className={classes.price}>{product.salePrice}</span>
+      <h4>{product.name}</h4>
+      <div className={classes.price}>
+        <span className={classes.salePrice}>{product.salePrice}</span>
         {product.promotionPercent ? (
           <div>
             <span className={classes.originalPrice}>{product.originalPrice}</span>
@@ -66,6 +81,11 @@ function ProductThumnail({ product }) {
           ``
         )}
       </div>
+      <span className={classes.description}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit veniam
+        ipsam nesciunt. Perspiciatis tenetur illum molestiae quod quia vel nihil amet.
+        Blanditiis modi vel est accusamus praesentium distinctio vitae recusandae!
+      </span>
     </div>
   );
 }

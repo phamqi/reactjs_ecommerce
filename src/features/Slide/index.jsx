@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useState } from 'react';
 
 import SlideshowItem from './Slideshow';
+import { BTN_SLIDESHOW_TEXT } from '../../constants';
 import './slide.scss';
 
 Slide.propTypes = {
@@ -61,7 +62,7 @@ function Slide({ dataSlides }) {
               style={{ '--ani-link': `${aniLink}` }}
             >
               <a className="section__item__txt__link--a" href={item.link}>
-                Shop now
+                {BTN_SLIDESHOW_TEXT}
               </a>
             </div>
           </div>

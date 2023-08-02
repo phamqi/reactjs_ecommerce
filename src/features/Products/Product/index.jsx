@@ -2,21 +2,25 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 
-import { IMG_URL, STATIC_HOST } from '../../../constants/index';
+import { IMG_URL, STATIC_HOST, BTN_QUICK_VIEW_TEXT } from '../../../constants/index';
 import NavigateComponent from '../../../components/NavigateComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
     boxSizing: 'border-box',
-    padding: '15px',
+    padding: 'min(15px , max(calc(( 100vw - 420px)*9999), 0px))',
     paddingBottom: '35px',
+    '&:hover': {},
+  },
+  divName: {
+    minHeight: '2.5rem',
     '&:hover': {
-      boxShadow:
-        '3px 1px 1px 1px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+      '& $name': {
+        color: '#717fe0',
+      },
     },
   },
-  divName: { minHeight: '2.5rem' },
   name: {
     color: '#999',
     display: '-webkit-box',
@@ -25,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     lineHeight: '1.3',
-    fontSize: '.9rem',
+    fontSize: '.875rem',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': '2',
   },
@@ -33,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    fontSize: '1.05rem',
+    fontSize: '.9rem',
     color: '#666',
     fontWeight: '500',
     display: '-webkit-box',
@@ -41,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-line-clamp': '2',
   },
   productImg: {
-    width: '100%',
+    width: 'min(100% , max( calc(420px - 100vw)*9999, 240px))',
+    aspectRatio: '1/1.4',
     objectFit: 'cover',
     display: 'block',
     overflow: 'hidden',
@@ -63,24 +68,24 @@ const useStyles = makeStyles((theme) => ({
   },
   btnView: {
     fontSize: '1rem',
-    boxShadow: '1px 1px 1px grey',
     transition: 'all 0.4s',
     borderRadius: '20px',
-    border: '1px solid white',
+    border: '1px solid #fff',
     bottom: '-50px',
     position: 'absolute',
     right: '0',
     left: '0',
     marginLeft: 'auto',
     marginRight: 'auto',
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
     width: '50%',
     overflow: 'hidden',
-    color: 'white',
+    color: '#999',
     padding: '4px 0',
     '&:hover': {
-      backgroundColor: 'white',
-      color: 'black',
+      backgroundColor: '#717fe0',
+      color: '#fff',
+      border: '1px solid #717fe0',
     },
   },
   pricePercent: {
@@ -119,17 +124,19 @@ function Product({ product, onQuickView, productPage = false }) {
           className={classes.divImg}
           sx={{ display: 'block', overflow: 'hidden', position: 'relative' }}
         >
-          <img
-            className={classes.productImg}
-            src={thumbnailUrl}
-            alt={product.name}
-            width="100%"
-          />
+          <img className={classes.productImg} src={thumbnailUrl} alt={product.name} />
           <button onClick={() => handleQuickView(product)} className={classes.btnView}>
-            View
+            {BTN_QUICK_VIEW_TEXT}
           </button>
         </Box>
-        <Box sx={{ cursor: 'pointer', paddingTop: '10px' }}>
+        <Box
+          sx={{
+            cursor: 'pointer',
+            paddingTop: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <div className={classes.divName}>
             <NavigateComponent href={href} title={product.name} className={classes.name}>
               {product.name}

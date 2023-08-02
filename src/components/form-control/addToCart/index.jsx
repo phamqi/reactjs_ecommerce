@@ -13,18 +13,21 @@ const useStyles = makeStyles((theme) => ({
   formQuantity: {
     '&> button': {
       width: '50%',
-      backgroundColor: '#333',
+      backgroundColor: '#717fe0',
       color: 'white',
       height: '2.55rem',
       borderRadius: '5px',
       '&:hover': {
-        backgroundColor: '#717fe0',
+        backgroundColor: '#333',
       },
     },
     '& > div > div > div > button': {
       border: '1px solid rgba(0,0,0,0.3)',
       borderRadius: '0 5px 5px 0',
       height: '32px',
+      '&:hover': {
+        backgroundColor: '#717fe0',
+      },
       '&:first-child': {
         borderRadius: '5px 0 0 5px',
       },

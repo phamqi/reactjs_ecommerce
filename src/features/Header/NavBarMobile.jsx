@@ -24,12 +24,23 @@ const useStyles = makeStyles((theme) => ({
     left: 'auto',
     opacity: '1',
   },
+  btnSpeedDial: {
+    '& > button': {
+      width: '3rem',
+      height: '3rem',
+      backgroundColor: '#717fe0',
+      '&:hover': {
+        backgroundColor: '#717fe0',
+        opacity: '0.9',
+      },
+    },
+  },
 }));
 
 function NavBarMobile(props) {
   const classes = useStyles();
   const countItems = useSelector(cartItemsCountSelector);
-  const [pxX, setPxX] = useState(50);
+  const [pxX, setPxX] = useState(20);
   const [pxY, setPxY] = useState(50);
 
   const handleMoveOnTouch = (e) => {
@@ -40,13 +51,22 @@ function NavBarMobile(props) {
     <Box
       className={classes.root}
       onTouchMove={handleMoveOnTouch}
-      sx={{ display: { xs: 'block', sm: 'none' }, bottom: `${pxY}px`, right: `${pxX}px` }}
+      sx={{
+        display: { xs: 'block', sm: 'none' },
+        bottom: `${pxY}px`,
+        right: `${pxX}px`,
+        padding: '10px',
+      }}
     >
-      <SpeedDial ariaLabel="SpeedDial basic example" icon={<SpeedDialIcon />}>
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        icon={<SpeedDialIcon />}
+        className={classes.btnSpeedDial}
+      >
         <SpeedDialAction
           key="1"
           icon={
-            <NavLink sx={{ color: 'black' }} to="/">
+            <NavLink to="/">
               <HomeIcon />
             </NavLink>
           }

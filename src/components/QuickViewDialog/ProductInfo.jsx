@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '2px',
     backgroundColor: 'rgb(255, 240, 241)',
     color: 'rgb(255, 66, 78)',
+    flexShrink: 1,
   },
   salePrice: {
     color: '#ee4d2d',
@@ -35,10 +36,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '500',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    flexShrink: 0,
   },
   price: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'no-wrap',
+    overflow: 'hidden',
+    margin: '1rem 0',
   },
   description: {
     display: '-webkit-box',
@@ -59,13 +65,14 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'line-through',
     color: 'rgb(128, 128, 137)',
     marginLeft: '0.5rem',
+    flexShrink: 1,
   },
 }));
-ProductThumnail.propTypes = {
+ProductInfo.propTypes = {
   product: PropTypes.object,
 };
 
-function ProductThumnail({ product }) {
+function ProductInfo({ product }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -73,10 +80,10 @@ function ProductThumnail({ product }) {
       <div className={classes.price}>
         <span className={classes.salePrice}>{product.salePrice}</span>
         {product.promotionPercent ? (
-          <div>
-            <span className={classes.originalPrice}>{product.originalPrice}</span>
+          <>
             <span className={classes.pricePercent}> -{product.promotionPercent}% </span>
-          </div>
+            <span className={classes.originalPrice}>{product.originalPrice}</span>
+          </>
         ) : (
           ``
         )}
@@ -90,4 +97,4 @@ function ProductThumnail({ product }) {
   );
 }
 
-export default ProductThumnail;
+export default ProductInfo;

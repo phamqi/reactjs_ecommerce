@@ -13,28 +13,53 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     marginLeft: 'auto',
     marginRight: 'auto',
+    display: 'grid',
+    gridGap: '1rem',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
+    gridTemplateRows: '1fr 1fr',
+    gridTemplateAreas: `'h1 h1 h2 h2 h3 h3' 'h1 h1 h2 h2 h3 h3'`,
+  },
+  banner: {
+    '&:first-child': {
+      gridArea: 'h1',
+    },
+    '&:nth-child(2)': {
+      gridArea: 'h2',
+    },
+    '&:last-child': {
+      gridArea: 'h3',
+    },
+  },
+  '@media screen and (max-width: 900px)': {
+    root: {
+      padding: '30px 0',
+    },
+    banner_warp: {
+      gridTemplateAreas: `'h1 h1 h1 h2 h2 h2'  'h3 h3 h3 h3 h3 h3'`,
+      gridTemplateRows: '1fr 1fr',
+    },
+  },
+  '@media screen and (max-width: 576px)': {
+    root: {
+      padding: '1rem 0',
+    },
+    banner_warp: {
+      gridTemplateRows: '1fr 1fr 1fr',
+      gridTemplateAreas: `'h1 h1 h1 h1 h1 h1' 'h2 h2 h2 h2 h2 h2'  'h3 h3 h3 h3  h3 h3'`,
+    },
   },
 }));
 function Banner(props) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container className={classes.banner_warp}>
+      <div className={classes.banner_warp}>
         {dataBanner.map((item) => (
-          <Grid
-            key={item.id}
-            item
-            xs={12}
-            sm={4}
-            md={4}
-            lg={4}
-            className={classes.banner}
-            p={2}
-          >
-            <BannerItem dataBanner={item} />
-          </Grid>
+          <div key={item.id} className={classes.banner}>
+            <BannerItem data={item} />
+          </div>
         ))}
-      </Grid>
+      </div>
     </div>
   );
 }

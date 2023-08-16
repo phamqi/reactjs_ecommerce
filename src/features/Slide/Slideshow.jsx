@@ -44,7 +44,7 @@ function SlideshowItem({ children, parentCallback }) {
       setActive(left + 1);
     }
   };
-  const prevSilde = (section) => {
+  const prevSlide = (section) => {
     if (section.scrollLeft < 100) {
       distance = section.clientWidth * maxLength;
       section.scrollBy({
@@ -84,7 +84,7 @@ function SlideshowItem({ children, parentCallback }) {
       'touchend',
       function (e) {
         if (startX + 80 < moveX) {
-          prevSilde(section.current);
+          prevSlide(section.current);
         }
         if (startX - 80 > moveX) {
           nextSlide(section.current);
@@ -94,17 +94,7 @@ function SlideshowItem({ children, parentCallback }) {
     );
   }, [sectionWidth]);
   useEffect(() => {
-    let arrayChild = Array.from(section.current.children);
     setSectionWidth(section.current.clientWidth);
-    arrayChild.forEach((element) => {
-      if (sectionWidth > 0) {
-        console.log(sectionWidth);
-        element.style.overflow = 'hidden';
-        element.style.width = `${sectionWidth}px`;
-        element.style.flex = `0 0 auto`;
-        element.style.scrollSnapAlign = 'start';
-      }
-    });
     setMaxlength(section.current.children.length - 1);
   }, [sectionWidth]);
   useEffect(() => {
@@ -120,18 +110,19 @@ function SlideshowItem({ children, parentCallback }) {
   useEffect(() => {
     try {
       window.addEventListener('resize', () => {
-        if (section.current.clientWidth) {
+        setActive(0);
+        if (section && section.current && section.current.clientWidth) {
           setSectionWidth(section.current.clientWidth);
         }
       });
     } catch {}
-  }, [sectionWidth]);
+  }, []);
   return (
     <div id="section__wrapper" className={`container  section__wrapper`}>
       <div className={`section__wrapper__btn`}>
         <button
           className={`section__btn  section__btn__prev `}
-          onClick={() => prevSilde(section.current)}
+          onClick={() => prevSlide(section.current)}
         >
           <ArrowBackIosNewIcon />
         </button>
@@ -166,6 +157,7 @@ function SlideshowItem({ children, parentCallback }) {
             <div>0</div> <div>1</div> <div>2</div> <div>3</div> <div>4</div> <div>5</div>
             <div>6</div> <div>7</div> <div>8</div> <div>9</div>
           </div>
+          <div className={`section__counter__slide`}>{'|' + (maxLength + 1)}</div>
         </div>
       </div>
       <div className="section__wrapper__btn__scrolldown">

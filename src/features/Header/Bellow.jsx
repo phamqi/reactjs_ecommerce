@@ -10,38 +10,17 @@ import { logout } from '../Auth/userSlice';
 import BadgeCart from './BadgeCart';
 import NavBarMobile from './NavBarMobile';
 import SearchBox from './SearchBox';
-import Bellow from './Bellow';
 
-Header.propTypes = {};
+Bellow.propTypes = {};
 
-function Header(props) {
+function Bellow(props) {
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      position: 'relative',
-      zIndex: '11',
-      backgroundColor: '#000',
-    },
-    header: {
+    root: {},
+    roots: {
       width: '100%',
       backgroundColor: 'black',
     },
-    headerTop: {
-      height: '40px',
-      padding: '0px 10px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flexDirection: 'row nowrap',
-      backgroundColor: 'black',
-      '& p ': {
-        color: 'white',
-        fontSize: '0.9rem',
-      },
-    },
-    headerBot: {
+    headerStatic: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -66,9 +45,9 @@ function Header(props) {
       width: '100vw',
       backgroundColor: 'transparent',
     },
-    headerBotFixed: {
+    headerFixed: {
       borderBottom: '1px solid rgba(0,0,0,0.5)',
-      zIndex: '9',
+      zIndex: '999',
       position: 'fixed',
       top: '0',
       left: '0',
@@ -79,7 +58,7 @@ function Header(props) {
       backgroundColor: 'white',
       animation: `$myEffect 200ms ease-in-out`,
     },
-    headerBotS: {
+    header: {
       width: '100%',
       maxWidth: '1200px',
       height: '70px',
@@ -109,10 +88,7 @@ function Header(props) {
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      height: '40px',
-      zIndex: '10',
       '&> li': {
-        zIndex: '10',
         color: 'white',
         padding: '10px 20px',
         borderRight: '1px solid #D3D3D3',
@@ -124,18 +100,21 @@ function Header(props) {
           borderRight: 'none',
           paddingRight: '0px',
           maxWidth: '60px',
+          overflow: 'hidden',
           flexShrink: '0',
-          position: 'relative',
-          '&:hover $ulUser': {
-            opacity: '1',
-            visibility: 'visible',
-          },
         },
+      },
+    },
+    liUser: {
+      position: 'relative',
+      '&:hover $ulUser': {
+        opacity: '1',
+        visibility: 'visible',
       },
     },
     ulUser: {
       backgroundColor: 'white',
-      top: '40px',
+      top: '70%',
       right: '0',
       visibility: 'hidden',
       position: 'absolute',
@@ -146,21 +125,14 @@ function Header(props) {
       padding: '15px',
       '&> li': {
         cursor: 'pointer',
+        color: 'black',
         padding: '6px 0',
-        color: '#0000005e',
         '&:visited': {
           color: 'black',
         },
         '&> a': {
           textDecoration: 'none',
-          '&:hover': {
-            textDecoration: 'none',
-            color: '#717fe0',
-          },
-        },
-        '&:hover': {
-          textDecoration: 'none',
-          color: '#717fe0',
+          color: 'black',
         },
       },
     },
@@ -204,63 +176,74 @@ function Header(props) {
     },
   }));
   const classes = useStyles();
+  const [navBar, setNavBar] = useState(false);
 
-  const loggedUser = useSelector((state) => state.user.current);
-  const dispatch = useDispatch();
-  const isLogged = loggedUser.id;
-
-  const [openAuth, setOpenAuth] = useState(false);
-  const handleCloseAuth = () => {
-    setOpenAuth(false);
-  };
-
-  const handleClickOpen = () => {
-    setOpenAuth(true);
-  };
-  const handleLogOutClick = () => {
-    dispatch(logout());
-  };
+  const navBarOnScroll = useCallback(() => {
+    if (window.scrollY >= 40) {
+      setNavBar(true);
+    } else {
+      setNavBar(false);
+    }
+  }, []);
   console.log('header rerednder');
+  useEffect(() => {
+    window.addEventListener('scroll', navBarOnScroll);
+  }, []);
+
+  const location = useLocation();
+  const isHome = useMemo(() => {
+    if (location.pathname === '/') {
+      return true;
+    } else {
+      return false;
+    }
+  }, [location]);
 
   return (
-    <div>
-      <Box className={classes.root}>
-        <Box className={classes.container}>
-          <Box className={classes.header}>
-            <Box className={classes.headerTop}>
-              <Typography sx={{ opacity: { xs: '0', sm: '1' } }}>
-                Free shipping for standard order over $10
-              </Typography>
-              <Box>
-                <ul className={classes.headerUl}>
-                  <li>FAQs</li>
-                  <li>Contact</li>
-                  {isLogged ? (
-                    <li className={classes.liUser}>
-                      <p> {loggedUser.fullName.split(' ').pop()}</p>
-                      <ul className={classes.ulUser}>
-                        <li>
-                          <Link to="/profiles">Profiles</Link>
-                        </li>
-                        <li onClick={handleLogOutClick}>Logout</li>
-                      </ul>
-                    </li>
-                  ) : (
-                    <li onClick={handleClickOpen}>Login</li>
-                  )}
-                </ul>
-              </Box>
-            </Box>
+    <Box
+      className={
+        navBar
+          ? classes.headerFixed
+          : classes.headerStatic +
+            ' ' +
+            (isHome ? classes.positionFixed : classes.positionStatic)
+      }
+    >
+      <Box className={classes.header}>
+        <Box className={classes.flexAlignCenter}>
+          <NavLink className={classes.linkIcon} to="/">
+            <div className={classes.flexAlignCenter}>
+              <img
+                className={classes.imgIcon}
+                alt="logo"
+                src={`${window.location.origin}/logo.png`}
+              ></img>
+            </div>
+          </NavLink>
+          <Box className="headerMenu" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/featured">Featured</NavLink>
+            <NavLink to="/new">New</NavLink>
           </Box>
         </Box>
-        <Bellow />
+        {/*search */}
+        <Box
+          sx={{
+            width: { xs: '100%', sm: 'auto' },
+            justifyContent: { xs: 'flex-end' },
+            display: { xs: 'flex', sm: 'flex' },
+            alignItems: 'center',
+          }}
+        >
+          <SearchBox />
+          <Box sx={{ display: { xs: 'block', sm: 'block', md: 'block' } }}>
+            {/* BadgeCart */}
+            <BadgeCart />
+          </Box>
+        </Box>
       </Box>
-      {/* Navbar mobile */}
-      <NavBarMobile />
-      {/* Login Register */}
-      <Auth openAuth={openAuth} handleCloseAuth={handleCloseAuth} />
-    </div>
+    </Box>
   );
 }
 
-export default memo(Header);
+export default memo(Bellow);

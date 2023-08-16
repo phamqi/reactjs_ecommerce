@@ -7,7 +7,6 @@ import Header from './features/Header';
 import CartPage from './pages/CartPage';
 import DetailPage from './pages/DetailPage';
 import MainPage from './pages/MainPage';
-import ProductsPage from './pages/ProductsPage';
 
 function App() {
   const [ready, setReady] = useState(true);
@@ -28,7 +27,6 @@ function App() {
             <Header />
             <Routes>
               <Route exact path="/" element={<MainPage />} />
-              <Route path="/products" element={<ProductsPage />} />
               <Route path="products/:productId/*" element={<DetailPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="*" element={<Error404 />} />

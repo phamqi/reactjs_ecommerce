@@ -9,27 +9,11 @@ Description.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
-    padding: '10px 20px',
-    '&> button.btnShow': {
-      width: '20%',
-      position: 'absolute',
-      bottom: '10px',
-      left: '0',
-      right: '0',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      backgroundColor: 'transparent',
-      border: '1px solid #1976d2',
-      borderRadius: '5px',
-      '&:hover': {
-        color: 'white',
-        backgroundColor: '#1976d2',
-      },
-    },
+    padding: '30px 20px 50px 20px',
   },
   divContent: {
     position: 'relative',
-    height: '500px',
+    height: '300px',
     overflow: 'hidden',
     '& #editor-content': {
       padding: '0 20px',
@@ -47,16 +31,52 @@ const useStyles = makeStyles((theme) => ({
   },
   divBg: {
     backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255) 84%)',
-    height: '200px',
+    height: '150px',
     position: 'absolute',
     bottom: '0',
     left: '0',
     right: '0',
     visibility: 'visible',
   },
-
   divBgHidden: {
     visibility: 'hidden',
+  },
+  btnDetail: {
+    '-webkit-font-smoothing': 'antialiased',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    outline: 0,
+    margin: 0,
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    ' -webkit-appearance': 'none',
+    textDecoration: 'none',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: 500,
+    fontSize: '0.875rem',
+    lineHeight: '1.75',
+    textTransform: 'uppercase',
+    minWidth: '64px',
+    padding: '0.3rem 0.5rem',
+    color: '#717fe0',
+    left: 0,
+    right: 0,
+    width: 'fit-content',
+    border: '1px solid #717fe0',
+    bottom: '0.7rem',
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '5px',
+    backgroundColor: 'transparent',
+    zIndex: '9',
+    '&:hover': {
+      color: '#fff',
+      backgroundColor: '#717fe0',
+    },
   },
 }));
 function Description({ product }) {
@@ -69,9 +89,14 @@ function Description({ product }) {
         dangerouslySetInnerHTML={{ __html: product.description }}
       ></Box>
       <Box className={heightContent ? classes.divBgHidden : classes.divBg}></Box>
-      <Button className="btnShow" onClick={() => setHeightContent(!heightContent)}>
-        {heightContent ? `Hidden` : `Show`}
-      </Button>
+      <a href="#description">
+        <button
+          className={classes.btnDetail}
+          onClick={() => setHeightContent(!heightContent)}
+        >
+          {heightContent ? `Show less` : `Show more`}
+        </button>
+      </a>
     </Box>
   );
 }

@@ -7,7 +7,7 @@ import { LIMIT } from '../constants';
 import Cart from '../features/Cart/index';
 import { SkeletonProduct } from '../features/Products';
 import { innerProduct } from '../hook';
-import NavigateComponent from '../components/NavigateComponent';
+import { CustomizeGrid, CreateNavigate, Product } from '../components';
 
 CartPage.propTypes = {};
 
@@ -20,17 +20,18 @@ const useStyles = makeStyles((theme) => ({
   },
   productList: {
     marginTop: '1.5rem',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     padding: '1.5rem 0',
     '&> button.btnViewMore': {
       marginTop: '1rem',
       marginLeft: '50%',
       transform: 'translateX(-50%)',
       textTransform: 'none',
-      border: '1px solid blue',
+      border: '1px solid #717fe0',
+      color: '#717fe0',
       '&:hover': {
-        backgroundColor: 'rgb(13, 92, 182)',
-        color: 'white',
+        backgroundColor: '#717fe0',
+        color: '#fff',
       },
     },
   },
@@ -62,16 +63,19 @@ function CartPage(props) {
       <h3>More to love</h3>
       <Box className={classes.productList}>
         {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
-        <Grid container>
+        <Grid container p={2}>
           {productList.map((product, index) => (
-            <NavigateComponent
+            <CustomizeGrid
               key={index}
-              href={`/products/${product.name}_i${product.id}`}
-              title={product.name}
-              className="mmui-item"
+              ss={12}
+              xs={6}
+              sm={4}
+              md={3}
+              lg={3}
+              sx={{ width: '100%' }}
             >
-              <div dangerouslySetInnerHTML={innerProduct(product)} />
-            </NavigateComponent>
+              <Product product={product} isQuickView={false} />
+            </CustomizeGrid>
           ))}
         </Grid>
         <Button className="btnViewMore" onClick={() => handleLoadMore()}>

@@ -10,9 +10,9 @@ import { useSelector } from 'react-redux';
 import MiniCart from '../Cart/MiniCart';
 import { cartItemsCountSelector } from '../Cart/selector';
 
-Header.propTypes = {};
+BadgeCart.propTypes = {};
 
-function Header(props) {
+function BadgeCart(props) {
   const [openMiniCart, setOpenMiniCart] = useState(false);
   const handleCloseMiniCart = () => {
     setOpenMiniCart(false);
@@ -37,7 +37,7 @@ function Header(props) {
         position: 'relative',
         justifyContent: 'flex-end',
         '& .MuiPaper-root': {
-          width: 'max(60vw, min(100vw, (calc((600px - 100vw)*99999))))',
+          width: 'max(60vw, min(100vw, (calc((768px - 100vw)*99999))))',
           margin: '0',
           maxHeight: '100vh',
           height: '100vh',
@@ -105,4 +105,4 @@ function Header(props) {
   );
 }
 
-export default Header;
+export default BadgeCart;

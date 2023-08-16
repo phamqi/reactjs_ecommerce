@@ -3,11 +3,14 @@ html {
 }
 .section {
   overflow-y: hidden;
-  display: flex;
+  display: grid;
   flex-direction: row;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-
+  grid-template-columns: unset;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  scroll-snap-stop: always;
   &__wrapper {
     position: relative !important;
     touch-action: none;
@@ -18,7 +21,7 @@ html {
     &__btn {
       padding: 2rem 1rem;
       position: absolute;
-      z-index: 20;
+      z-index: 10;
       bottom: 50%;
       transform: translateY(50%);
       display: flex;
@@ -61,7 +64,7 @@ html {
     }
   }
   &__counter {
-    min-width: 110px;
+    width: fit-content;
     position: absolute;
     bottom: 20%;
     right: 10%;
@@ -94,26 +97,18 @@ html {
         height: var(--height);
       }
     }
+    &__slide {
+      font-size: 1.6rem;
+    }
   }
   &__wrap__counter {
     position: relative;
     height: var(--height);
     display: flex;
     overflow: hidden;
-    &::after {
-      content: var(--total);
-      padding: 0 5px;
-      position: absolute;
-      font-size: 2rem;
-      top: -0.5rem;
-      left: 4.75rem;
-    }
   }
   &__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    scroll-snap-align: start;
     position: relative;
     z-index: 8;
     &__img {

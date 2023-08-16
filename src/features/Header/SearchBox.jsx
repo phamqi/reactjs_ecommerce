@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 import { memo, useState } from 'react';
 
 import productApi from '../../api/productApi';
-import Product from '../Products/Product';
+import { Product } from '../../components';
 
 SearchBox.propTypes = {};
 const useStyles = makeStyles((theme) => ({

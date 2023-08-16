@@ -1,23 +1,13 @@
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import ByCategory from './ByCategory';
-import ByPrice from './ByPrice';
 import ByService from './ByService';
-
+import Sort from './Sort';
 ProductFilters.propTypes = {
   filters: PropTypes.object,
   onChange: PropTypes.func,
 };
-function ProductFilters({ filters, onChange }) {
-  const handlePriceChange = (values) => {
-    if (onChange) {
-      const newPriceChange = {
-        ...values,
-        _page: 1,
-      };
-      onChange(newPriceChange);
-    }
-  };
+function ProductFilters({ filters, onChange, handleSortChange }) {
   const handleServiceChange = (values) => {
     if (onChange) {
       const newServiceChange = {
@@ -42,13 +32,11 @@ function ProductFilters({ filters, onChange }) {
   };
 
   return (
-    <div>
-      <Box sx={{ px: 3, pt: 2 }}>
-        <ByCategory onChange={handleCategoryChange} />
-        <ByPrice onChange={handlePriceChange} />
-        <ByService filters={filters} onChange={handleServiceChange} />
-      </Box>
-    </div>
+    <Box sx={{ px: 3, pt: 2 }}>
+      <ByCategory onChange={handleCategoryChange} />
+      <Sort onChange={handleSortChange} currentSort={filters._sort} />
+      <ByService filters={filters} onChange={handleServiceChange} />
+    </Box>
   );
 }
 

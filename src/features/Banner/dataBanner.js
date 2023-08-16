@@ -4,20 +4,20 @@ export const dataBanner = [
     link: 'abc',
     img: 'https://i.imgur.com/WLiNxKc.jpg',
     name: 'Women',
-    infor: 'abc abc',
+    info: 'abc abc',
   },
   {
     id: 2,
     link: 'abc',
     img: 'https://i.imgur.com/5tPAYtM.jpg',
     name: 'Men',
-    infor: 'abc abc',
+    info: 'abc abc',
   },
   {
     id: 3,
     link: 'abc',
     img: 'https://i.imgur.com/qzwPEVC.jpg',
     name: 'Accessories',
-    infor: 'abc abc',
+    info: 'abc abc',
   },
 ];

@@ -1,6 +1,8 @@
+import { makeStyles } from '@mui/styles';
+
 import { IMG_URL, STATIC_HOST } from '../constants';
-// css in index.css
-export default function innerProduct(product) {
+
+function innerProduct(product) {
   const thumbnailUrl = product.thumbnail
     ? `${STATIC_HOST}${product.thumbnail?.url}`
     : IMG_URL;
@@ -10,7 +12,9 @@ export default function innerProduct(product) {
     currency: 'VND',
   }).format(product.originalPrice);
   const pricePercent = product.promotionPercent
-    ? '<span class="makeStyles-pricePercent"> -' + product.promotionPercent + '% </span>'
+    ? '<span  class="makeStyles-pricePercent "> -' +
+      product.promotionPercent +
+      '% </span>'
     : '';
   return {
     __html:
@@ -27,3 +31,4 @@ export default function innerProduct(product) {
       '</div></div>',
   };
 }
+export default innerProduct;

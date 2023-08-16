@@ -19,18 +19,20 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 'auto',
       marginRight: 'auto',
       backgroundColor: 'transparent',
-      border: '1px solid #1976d2',
+      border: '1px solid #717fe0',
       borderRadius: '5px',
+      color: '#717fe0',
       '&:hover': {
-        color: 'white',
-        backgroundColor: '#1976d2',
+        color: '#fff',
+        backgroundColor: '#717fe0',
       },
     },
   },
   divContent: {
     position: 'relative',
-    height: '500px',
+    minHeight: '300px',
     overflow: 'hidden',
+    height: 'fit-content',
     '& #editor-content': {
       padding: '0 20px',
     },
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divBg: {
     backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255) 84%)',
-    height: '200px',
+    height: '150px',
     position: 'absolute',
     bottom: '0',
     left: '0',
@@ -64,10 +66,14 @@ function Review({ product }) {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-      <Box
-        className={heightContent ? classes.divShowContent : classes.divContent}
-        dangerouslySetInnerHTML={{ __html: product.description }}
-      ></Box>
+      <h4>Review</h4>
+      <Box className={heightContent ? classes.divShowContent : classes.divContent}>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
+      </Box>
       <Box className={heightContent ? classes.divBgHidden : classes.divBg}></Box>
       <Button className="btnShow" onClick={() => setHeightContent(!heightContent)}>
         {heightContent ? `Hidden` : `Show`}

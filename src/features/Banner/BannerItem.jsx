@@ -1,5 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
+import { BTN_BANNER_TEXT } from '../../constants';
 BannerItem.propTypes = {
   dataBanner: PropTypes.object,
 };
@@ -7,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   banner_bg: {
     position: 'relative',
     width: '100%',
-    height: 'max(35vh, min(calc(33vh), calc((600px - 100vw ) * 99999)))',
+    height: '15rem',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     display: 'flex',
@@ -18,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
       color: 'white',
       backgroundColor: 'rgba(103,117,214,0.5)',
       backgroundBlendMode: 'darken',
-      '& $link': {
+      '& $btnLink': {
         color: 'white',
         transform: 'translateY(0)',
         transition: 'all 0.8s',
       },
-      '& $textChild2': {
+      '& $textLink': {
         transition: 'all 0.5s',
         transform: 'scaleX(1)',
       },
@@ -45,15 +46,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     lineHeight: '1.3',
   },
-  textInfor: {
+  textInfo: {
     fontSize: '0.9rem',
   },
-  textChild2: {
+  textLink: {
     width: 'fit-content',
     transform: 'scaleX(0)',
     borderBottom: '2px solid white',
   },
-  link: {
+  btnLink: {
     transform: 'translateY(300%)',
     textTransform: 'uppercase',
     padding: '0.7rem 0',
@@ -73,20 +74,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function BannerItem({ dataBanner }) {
+function BannerItem({ data }) {
   const classes = useStyles();
   return (
     <div
       className={classes.banner_bg}
-      style={{ backgroundImage: `url('${dataBanner.img}')` }}
+      style={{ backgroundImage: data ? `url('${data.img}')` : 'Loading...' }}
     >
       <div className={classes.text}>
         <div className={classes.textChild}>
-          <span className={classes.textName}>{dataBanner.name}</span>
-          <span className={classes.textInfor}>{dataBanner.infor}</span>
+          <span className={classes.textName}>{data ? data.name : 'Loading...'}</span>
+          <span className={classes.textInfo}>{data ? data.info : 'Loading..'}</span>
         </div>
-        <a className={classes.textChild2} href={`${dataBanner.link}`}>
-          <div className={classes.link}>Shop Now</div>
+        <a className={classes.textLink} href={data ? `${data.link}` : '/error'}>
+          <div className={classes.btnLink}>{BTN_BANNER_TEXT}</div>
         </a>
       </div>
     </div>

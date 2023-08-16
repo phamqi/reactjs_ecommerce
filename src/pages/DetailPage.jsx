@@ -1,34 +1,34 @@
 import { Box, Button, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useSnackbar } from 'notistack';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useParams } from 'react-router-dom';
 
 import productApi from '../api/productApi';
+import { CustomizeGrid, Product } from '../components';
+import QuickViewDialog from '../components/QuickViewDialog';
 import AddToCartForm from '../components/form-control/addToCart';
 import { LIMIT, MESSAGEBOX } from '../constants';
 import { addToCart } from '../features/Cart/cartSlice';
 import {
   Description,
-  ProductInfor,
-  ProductMenu,
-  ProductThumnail,
+  ProductInfo,
+  ProductThumbnail,
   Related,
   Review,
   SkeletonProduct,
 } from '../features/Products';
-import { innerProduct, useProductDetail } from '../hook';
+import { useProductDetail } from '../hook';
 import SkeletonPage from './Skeleton/SkeletionPage';
-import NavigateComponent from '../components/NavigateComponent';
 
 DetailPage.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
-  root: { backgroundColor: 'white' },
+  root: { backgroundColor: '#fff' },
   menu: {
     overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     marginTop: '40px',
   },
   container: {
@@ -37,27 +37,46 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  productMenu: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    '& a': {
+      margin: '0.5rem 1rem',
+      backgroundColor: 'transparent',
+      padding: '0.5rem',
+      '&.active': {
+        backgroundColor: '#717fe0',
+        color: '#fff',
+        borderRadius: '8px',
+      },
+    },
+  },
   productList: {
     marginTop: '1.5rem',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     padding: '1.5rem 0',
     '&> button.btnViewMore': {
       marginTop: '1rem',
       marginLeft: '50%',
       transform: 'translateX(-50%)',
       textTransform: 'none',
-      border: '1px solid blue',
+      border: '1px solid #717fe0',
+      color: '#717fe0',
       '&:hover': {
-        backgroundColor: 'rgb(13, 92, 182)',
-        color: 'white',
+        backgroundColor: '#717fe0',
+        color: '#fff',
       },
     },
   },
   related: {
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     padding: ' 10px 0 1px',
     margin: '40px 0 0 0',
   },
+  productBeInserted: {},
 }));
 
 function DetailPage(props) {
@@ -67,6 +86,7 @@ function DetailPage(props) {
   const [productList, setProductList] = useState([]);
   const [loadingMore, setLoadingMore] = useState(true);
 
+  console.log('detail rerender');
   const stringProduct = String(Object.values(params));
   const oldProductId = stringProduct.split('_i', 2).pop();
   const arrayProductId = oldProductId.split(',', 1);
@@ -105,24 +125,42 @@ function DetailPage(props) {
     setLoadingMore(true);
     setPage(page + 1);
   };
+  const [dialogState, setDialogState] = useState(false);
+  const [productQuickView, setProductQuickView] = useState();
+  const onQuickView = (product) => {
+    setProductQuickView(product);
+    setDialogState(true);
+  };
+  const handleCloseQuickView = () => {
+    setDialogState(false);
+  };
+
+  const [isReview, setIsReview] = useState(false);
+  useEffect(() => {
+    const arrPathname = window.location.pathname.split('/');
+    console.log(typeof arrPathname[arrPathname.length - 1]);
+    if (arrPathname[arrPathname.length - 1] == 'reviews') {
+      setIsReview(true);
+      console.log(arrPathname[arrPathname.length - 1]);
+    } else {
+      setIsReview(false);
+      console.log(arrPathname[arrPathname.length - 1]);
+    }
+  }, [window.location.pathname]);
   return (
     <div className="detailsPage">
       <Box sx={{ overflow: 'hidden' }}>
         <Box className={classes.container}>
           <Box>
-            {loading ? (
-              <div>
-                <SkeletonPage />
-              </div>
-            ) : (
+            {!loading ? (
               <div>
                 <Box className={classes.root} sx={{ padding: { xs: '0', sm: '24px' } }}>
                   <Grid container>
                     <Grid item xs={12} sm={6} md={5} lg={5}>
-                      <ProductThumnail product={product} />
+                      <ProductThumbnail product={product} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={7} lg={7}>
-                      <ProductInfor product={product} />
+                      <ProductInfo product={product} />
                       <AddToCartForm onSubmit={handleAddToCartSubmit} />
                     </Grid>
                   </Grid>
@@ -131,35 +169,56 @@ function DetailPage(props) {
                   <Related category={category} />
                 </Box>
                 <Box className={classes.menu}>
-                  <ProductMenu />
+                  <Box>
+                    <Box className={classes.productMenu}>
+                      <Link className={!isReview ? 'active' : ''} to="" id="description">
+                        Description
+                      </Link>
+                      <Link className={isReview ? 'active' : ''} to="reviews">
+                        Review
+                      </Link>
+                    </Box>
+                  </Box>
                   <Routes>
-                    <Route path="/" element={<Description product={product} />} />
+                    <Route exact path="/" element={<Description product={product} />} />
                     <Route path="reviews" element={<Review product={product} />} />
                   </Routes>
                 </Box>
-                <Box className={classes.productList}>
-                  {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
-                  <Grid container>
-                    {productList.map((product, index) => (
-                      <NavigateComponent
-                        key={index}
-                        href={`/products/${product.name}_i${product.id}`}
-                        title={product.name}
-                        className="mmui-item"
-                      >
-                        <div dangerouslySetInnerHTML={innerProduct(product)} />
-                      </NavigateComponent>
-                    ))}
-                  </Grid>
-                  <Button className="btnViewMore" onClick={() => handleLoadMore()}>
-                    {loadingMore ? `Loading...` : `View More`}
-                  </Button>
-                </Box>
+              </div>
+            ) : (
+              <div>
+                <SkeletonPage />
               </div>
             )}
+            <Box className={classes.productList}>
+              {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
+              <Grid container p={2}>
+                {productList.map((product, index) => (
+                  <CustomizeGrid
+                    key={index}
+                    ss={12}
+                    xs={6}
+                    sm={4}
+                    md={3}
+                    lg={3}
+                    sx={{ width: '100%' }}
+                  >
+                    <Product product={product} onQuickView={onQuickView} />
+                  </CustomizeGrid>
+                ))}
+              </Grid>
+              <Button className="btnViewMore" onClick={() => handleLoadMore()}>
+                {loadingMore ? `Loading...` : `View More`}
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
+      <QuickViewDialog
+        dialogState={dialogState}
+        handleCloseQuickView={handleCloseQuickView}
+        product={productQuickView}
+      />
     </div>
   );
 }

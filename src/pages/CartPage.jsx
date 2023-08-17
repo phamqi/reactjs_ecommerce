@@ -1,13 +1,11 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useMemo, useState } from 'react';
 
 import productApi from '../api/productApi';
+import { ListProductViewMore } from '../components';
 import { LIMIT } from '../constants';
 import Cart from '../features/Cart/index';
-import { SkeletonProduct } from '../features/Products';
-import { innerProduct } from '../hook';
-import { CustomizeGrid, CreateNavigate, Product } from '../components';
 
 CartPage.propTypes = {};
 
@@ -62,25 +60,11 @@ function CartPage(props) {
       <Cart />
       <h3>More to love</h3>
       <Box className={classes.productList}>
-        {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
-        <Grid container p={2}>
-          {productList.map((product, index) => (
-            <CustomizeGrid
-              key={index}
-              ss={12}
-              xs={6}
-              sm={4}
-              md={3}
-              lg={3}
-              sx={{ width: '100%' }}
-            >
-              <Product product={product} isQuickView={false} />
-            </CustomizeGrid>
-          ))}
-        </Grid>
-        <Button className="btnViewMore" onClick={() => handleLoadMore()}>
-          {loadingMore ? `Loading...` : `View More`}
-        </Button>
+        <ListProductViewMore
+          loadingMore={loadingMore}
+          productList={productList}
+          handleLoadMore={handleLoadMore}
+        />
       </Box>
     </Box>
   );

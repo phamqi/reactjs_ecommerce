@@ -5,12 +5,17 @@ import queryString from 'query-string';
 import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { CustomizeGrid, Product } from '../components';
+import {
+  CustomizeGrid,
+  ListProductPagination,
+  Product,
+  SkeletonProduct,
+} from '../components';
 import QuickViewDialog from '../components/QuickViewDialog';
 import Banner from '../features/Banner';
-import { ProductFilters, SkeletonProduct } from '../features/Products';
+import { ProductFilters } from '../features/Products';
 import Slide from '../features/Slide';
-import { dataSlides } from '../features/Slide/dataSlides';
+import { dataSlides } from '../constants';
 import { useProductList } from '../hook';
 
 MainPage.propTypes = {};
@@ -125,77 +130,34 @@ function MainPage() {
       search: queryString.stringify(filters),
     };
     navigate(locationSearch);
-    console.log(navigate(locationSearch));
   };
 
-  const [dialogState, setDialogState] = useState(false);
-  const [productQuickView, setProductQuickView] = useState();
-  const onQuickView = (product) => {
-    setProductQuickView(product);
-    setDialogState(true);
-  };
-  const handleCloseQuickView = () => {
-    setDialogState(false);
-  };
   return (
     <div>
-      <div>
-        <div className={classes.carousel}>
-          <Slide dataSlides={data} />
-        </div>
-        <div id="banner" className={classes.banner}>
-          <Banner />
-        </div>
+      <div className={classes.carousel}>
+        <Slide dataSlides={data} />
       </div>
-      <div id="products_list">
-        <Box className={classes.container}>
-          <Box container sx={{ maxWidth: '1200px' }}>
-            <Box sx={{ backgroundColor: 'white', padding: '8px' }}>
-              <ProductFilters
-                filters={queryParams}
-                onChange={handleFiltersChange}
-                handleSortChange={handleSortChange}
-              />
-              {loading ? (
-                <SkeletonProduct length={pagination.limit} />
-              ) : (
-                <Grid container p={2}>
-                  {productList.map((product, index) => (
-                    <CustomizeGrid
-                      key={index}
-                      sl={12}
-                      xs={6}
-                      sm={6}
-                      md={4}
-                      lg={3}
-                      xl={3}
-                      sx={{ width: '100%' }}
-                    >
-                      <Product product={product} onQuickView={onQuickView} />
-                    </CustomizeGrid>
-                  ))}
-                </Grid>
-              )}
-              <Box sx={{ display: 'flex', justifyContent: 'center', padding: '13px 0' }}>
-                <a href="#products_list">
-                  <Pagination
-                    siblingCount={1}
-                    className={classes.pagination}
-                    count={Math.ceil(pagination.total / pagination.limit)}
-                    page={pagination.page}
-                    onChange={handlePageChange}
-                  ></Pagination>
-                </a>
-              </Box>
-            </Box>
+      <div id="banner" className={classes.banner}>
+        <Banner />
+      </div>
+
+      <Box className={classes.container}>
+        <Box container sx={{ maxWidth: '1200px' }}>
+          <Box sx={{ backgroundColor: 'white', padding: '8px' }}>
+            <ProductFilters
+              filters={queryParams}
+              onChange={handleFiltersChange}
+              handleSortChange={handleSortChange}
+            />
+            <ListProductPagination
+              loading={loading}
+              productList={productList}
+              handlePageChange={handlePageChange}
+              pagination={pagination}
+            />
           </Box>
         </Box>
-      </div>
-      <QuickViewDialog
-        dialogState={dialogState}
-        product={productQuickView}
-        handleCloseQuickView={handleCloseQuickView}
-      />
+      </Box>
     </div>
   );
 }

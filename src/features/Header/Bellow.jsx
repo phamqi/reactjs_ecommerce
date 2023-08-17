@@ -185,7 +185,6 @@ function Bellow(props) {
       setNavBar(false);
     }
   }, []);
-  console.log('header rerednder');
   useEffect(() => {
     window.addEventListener('scroll', navBarOnScroll);
   }, []);

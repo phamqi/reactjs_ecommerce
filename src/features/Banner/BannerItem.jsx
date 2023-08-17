@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textInfo: {
     fontSize: '0.9rem',
+    textTransform: 'capitalize',
   },
   textLink: {
     width: 'fit-content',

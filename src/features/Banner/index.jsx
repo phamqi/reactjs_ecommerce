@@ -1,8 +1,7 @@
-import { Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import BannerItem from './BannerItem';
-import { dataBanner } from './dataBanner';
+import { dataBanner } from '../../constants';
 Banner.propTypes = {};
 const useStyles = makeStyles((theme) => ({
   root: {

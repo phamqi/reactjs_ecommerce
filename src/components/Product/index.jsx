@@ -2,13 +2,8 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 
-import {
-  IMG_URL,
-  STATIC_HOST,
-  BTN_QUICK_VIEW_TEXT,
-  IMG_PLACEHOLDER_URL,
-} from '../constants';
-import { CreateNavigate } from '../components';
+import { IMG_URL, STATIC_HOST, BTN_QUICK_VIEW_TEXT } from '../../constants';
+import { CreateNavigate } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     transition: 'all 0.4s',
     borderRadius: '20px',
-    border: '1px solid #fff',
+    border: '1px solid #bbb9b9',
     bottom: '-50px',
     position: 'absolute',
     right: '0',

@@ -13,7 +13,9 @@ export default function useProductList(queryParams) {
         const { data, pagination } = await productApi.getAll(queryParams);
         setProductList(data);
         setPagination(pagination);
-      } catch (error) {}
+      } catch (error) {
+        setLoading(true);
+      }
       setLoading(false);
     })();
   }, [queryParams]);

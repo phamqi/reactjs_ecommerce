@@ -4,8 +4,8 @@ import { Box, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { memo, useEffect, useRef, useState } from 'react';
+
 import { LIMIT } from '../../constants';
-import SkeletonProduct from './skeletonProduct';
 import { useProductByCategory } from '../../hook';
 import { Product, CustomizeGrid } from '../../components';
 Related.propTypes = {
@@ -179,7 +179,7 @@ function Related({ category }) {
         <button className={classes.btn + ' next'} onClick={nextProduct}>
           <ArrowForwardIosIcon />
         </button>
-        {loading ? <SkeletonProduct length={LIMIT} /> : ''}
+        {loading ? '' : ''}
         <Box
           className={classes.gridContainer}
           ref={section}

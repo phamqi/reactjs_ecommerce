@@ -16,7 +16,9 @@ export default function useProductByCategory(category) {
         const { data } = await productApi.getByCategory(params);
         setProductList(data);
         setLoading(false);
-      } catch (error) {}
+      } catch (error) {
+        setLoading(true);
+      }
     })();
   }, [category]);
   return { productList, loading };

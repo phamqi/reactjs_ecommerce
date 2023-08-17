@@ -17,7 +17,9 @@ export default function useCategoryList() {
           setCategoryList(list);
           localStorage.setItem(StorageKeys.CATEGORY, JSON.stringify(list));
           setCategoryOnLoad(false);
-        } catch (error) {}
+        } catch (error) {
+          setCategoryOnLoad(true);
+        }
       })();
     } else {
       setCategoryOnLoad(false);

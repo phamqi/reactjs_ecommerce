@@ -23,3 +23,49 @@ export const LIST_SORT = [
   { text: 'name', value: 'name:ASC' },
   { text: 'price', value: 'salePrice:DESC' },
 ];
+export const dataBanner = [
+  {
+    id: 1,
+    link: '#',
+    img: 'https://i.imgur.com/WLiNxKc.jpg',
+    name: 'Women',
+    info: 'spring 2018',
+  },
+  {
+    id: 2,
+    link: '#',
+    img: 'https://i.imgur.com/5tPAYtM.jpg',
+    name: 'Men',
+    info: 'spring 2018',
+  },
+  {
+    id: 3,
+    link: '#',
+    img: 'https://i.imgur.com/qzwPEVC.jpg',
+    name: 'Accessories',
+    info: 'new trend',
+  },
+];
+export const dataSlides = [
+  {
+    img: 'https://i.imgur.com/pkEt588.jpeg',
+    img_mb: 'https://i.imgur.com/ogoFAuj.jpeg',
+    name: 'Women Collection',
+    info: ' New Season',
+    link: '#',
+  },
+  {
+    img: 'https://i.imgur.com/LlWxjsn.jpeg',
+    img_mb: 'https://i.imgur.com/kTerrZa.jpeg',
+    name: 'Men New-Season',
+    info: ' Jacket & Coats',
+    link: '#',
+  },
+  {
+    img: 'https://i.imgur.com/tebltM2.jpeg',
+    img_mb: 'https://i.imgur.com/BvwoxS7.jpeg',
+    name: 'Man Collection',
+    info: 'New Arrivals',
+    link: '#',
+  },
+];

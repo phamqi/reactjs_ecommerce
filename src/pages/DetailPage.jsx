@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useSnackbar } from 'notistack';
 import { useEffect, useMemo, useState } from 'react';
@@ -6,19 +6,16 @@ import { useDispatch } from 'react-redux';
 import { Link, Route, Routes, useParams } from 'react-router-dom';
 
 import productApi from '../api/productApi';
-import { CustomizeGrid, Product } from '../components';
-import QuickViewDialog from '../components/QuickViewDialog';
+import {
+  ListProductViewMore,
+  ProductInfo,
+  ProductThumbnail,
+  QuickViewDialog,
+} from '../components';
 import AddToCartForm from '../components/form-control/addToCart';
 import { LIMIT, MESSAGEBOX } from '../constants';
 import { addToCart } from '../features/Cart/cartSlice';
-import {
-  Description,
-  ProductInfo,
-  ProductThumbnail,
-  Related,
-  Review,
-  SkeletonProduct,
-} from '../features/Products';
+import { Description, Related, Review } from '../features/Products';
 import { useProductDetail } from '../hook';
 import SkeletonPage from './Skeleton/SkeletionPage';
 
@@ -125,15 +122,6 @@ function DetailPage(props) {
     setLoadingMore(true);
     setPage(page + 1);
   };
-  const [dialogState, setDialogState] = useState(false);
-  const [productQuickView, setProductQuickView] = useState();
-  const onQuickView = (product) => {
-    setProductQuickView(product);
-    setDialogState(true);
-  };
-  const handleCloseQuickView = () => {
-    setDialogState(false);
-  };
 
   const [isReview, setIsReview] = useState(false);
   useEffect(() => {
@@ -191,34 +179,15 @@ function DetailPage(props) {
               </div>
             )}
             <Box className={classes.productList}>
-              {loadingMore ? <SkeletonProduct length={LIMIT} /> : ''}
-              <Grid container p={2}>
-                {productList.map((product, index) => (
-                  <CustomizeGrid
-                    key={index}
-                    ss={12}
-                    xs={6}
-                    sm={4}
-                    md={3}
-                    lg={3}
-                    sx={{ width: '100%' }}
-                  >
-                    <Product product={product} onQuickView={onQuickView} />
-                  </CustomizeGrid>
-                ))}
-              </Grid>
-              <Button className="btnViewMore" onClick={() => handleLoadMore()}>
-                {loadingMore ? `Loading...` : `View More`}
-              </Button>
+              <ListProductViewMore
+                loadingMore={loadingMore}
+                productList={productList}
+                handleLoadMore={handleLoadMore}
+              />
             </Box>
           </Box>
         </Box>
       </Box>
-      <QuickViewDialog
-        dialogState={dialogState}
-        handleCloseQuickView={handleCloseQuickView}
-        product={productQuickView}
-      />
     </div>
   );
 }

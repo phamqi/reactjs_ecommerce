@@ -1,9 +1,6 @@
 export { default as Description } from './Description';
 export { default as Related } from './Related';
 export { default as Review } from './Review';
-export { default as ProductInfo } from '../../components/QuickViewDialog/ProductInfo';
-export { default as ProductThumbnail } from '../../components/QuickViewDialog/ProductThumbnail';
-export { default as SkeletonProduct } from './skeletonProduct';
 export { default as ProductFilters } from './Filters';
 export { default as ByCategory } from './Filters/ByCategory';
 export { default as ByService } from './Filters/ByService';

@@ -9,7 +9,10 @@ Review.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
-    padding: '10px 20px',
+    padding: '30px 20px 50px 20px',
+    '& h4': {
+      color: '#999',
+    },
     '&> button.btnShow': {
       width: '20%',
       position: 'absolute',
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divContent: {
     position: 'relative',
-    minHeight: '300px',
+    minHeight: '200px',
     overflow: 'hidden',
     height: 'fit-content',
     '& #editor-content': {
@@ -68,6 +71,31 @@ function Review({ product }) {
     <Box className={classes.root}>
       <h4>Review</h4>
       <Box className={heightContent ? classes.divShowContent : classes.divContent}>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
+          laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus
+          nostrum reprehenderit sequi tempore, at in ex natus modi veritatis.
+        </p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium minima
           laudantium quidem vero, tempora quas? Ullam, enim. Ea laudantium voluptatibus

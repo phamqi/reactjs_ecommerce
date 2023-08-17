@@ -1,4 +1,9 @@
 export { default as QuickViewDialog } from './QuickViewDialog';
 export { default as CreateNavigate } from './CreateNavigate';
 export { default as CustomizeGrid } from './CustomizeGrid';
+export { default as ProductInfo } from './QuickViewDialog/ProductInfo';
+export { default as ProductThumbnail } from './QuickViewDialog/ProductThumbnail';
+export { default as SkeletonProduct } from './Product/SkeletonProduct';
+export { default as ListProductPagination } from './ListProduct/ListProductPagination';
+export { default as ListProductViewMore } from './ListProduct/ListProductViewMore';
 export { default as Product } from './Product';

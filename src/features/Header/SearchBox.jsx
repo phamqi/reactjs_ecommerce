@@ -119,6 +119,7 @@ function SearchBox(props) {
       {openSearch ? (
         <Box
           sx={{
+            border: '1px solid #00000045',
             maxWidth: '420px',
             padding: '0',
             width: { xs: '100vw', sm: '40vw' },
@@ -138,16 +139,19 @@ function SearchBox(props) {
             </Button>
           </Box>
           <Box>
-            <Box className={classes.productBox}>
-              {loadSearch ? (
-                listSearch.map((item) => <Product product={item} />)
-              ) : (
+            {listSearch.length === 0 ? (
+              <Box sx={{ backgroundColor: '#fff' }}>
                 <h2 className={classes.iconSearchOff}>
                   <SearchOffIcon />
                 </h2>
-              )}
-            </Box>
-            <Box sx={{ backgroundColor: 'white' }}></Box>
+              </Box>
+            ) : (
+              <>
+                <Box className={classes.productBox}>
+                  {loadSearch ? listSearch.map((item) => <Product product={item} />) : ''}
+                </Box>
+              </>
+            )}
           </Box>
         </Box>
       ) : (

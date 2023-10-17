@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   skeleton: {
+    userSelect: 'none',
     display: 'inline-block',
     position: 'relative',
     overflow: 'hidden',

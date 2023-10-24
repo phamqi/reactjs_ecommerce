@@ -26,10 +26,10 @@ CustomizeGrid.propTypes = {
   ]),
   stt: PropTypes.number,
 };
-function CustomizeGrid({ children, sl, xs, sm, md, lg, sx }) {
+function CustomizeGrid({ children, sl, xs, sm, md, lg, sx, xl }) {
   return (
     <ThemeProvider theme={theme}>
-      <GridWithSS item sl={sl} xs={xs} sm={sm} md={md} lg={lg} sx={{ sx }}>
+      <GridWithSS item sl={sl} xs={xs} sm={sm} md={md} lg={lg} xl={xl} sx={{ sx }}>
         {children}
       </GridWithSS>
     </ThemeProvider>

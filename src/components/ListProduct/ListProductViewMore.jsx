@@ -86,11 +86,12 @@ function ListProductViewMore({ productList, loadingMore, handleLoadMore }) {
           {productList.map((product, index) => (
             <CustomizeGrid
               key={index}
-              ss={12}
+              sl={12}
               xs={6}
               sm={4}
               md={3}
               lg={3}
+              xl={2}
               sx={{ width: '100%' }}
             >
               <Product product={product} onQuickView={onQuickView} />
@@ -104,10 +105,10 @@ function ListProductViewMore({ productList, loadingMore, handleLoadMore }) {
                 key={index}
                 sl={12}
                 xs={6}
-                sm={6}
-                md={4}
-                lg={3}
-                xl={3}
+                sm={4}
+                md={3}
+                lg={12 / 5}
+                xl={12 / 5}
                 sx={{ width: '100%' }}
               >
                 <SkeletonProduct />

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divContent: {
     position: 'relative',
-    height: '200px',
+    height: '300px',
     overflow: 'hidden',
     '& #editor-content': {
       padding: '0 20px',

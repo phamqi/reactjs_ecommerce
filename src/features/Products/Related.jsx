@@ -7,7 +7,7 @@ import { memo, useEffect, useRef, useState } from 'react';
 
 import { LIMIT } from '../../constants';
 import { useProductByCategory } from '../../hook';
-import { Product, CustomizeGrid } from '../../components';
+import { Product, CustomizeGrid, SkeletonProduct } from '../../components';
 Related.propTypes = {
   category: PropTypes.number,
 };
@@ -19,10 +19,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     position: 'relative',
   },
-  root: {},
+  root: {
+    maxWidth: '1200px',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
   productList: {
     position: 'relative',
-    padding: '1rem',
+    padding: '3rem 2rem',
   },
   btn: {
     display: 'flex',
@@ -40,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#000',
     ' &.next': {
       right: 0,
+      animation: '$ani-bounce 2s infinite',
     },
 
     ' &.prev': {
@@ -79,6 +84,16 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
     scrollSnapAlign: 'start',
   },
+  '@keyframes ani-bounce': {
+    '0%,100%': {
+      transform: 'translateX(-50%)',
+      animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
+    },
+    '50%': {
+      transform: 'none',
+      animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+    },
+  },
 }));
 function Related({ category }) {
   const classes = useStyles();
@@ -100,12 +115,9 @@ function Related({ category }) {
         left: itemWidth,
         behavior: 'smooth',
       });
-      console.log(section.scrollLeft, section.scrollLeft, limitProduct * itemWidth - 50);
     }
   };
   const prevSlide = (section) => {
-    console.log(section.clientWidth);
-    setDisplayedProduct(5);
     const itemWidth = section.children[0].clientWidth;
     if (section.scrollLeft < 50) {
       distance = itemWidth * limitProduct;
@@ -131,10 +143,10 @@ function Related({ category }) {
         setDisplayedProduct(6);
       }
       if (section && section.current.clientWidth < 992) {
-        setDisplayedProduct(5);
+        setDisplayedProduct(4);
       }
       if (section && section.current.clientWidth < 768) {
-        setDisplayedProduct(4);
+        setDisplayedProduct(3);
       }
       if (section && section.current.clientWidth < 576) {
         setDisplayedProduct(2);
@@ -146,10 +158,9 @@ function Related({ category }) {
   };
   useEffect(() => {
     checkResizeEvent();
-    window.addEventListener('resize', checkResizeEvent());
-  }, []);
+    window.onresize = checkResizeEvent;
+  }, [displayedProduct]);
   const prevProduct = () => {
-    setDisplayedProduct(5);
     if (section) {
       prevSlide(section.current);
     }
@@ -179,18 +190,31 @@ function Related({ category }) {
         <button className={classes.btn + ' next'} onClick={nextProduct}>
           <ArrowForwardIosIcon />
         </button>
-        {loading ? '' : ''}
-        <Box
-          className={classes.gridContainer}
-          ref={section}
-          style={{ '--display': `${100 / displayedProduct}%` }}
-        >
-          {productList.map((product, index) => (
-            <Box key={index} className={classes.gridItem} id={index === 4 ? 'id5' : 0}>
-              <Product product={product} isQuickView={false} />
-            </Box>
-          ))}
-        </Box>
+        {!loading ? (
+          <Box
+            className={classes.gridContainer}
+            ref={section}
+            style={{ '--display': `${100 / displayedProduct}%` }}
+          >
+            {productList.map((product, index) => (
+              <Box key={index} className={classes.gridItem}>
+                <Product product={product} isQuickView={false} />
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <Box
+            className={classes.gridContainer}
+            ref={section}
+            style={{ '--display': `${100 / displayedProduct}%` }}
+          >
+            {Array.from(Array(6)).map((item, index) => (
+              <Box key={index}>
+                <SkeletonProduct />
+              </Box>
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );

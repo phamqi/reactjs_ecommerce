@@ -25,6 +25,7 @@ function QuantityField(props) {
           render={({ onChange, onBlur, name, value }) => (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton
+                sx={{ width: '2.5rem', height: '2.5rem' }}
                 onClick={() =>
                   setValue(
                     name,
@@ -46,6 +47,7 @@ function QuantityField(props) {
                 error={!!hasErrors}
               />
               <IconButton
+                sx={{ width: '2.5rem', height: '2.5rem' }}
                 onClick={() =>
                   setValue(name, Number.parseInt(value) ? Number.parseInt(value) + 1 : 1)
                 }

@@ -7,11 +7,13 @@ const useStyles = makeStyles((theme) => ({
     '& h4': {
       display: '-webkit-box',
       overflow: 'hidden',
+      color: '#333',
       fontSize: '1.4rem',
       wordWrap: 'break-word',
       lineHeight: '1.5',
       whiteSpace: 'normal',
       textOverflow: 'ellipsis',
+      textTransform: 'capitalize',
       '-webkit-box-orient': 'vertical',
       ' -webkit-line-clamp': '3',
       marginBottom: '0',
@@ -30,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 1,
   },
   salePrice: {
-    color: '#ee4d2d',
     overflow: 'hidden',
     fontSize: '1.6rem',
     fontWeight: '500',
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   price: {
+    color: '#333',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '1rem 0',
   },
   description: {
+    color: '#666',
     display: '-webkit-box',
     overflow: 'hidden',
     fontSize: '0.9rem',
@@ -72,20 +75,36 @@ ProductInfo.propTypes = {
   product: PropTypes.object,
 };
 
-function ProductInfo({ product }) {
+function ProductInfo({ product, loading }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h4>{product.name}</h4>
+      <h4>{!loading ? (product ? product.name : 'Product not found') : 'Loading...'}</h4>
       <div className={classes.price}>
-        <span className={classes.salePrice}>{product.salePrice}</span>
-        {product.promotionPercent ? (
-          <>
-            <span className={classes.pricePercent}> -{product.promotionPercent}% </span>
-            <span className={classes.originalPrice}>{product.originalPrice}</span>
-          </>
+        {loading ? (
+          product.promotionPercent ? (
+            <>
+              <span className={classes.salePrice}>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                }).format(product.salePrice)}
+              </span>
+              <span className={classes.pricePercent}>-{product.promotionPercent}%</span>
+              <span className={classes.originalPrice}>{product.originalPrice}</span>
+            </>
+          ) : product ? (
+            <span className={classes.salePrice}>
+              {new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+              }).format(product.originalPrice)}
+            </span>
+          ) : (
+            <span className={classes.salePrice}>Product not found</span>
+          )
         ) : (
-          ``
+          <span className={classes.salePrice}>Loading...</span>
         )}
       </div>
       <span className={classes.description}>

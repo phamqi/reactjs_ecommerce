@@ -28,9 +28,10 @@ function InputField(props) {
           disabled={disabled}
           helperText={errors[name]?.message}
           name={name}
-          vlue={value}
+          value={value}
           onChange={onChange}
           onBlur={onBlur}
+          inputProps={{ maxLength: 2 }}
         />
       )}
     />

@@ -33,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  title: {
+    marginTop: '4rem',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    lineHeight: '1.2',
+    fontSize: '1.3rem',
+    color: '#666',
+  },
 }));
 
 function CartPage(props) {
@@ -58,7 +66,7 @@ function CartPage(props) {
   return (
     <Box className={classes.container}>
       <Cart />
-      <h3>More to love</h3>
+      <h3 className={classes.title}>More to love</h3>
       <Box className={classes.productList}>
         <ListProductViewMore
           loadingMore={loadingMore}

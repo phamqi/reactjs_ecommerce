@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   container: {
-    maxWidth: '1200px',
+    // maxWidth: '1200px',
     width: '100%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+
+    backgroundColor: 'white',
   },
   dialogQuickView: {
     display: 'block',
@@ -142,8 +142,16 @@ function MainPage() {
       </div>
 
       <Box className={classes.container}>
-        <Box container sx={{ maxWidth: '1200px' }}>
-          <Box sx={{ backgroundColor: 'white', padding: '8px' }}>
+        <Box container>
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              padding: '8px',
+              maxWidth: '1200px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+          >
             <ProductFilters
               filters={queryParams}
               onChange={handleFiltersChange}

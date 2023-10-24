@@ -25,22 +25,21 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   li: {
-    margin: '0.2rem 0.5rem',
-    color: 'rgba(0,0,0,0.6)',
-    padding: '3px 0',
+    color: '#888',
     cursor: 'pointer',
+    marginRight: '16px',
+    padding: '16px 0',
     '&:hover': {
       textDecoration: 'underline',
       color: '#717fe0',
     },
   },
   activeLi: {
-    color: '#fff',
-    backgroundColor: '#717fe0',
-    textDecoration: 'none',
-    margin: '0.2rem 0.5rem',
-    padding: '0.2rem 0.5rem',
-    borderRadius: '16px',
+    color: '#717fe0',
+    textDecoration: 'underline',
+    cursor: 'default',
+    marginRight: '16px',
+    padding: '16px 0',
   },
   h4: {
     margin: '0 0 8px 0',
@@ -69,7 +68,7 @@ function ByCategory({ onChange }) {
   };
   return (
     <Box className={classes.root}>
-      <h4 className={classes.h4}>Category</h4>
+      <h3 className={classes.h4}>Category</h3>
       <ul className={classes.ul}>
         {categoryOnLoad
           ? skeletons

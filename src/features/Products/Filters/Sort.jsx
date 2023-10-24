@@ -27,19 +27,16 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     border: 'none',
-    color: 'rgba(0,0,0,0.5)',
+    color: '#888',
     backgroundColor: 'transparent',
     fontSize: '1rem',
     display: 'flex',
-    margin: '0.2rem 0.5rem',
-    padding: '0.2rem 0.5rem',
     textTransform: 'capitalize',
+    padding: '16px 0',
+    marginRight: '16px',
     '&.item-selected': {
-      color: '#fff',
-      backgroundColor: '#717fe0',
-      margin: '0.2rem 0.5rem',
-      padding: '0.2rem 0.5rem',
-      borderRadius: '16px',
+      color: '#717fe0',
+      textDecoration: 'underline',
     },
   },
 }));
@@ -70,7 +67,7 @@ function Sort({ currentSort, onChange }) {
       <TabsListUnstyled className={classes.tab_list}>
         {!!LIST_SORT ? (
           <div>
-            <h4 className={classes.title}>Sort by</h4>
+            <h3 className={classes.title}>Sort by</h3>
             <div className={classes.list_item}>
               {LIST_SORT.map((item) => (
                 <TabUnstyled

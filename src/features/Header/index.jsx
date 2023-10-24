@@ -21,7 +21,6 @@ function Header(props) {
       width: '100%',
       flexDirection: 'column',
       position: 'relative',
-      zIndex: '11',
       backgroundColor: '#000',
     },
     header: {
@@ -66,45 +65,7 @@ function Header(props) {
       width: '100vw',
       backgroundColor: 'transparent',
     },
-    headerBotFixed: {
-      borderBottom: '1px solid rgba(0,0,0,0.5)',
-      zIndex: '9',
-      position: 'fixed',
-      top: '0',
-      left: '0',
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: 'white',
-      animation: `$myEffect 200ms ease-in-out`,
-    },
-    headerBotS: {
-      width: '100%',
-      maxWidth: '1200px',
-      height: '70px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      backgroundColor: 'transparent',
-      padding: '0 30px',
-      '& .headerMenu': {
-        marginLeft: '1rem',
-        '&> a': {
-          textDecoration: 'none',
-          padding: '5px 0 5px 20px',
-          color: 'black',
-          fontSize: '0.9rem',
-          fontWeight: 500,
-          '&:visited': {
-            color: 'rgba(0,0,0,0.7)',
-          },
-          '&:hover': {
-            color: 'black',
-          },
-        },
-      },
-    },
+
     headerUl: {
       cursor: 'pointer',
       display: 'flex',
@@ -179,29 +140,6 @@ function Header(props) {
     up: {
       opacity: '1',
     },
-    '@keyframes myEffect': {
-      '0%': {
-        opacity: '0.3',
-        top: '40px',
-      },
-      '100%': {
-        opacity: '1',
-        top: '0px',
-      },
-    },
-    flexAlignCenter: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    linkIcon: {
-      color: '#333',
-      '&:visited': {
-        color: '#333',
-      },
-    },
-    imgIcon: {
-      height: '17px',
-    },
   }));
   const classes = useStyles();
 
@@ -220,8 +158,6 @@ function Header(props) {
   const handleLogOutClick = () => {
     dispatch(logout());
   };
-  console.log('header rerednder');
-
   return (
     <div>
       <Box className={classes.root}>

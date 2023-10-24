@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
   formQuantity: {
     '&> button': {
-      width: '50%',
+      width: '9rem',
       backgroundColor: '#717fe0',
       color: '#fff',
-      height: '2.55rem',
-      borderRadius: '8px',
+      height: '2.5rem',
+      borderRadius: '23px',
       '&:hover': {
         backgroundColor: '#333',
       },
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     '& > div > div > div > button': {
       border: '1px solid rgba(0,0,0,0.3)',
       borderRadius: '0 5px 5px 0',
-      height: '32px',
+      height: '2.5rem',
       '&:hover': {
         backgroundColor: '#717fe0',
       },
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
     '& > div > div > div >  div': {
       borderRadius: '0',
       '&> input': {
-        width: '50px',
+        width: '4rem',
         padding: '0',
-        height: '32px',
+        height: '2.5rem',
         textAlign: 'center',
       },
     },

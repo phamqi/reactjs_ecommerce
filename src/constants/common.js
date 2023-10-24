@@ -18,6 +18,10 @@ export const MESSAGEBOX = {
 export const BTN_QUICK_VIEW_TEXT = 'Quick View';
 export const BTN_BANNER_TEXT = 'Shop now';
 export const BTN_SLIDESHOW_TEXT = 'Shop now';
+export const TEL = {
+  zone: 84,
+  number: 369000000,
+};
 export const LIST_SORT = [
   { text: 'new', value: 'created_at:ASC' },
   { text: 'name', value: 'name:ASC' },

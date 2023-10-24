@@ -56,7 +56,7 @@ function Bellow(props) {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'white',
-      animation: `$myEffect 200ms ease-in-out`,
+      // animation: `$myEffect 200ms ease-in-out`,
     },
     header: {
       width: '100%',

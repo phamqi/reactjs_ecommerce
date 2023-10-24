@@ -70,7 +70,7 @@ function SkeletonProduct() {
     <Box className={classes.root}>
       <Box className={classes.imgBox}>
         <div
-          style={{ width: '300px', aspectRatio: '1/1.4' }}
+          style={{ width: '100%', aspectRatio: '1/1.4' }}
           className={classes.skeleton}
         />
       </Box>

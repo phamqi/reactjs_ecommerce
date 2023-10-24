@@ -13,29 +13,11 @@ const useStyles = makeStyles((theme) => ({
     '& h4': {
       color: '#999',
     },
-    '&> button.btnShow': {
-      width: '20%',
-      position: 'absolute',
-      bottom: '10px',
-      left: '0',
-      right: '0',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      backgroundColor: 'transparent',
-      border: '1px solid #717fe0',
-      borderRadius: '5px',
-      color: '#717fe0',
-      '&:hover': {
-        color: '#fff',
-        backgroundColor: '#717fe0',
-      },
-    },
   },
   divContent: {
     position: 'relative',
-    minHeight: '200px',
+    height: '300px',
     overflow: 'hidden',
-    height: 'fit-content',
     '& #editor-content': {
       padding: '0 20px',
     },
@@ -62,6 +44,43 @@ const useStyles = makeStyles((theme) => ({
 
   divBgHidden: {
     visibility: 'hidden',
+  },
+  btnDetail: {
+    '-webkit-font-smoothing': 'antialiased',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    outline: 0,
+    margin: 0,
+    cursor: 'pointer',
+    userSelect: 'none',
+    verticalAlign: 'middle',
+    ' -webkit-appearance': 'none',
+    textDecoration: 'none',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
+    fontWeight: 500,
+    fontSize: '0.875rem',
+    lineHeight: '1.75',
+    textTransform: 'uppercase',
+    minWidth: '64px',
+    padding: '0.3rem 0.5rem',
+    color: '#717fe0',
+    left: 0,
+    right: 0,
+    width: 'fit-content',
+    border: '1px solid #717fe0',
+    bottom: '0.7rem',
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: '5px',
+    backgroundColor: 'transparent',
+    zIndex: '9',
+    '&:hover': {
+      color: '#fff',
+      backgroundColor: '#717fe0',
+    },
   },
 }));
 function Review({ product }) {
@@ -103,9 +122,12 @@ function Review({ product }) {
         </p>
       </Box>
       <Box className={heightContent ? classes.divBgHidden : classes.divBg}></Box>
-      <Button className="btnShow" onClick={() => setHeightContent(!heightContent)}>
-        {heightContent ? `Hidden` : `Show`}
-      </Button>
+      <button
+        className={classes.btnDetail}
+        onClick={() => setHeightContent(!heightContent)}
+      >
+        {heightContent ? `Show Less` : `Show More`}
+      </button>
     </Box>
   );
 }

@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import MiniCart from '../Cart/MiniCart';
@@ -105,4 +105,4 @@ function BadgeCart(props) {
   );
 }
 
-export default BadgeCart;
+export default memo(BadgeCart);

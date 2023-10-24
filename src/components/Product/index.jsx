@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'normal',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textTransform: 'capitalize',
     lineHeight: '1.3',
     fontSize: '.875rem',
     '-webkit-box-orient': 'vertical',
@@ -121,58 +122,60 @@ function Product({ product, onQuickView, isQuickView = true }) {
     : IMG_URL;
   return (
     <Box className={classes.root}>
-      <CreateNavigate href={href} title={product.name}>
-        <Box className={classes.imgBox}>
-          <img
-            loading="lazy"
-            className={classes.productImg}
-            src={thumbnailUrl}
-            alt={product.name}
-          />
-          {product && isQuickView ? (
-            <button onClick={(e) => handleQuickView(e)} className={classes.btnQuickView}>
-              {BTN_QUICK_VIEW_TEXT}
-            </button>
-          ) : (
-            ''
-          )}
-        </Box>
-        <Box
-          sx={{
-            cursor: 'pointer',
-            paddingTop: '10px',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
+      <Box className={classes.imgBox}>
+        <img
+          loading="lazy"
+          className={classes.productImg}
+          src={thumbnailUrl}
+          alt={product.name}
+        />
+        {product && isQuickView ? (
+          <button onClick={(e) => handleQuickView(e)} className={classes.btnQuickView}>
+            {BTN_QUICK_VIEW_TEXT}
+          </button>
+        ) : (
+          ''
+        )}
+      </Box>
+      <Box
+        sx={{
+          cursor: 'pointer',
+          paddingTop: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <CreateNavigate href={href}>
           <Box className={classes.divName}>
             <p className={classes.name}>{product ? product.name : 'Loading...'}</p>
           </Box>
-          <Box>
-            {product ? (
+        </CreateNavigate>
+
+        <Box>
+          {product ? (
+            product.promotionPercent ? (
               <>
                 <span className={classes.price}>
                   {new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
                     currency: 'VND',
-                  }).format(product.originalPrice)}
+                  }).format(product.salePrice)}
                 </span>
-
-                {product.promotionPercent ? (
-                  <span className={classes.pricePercent}>
-                    {' '}
-                    -{product.promotionPercent}%{' '}
-                  </span>
-                ) : (
-                  ``
-                )}
+                <span className={classes.pricePercent}>-{product.promotionPercent}%</span>
               </>
             ) : (
-              <span className={classes.price}>Loading...</span>
-            )}
-          </Box>
+              <span className={classes.price}>
+                {new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                }).format(product.originalPrice)}
+              </span>
+            )
+          ) : (
+            <span className={classes.price}>Loading...</span>
+          )}
         </Box>
-      </CreateNavigate>
+      </Box>
     </Box>
   );
 }
